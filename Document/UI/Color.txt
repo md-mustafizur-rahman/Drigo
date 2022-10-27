@@ -1,5 +1,0 @@
-Primary Color:
-#8BBA24
-
-Secondery Color: 
-#80A61E
