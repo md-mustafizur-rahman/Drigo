@@ -6,7 +6,7 @@
     justify-content: flex-end;
     align-items: center;
   margin-left: 10px;
-    margin-top: -85px;
+    margin-top: -90px;
     
 
 
@@ -14,7 +14,7 @@
 .dropdown div{
    display: flex;
    justify-content: center;
-   align-content: centerc;
+   align-content: center;
 
 }
 
@@ -67,7 +67,10 @@
 }
 
 .menuitem {
+
     margin-left: -100%;
+    transition: 1s;
+
 }
 
 /* menuitem flash */
