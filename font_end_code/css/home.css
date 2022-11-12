@@ -1,0 +1,107 @@
+*{
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+    outline: none;
+}
+.mainsearch{
+    width: 100%;
+    height: 450px;
+    background-color: #8BBA24;
+    display: flex;
+    justify-content: center;
+}
+.searchhome{
+    width: 80%;
+    height: 100%;
+    background-color: #8BBA24;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.searchhomeleft{
+    width: 50%;
+    height: 100%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.searhomelefttitle h2{
+    color: white;
+    font-size: 2.5rem;
+  font-weight: 100;
+}
+.searchhomeright{
+    /* background-color: orange; */
+    width:40%;
+    height: 100%;
+}
+.searchhomeleftsearch {
+   width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.searchform{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    width: 100%;
+    height: 100%;
+}
+
+.searchfield{
+    width: 70%;
+    height: 45px;
+    padding-left: 10px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+   
+    border: 1px;
+}
+.searchfieldbtn{
+    width: 8%;
+    height: 45px;
+    background-color: black;
+    color: white;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.searchhomeright img{
+    position: relative;
+    top: 210px;
+    width: 60%;
+}
+
+.nearShopList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(129, 128, 128);
+}
+.innerNearShopList{
+ width: 80%;
+ height: 80%;
+}
+.nearestTitle p{
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.nearestTitle span{
+    color: #8BBA24;
+}
+
+
+/* Product Viewing content 
+this is most useble html css */
+
+
+
