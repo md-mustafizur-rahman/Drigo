@@ -216,8 +216,11 @@ this is most useble start css */
 
 .productinforight img {
     width: 30px;
+    height: 30px;
     margin: 10px;
     float: right;
+    z-index:1;
+    border-radius: 100%;
 }
 
 /* Product Viewing content 
@@ -282,4 +285,77 @@ this is most useble start end */
     display: flex;
     justify-content: center;
    
+}
+@media only screen and (max-width: 1111px) {
+.searchhomeright{
+    width: 20%;
+}
+.searchhomeleft{
+width: 80%;
+}
+
+}
+
+
+@media only screen and (max-width: 923px) {
+.searchhomeright{
+    width: 20%;
+}
+.searchhomeleft{
+width: 80%;
+}
+.searchfieldbtn{
+    width: 15%;
+}
+}
+
+@media only screen and (max-width: 515px) {
+.searchhomeright{
+    width: 20%;
+}
+.searchhomeleft{
+width: 80%;
+}
+.searchfieldbtn{
+    width: 25%;
+}
+.homevideoinnerleft h2{
+   font-size: 1.5rem;
+}
+.homevideoinnerleft p{
+   font-size: 1.3rem;
+}
+}
+
+@media only screen and (max-width: 400px) {
+.searchhomeright{
+    display: none;
+}
+.searchhomeleft{
+width: 90%;
+}
+.searchfieldbtn{
+    width: 25%;
+}
+.homevideoinnerleft h2{
+   font-size: 1.5rem;
+}
+.homevideoinnerleft p{
+   font-size: 1.3rem;
+}
+.searhomelefttitle h2{
+    font-size: 1.2rem;
+}
+.homevideoinner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.homevideoinnerleft{
+    width: 90%;
+}
+.homevideoinnerright{
+    width: 90%;
+}
 }
