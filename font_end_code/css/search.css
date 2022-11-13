@@ -1,0 +1,27 @@
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+    outline: none;
+}
+.searchContent{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.searchContentInner{
+    margin-top: 80px;
+    width: 80%;
+}
+.searchingTitle{
+    font-size: 2rem;
+    font-weight: bold;
+}
+.totalCount{
+    margin-top: 15px;
+    font-weight: bold;
+}
