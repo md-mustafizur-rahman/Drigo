@@ -1,0 +1,218 @@
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+}
+
+.loginMain {
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+}
+
+.loginMainTop {
+
+    weight: 100%;
+    height: 60%;
+    background-color: #8BBA24;
+}
+
+.loginMainBottom {
+    weight: 100%;
+    height: 50%;
+}
+
+.loginMainTop img {
+    width: 400px;
+
+}
+
+.loginMainBottom img {
+    position: relative;
+    margin-top: -250px;
+    float: right;
+    z-index: 1;
+    width: 400px;
+
+}
+
+.mainItem {
+    width: 500px;
+    height: 800px;
+    /* background-color: white; */
+    margin-top: -350px;
+    margin-left: 25%;
+    width: 50%;
+
+    padding: 10px;
+}
+
+.mainItemInner {
+    width: 100%;
+    height: 100%;
+    /* background-color: #8BBA24; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mainItemInner {
+    font-size: 3rem;
+    color: white;
+}
+
+.mainItemInner h2 {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.mainItemForm {
+
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.inputfield {
+    width: 100%;
+    margin-top: -150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mainItemForm input {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 50%;
+    height: 50px;
+    padding-left: 20px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+}
+
+.mainItemForm .loginBtn {
+    cursor: pointer;
+    margin-top: 180px;
+    width: 30%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    background-color: #8BBA24;
+    border: 2px solid #8BBA24;
+}
+
+.mainItemForm .loginBtn:hover {
+    margin-top: 100px;
+    width: 30%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #8BBA24;
+    background-color: white;
+    border: 2px solid #8BBA24;
+    transition: 1s;
+
+}
+
+.loginBottomText {
+    width: 100%;
+    height: 20%;
+    /* background-color: red; */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginBottomTextInner {
+    width: 80%;
+    height: 80%;
+    /* background-color: blue; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginBottomTextInner a {
+    color: black;
+}
+
+.loginBottomTextInner p {
+    margin-top: 100px;
+    color: #8BBA24;
+}
+
+@media only screen and (max-width: 1223px) {
+    .loginMainTop img {
+        width: 20%;
+    }
+
+    .loginMainBottom img {
+
+        margin-top: -150px;
+        width: 20%;
+    }
+
+    .mainItemInner {
+        margin-top: 100px;
+    }
+}
+
+@media only screen and (max-width: 839px) {
+    .mainItemInner {
+        margin-top: 200px;
+    }
+
+    .loginBottomTextInner p {
+        margin-top: 300px;
+    }
+
+    .mainItemForm input {
+        width: 100%;
+    }
+
+    .mainItemForm .loginBtn {
+        width: 70%;
+    }
+
+    .mainItemForm .loginBtn:hover {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 839px) {
+    .loginMainBottom img {
+        margin-top: -50px;
+    }
+
+    .mainItemInner {
+        margin-top: 300px;
+    }
+
+    .loginBottomTextInner p {
+        margin-top: 400px;
+    }
+
+    .mainItemForm input {
+        width: 200%;
+    }
+
+    .mainItemForm .loginBtn {
+        width: 140%;
+    }
+
+    .mainItemForm .loginBtn:hover {
+        width: 140%;
+    }
+}
