@@ -7,40 +7,47 @@
     list-style: none;
     outline: none;
 }
-.mainViewOfSeller{
+
+.mainViewOfSeller {
     width: 100%;
     height: 100vh;
-    background-color: red;
+    max-height:none;
+    /* background-color: red; */
     display: flex;
     justify-content: center;
-    align-items:center ;
+    align-items: center;
 
 }
-.mainViewOfSellerLeft{
+
+.mainViewOfSellerLeft {
     width: 20%;
     height: 100%;
-    background-color: #8BBA24 ;
+    background-color: #8BBA24;
 }
-.mainViewOfSellerRight{
+
+.mainViewOfSellerRight {
     width: 80%;
     height: 100%;
     background-color: white;
 }
-.mainViewOfSellerRightTop{
+
+.mainViewOfSellerRightTop {
     width: 100%;
     height: 40%;
     background-image: url("/image/shopheader.jpg");
     background-repeat: no-repeat;
     background-position: center center;
-  background-size: cover;
-    
+    background-size: cover;
+
 }
-.itemTitle{
+
+.itemTitle {
     margin-top: 10px;
-    margin-left:10px ;
- 
+    margin-left: 10px;
+
 }
-.itemTitle p{
+
+.itemTitle p {
     font-weight: bold;
 
 }
@@ -150,21 +157,106 @@ this is most useble start css */
     height: 30px;
     margin: 10px;
     float: right;
-    z-index:1;
+    z-index: 1;
     border-radius: 100%;
 }
+
 /* Product Viewing content 
 this is most useble End css */
-.productPreview{
+.productPreview {
     width: 100%;
 }
-.moreItem{
+
+.moreItem {
     width: 100%;
     height: 20px;
     /* background-color: red; */
-    
+
 }
-.moreItem p{
+
+.moreItem p {
     float: right;
     font-weight: bold;
+    color: black;
+}
+
+.mainViewOfSellerLeftTop {
+    display: flex;
+    justify-content: center;
+ 
+    width: 100%;
+    height: 80%;
+    /* background-color: red; */
+}
+
+.mainViewOfSellerLeftTopInner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 80%;
+    /* background-color: #8BBA24; */
+    flex-direction: column;
+}
+
+.mainViewOfSellerLeftTopInner img {
+    width: 30%;
+    border: 4px solid white;
+    border-radius: 100%;
+    box-shadow: 2px 2px 2px black;
+}
+
+.owerInfoTitle {
+    margin-top: 20px;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+
+.owerInfoTitle p {
+    margin-top: 50px;
+    text-shadow: 1px 1px 5px black;
+}
+
+.mainViewOfSellerLeftBottom {
+    width: 100%;
+    height: 20%;
+    /* background-color: rgb(2, 5, 204); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainViewOfSellerLeftBottom a {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainViewOfSellerLeftBottom button {
+    width: 60%;
+    height: 48px;
+    border-radius: 5px;
+    color: #8BBA24;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: 2px white;
+    cursor: pointer;
+}
+
+.mainViewOfSellerLeftBottom button:hover {
+    width: 60%;
+    height: 48px;
+    border-radius: 5px;
+    color: white;
+    background-color: #8BBA24;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: 2px #8BBA24;
+    transition: 1s;
+}
+@media only screen and (max-width: 744px) {
+    .mainViewOfSellerLeft{
+        display: none;
+    }
 }

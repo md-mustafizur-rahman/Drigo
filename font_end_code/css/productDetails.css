@@ -182,6 +182,7 @@
     width: 60%;
 }
 .mainContentRightInnerTopLast button {
+    font-size: 1.2rem;
     width: 100%;
     height: 45px;
     background-color: #8BBA24;
@@ -193,6 +194,7 @@
 }
 
 .mainContentRightInnerTopLast button:hover {
+    font-size: 1.2rem;
     width: 100%;
     height: 45px;
     background-color: white;
