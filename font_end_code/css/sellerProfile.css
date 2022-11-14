@@ -1,0 +1,170 @@
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+    outline: none;
+}
+.mainViewOfSeller{
+    width: 100%;
+    height: 100vh;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+
+}
+.mainViewOfSellerLeft{
+    width: 20%;
+    height: 100%;
+    background-color: #8BBA24 ;
+}
+.mainViewOfSellerRight{
+    width: 80%;
+    height: 100%;
+    background-color: white;
+}
+.mainViewOfSellerRightTop{
+    width: 100%;
+    height: 40%;
+    background-image: url("/image/shopheader.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+  background-size: cover;
+    
+}
+.itemTitle{
+    margin-top: 10px;
+    margin-left:10px ;
+ 
+}
+.itemTitle p{
+    font-weight: bold;
+
+}
+
+/* Product Viewing content 
+this is most useble start css */
+.productList {
+    margin-top: 50px;
+    width: 100%;
+    height: 10%;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+.product {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: 8px;
+    margin-right: 8px;
+    width: 280px;
+    height: 400px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px black;
+    cursor: pointer;
+    color: black;
+
+}
+
+.producttop {
+    width: 100%;
+    background: url("/image/cafe.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+
+    height: 75%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.productbottom {
+    width: 100%;
+    height: 35%;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.productbottom p {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.productbottom h2 {
+    margin-left: 20px;
+}
+
+.productinfo {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 100%;
+    height: 120px;
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.productinfoleft {
+    border-top-left-radius: 10px;
+    width: 50%;
+    height: 100%;
+    /* background-color: aquamarine; */
+}
+
+.productinforight {
+    border-top-right-radius: 10px;
+    width: 50%;
+    height: 100%;
+    /* background-color: rgb(150, 127, 255); */
+}
+
+.productinfoleft p {
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+}
+
+.productinfoleft h5 {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+}
+
+.productinforight img {
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+    float: right;
+    z-index:1;
+    border-radius: 100%;
+}
+/* Product Viewing content 
+this is most useble End css */
+.productPreview{
+    width: 100%;
+}
+.moreItem{
+    width: 100%;
+    height: 20px;
+    /* background-color: red; */
+    
+}
+.moreItem p{
+    float: right;
+    font-weight: bold;
+}
