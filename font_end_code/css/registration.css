@@ -1,0 +1,202 @@
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+    outline: none;
+}
+.mainBackground{
+    width: 100%;
+    height: 100vh;
+    background-color: red;
+}
+.mainBackgroundTop{
+    width: 100%;
+    height: 60%;
+    background-color: #8BBA24;
+}
+
+.mainBackgroundBottom{
+    width: 100%;
+    height: 40%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+}
+.backgroundImg{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+.mainBackgroundBottom img{
+    margin-top: -100px;
+    width: 200px;
+    height: 200px;
+}
+.mainContain{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mainContainInner{
+    width: 80%;
+    height: 80%;
+    /* background-color: #6f7268; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.mainContainInner h2{
+    font-size: 3rem;
+    color: white;
+}
+.registerForm{
+    width: 60%;
+    height: 90%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.formInner{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.formInner input{
+    width: 45%;
+    height:45px;
+    border-radius: 10px;
+    outline: none;
+    border: none; 
+    padding-left: 15px;
+    font-size: 1.1rem;
+}
+.formInner  .registerBtn{
+   margin-top: 100px;
+   width: 25%;
+   background-color: #8BBA24;
+   color: white;
+   font-size: 1.2rem;
+   border: 2px solid #8BBA24;
+   cursor: pointer;
+}
+.formInner  .registerBtn:hover{
+   margin-top: 100px;
+   width: 25%;
+   background-color: white;
+   color: #8BBA24;
+   font-size: 1.2rem;
+   border: 2px solid #8BBA24;
+   transition: 1s;
+}
+.registerForm h2{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.registerBottomTextInner p{
+    color: #8BBA24;
+
+}
+.registerBottomTextInner a{
+    color: black;
+ 
+}
+@media only screen and (max-width: 888px) {
+.formInner{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px;
+    justify-content: center;
+    align-items: center;
+   
+}
+.formInner input{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+   
+}
+.formInner .registerBtn{
+    margin-top: 60px;
+    margin-bottom: 60px;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.formInner .registerBtn:hover{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mainContainInner{
+    margin-top: -130px;
+}
+
+}
+@media only screen and (max-width: 718px) {
+.backgroundImg{
+    width: 100%;
+}
+
+}
+@media only screen and (max-width: 718px) {
+.backgroundImg{
+    width: 100%;
+}
+.formInner input{
+    width: 100%;
+}
+.formInner .registerBtn{
+    width: 50%;
+}
+.formInner .registerBtn:hover{
+    width: 50%;
+}
+
+}
+
+@media only screen and (max-width: 592px) {
+.backgroundImg{
+    display: none;
+}
+.formInner input{
+    width: 100%;
+}
+.formInner .registerBtn{
+    width: 50%;
+}
+.formInner .registerBtn:hover{
+    width: 50%;
+}
+
+}
+@media only screen and (max-width: 424px) {
+.backgroundImg{
+    display: none;
+}
+.formInner input{
+    width: 150%;
+}
+.formInner .registerBtn{
+    width: 100%;
+}
+.formInner .registerBtn:hover{
+    width: 100%;
+}
+
+}
