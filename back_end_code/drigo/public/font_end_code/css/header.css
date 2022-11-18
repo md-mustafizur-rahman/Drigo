@@ -116,6 +116,13 @@
     /* background-color: red; */
 }
 
+.headergaph {
+    top: 10px;
+    width: 100%;
+    /* background-color: red; */
+    height: 130px;
+}
+
 .headertop {
     width: 100%;
     height: 80px;

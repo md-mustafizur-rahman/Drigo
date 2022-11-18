@@ -10,4 +10,12 @@ class siteController extends Controller
    {
     return view('pages.home');
    }
+   function loginPage()
+   {
+    return view('pages.login');
+   }
+   function registrationPage()
+   {
+    return view('pages.registration');
+   }
 }
