@@ -84,6 +84,8 @@
 }
 
 .searchhomeright img {
+
+    z-index: 1;
     position: relative;
     top: 210px;
     width: 60%;
