@@ -14,7 +14,7 @@
             <div class="searchhomeleftsearch">
                 <form class="searchform" action="">
                     <input class="searchfield" placeholder="Search Now...." type="search" name="" id="">
-                    <input type="button" class="searchfieldbtn" value="Search">
+                    <input type="button" class="searchfieldbtn"  value="Search">
 
                 </form>
             </div>
@@ -40,7 +40,7 @@ this is most useble html css  -->
             <!-- 
 This is the product html start -->
 
-            <a href="https://google.com" class="product">
+            <a href="{{('sellerProfile')}}" class="product">
                 <div class="producttop">
                     <div class="producttopInner">
                         <div class="productinfo">
@@ -62,8 +62,7 @@ This is the product html start -->
                     <h2>Asad Store</h2>
                 </div>
             </a>
-
-            <a href="https://google.com" class="product">
+            <a href="{{('sellerProfile')}}" class="product">
                 <div class="producttop">
                     <div class="producttopInner">
                         <div class="productinfo">
@@ -85,8 +84,7 @@ This is the product html start -->
                     <h2>Asad Store</h2>
                 </div>
             </a>
-
-            <a href="https://google.com" class="product">
+            <a href="{{('sellerProfile')}}" class="product">
                 <div class="producttop">
                     <div class="producttopInner">
                         <div class="productinfo">
@@ -108,8 +106,7 @@ This is the product html start -->
                     <h2>Asad Store</h2>
                 </div>
             </a>
-
-            <a href="https://google.com" class="product">
+            <a href="{{('sellerProfile')}}" class="product">
                 <div class="producttop">
                     <div class="producttopInner">
                         <div class="productinfo">
@@ -131,8 +128,7 @@ This is the product html start -->
                     <h2>Asad Store</h2>
                 </div>
             </a>
-
-            <a href="https://google.com" class="product">
+            <a href="{{('sellerProfile')}}" class="product">
                 <div class="producttop">
                     <div class="producttopInner">
                         <div class="productinfo">
@@ -154,8 +150,7 @@ This is the product html start -->
                     <h2>Asad Store</h2>
                 </div>
             </a>
-
-            <a href="https://google.com" class="product">
+            <a href="{{('sellerProfile')}}" class="product">
                 <div class="producttop">
                     <div class="producttopInner">
                         <div class="productinfo">
@@ -177,8 +172,7 @@ This is the product html start -->
                     <h2>Asad Store</h2>
                 </div>
             </a>
-
-            <a href="https://google.com" class="product">
+            <a href="{{('sellerProfile')}}" class="product">
                 <div class="producttop">
                     <div class="producttopInner">
                         <div class="productinfo">
@@ -200,8 +194,7 @@ This is the product html start -->
                     <h2>Asad Store</h2>
                 </div>
             </a>
-
-            <a href="https://google.com" class="product">
+            <a href="{{('sellerProfile')}}" class="product">
                 <div class="producttop">
                     <div class="producttopInner">
                         <div class="productinfo">
@@ -223,8 +216,7 @@ This is the product html start -->
                     <h2>Asad Store</h2>
                 </div>
             </a>
-
-            <a href="https://google.com" class="product">
+            <a href="{{('sellerProfile')}}" class="product">
                 <div class="producttop">
                     <div class="producttopInner">
                         <div class="productinfo">
@@ -246,8 +238,7 @@ This is the product html start -->
                     <h2>Asad Store</h2>
                 </div>
             </a>
-
-            <a href="https://google.com" class="product">
+            <a href="{{('sellerProfile')}}" class="product">
                 <div class="producttop">
                     <div class="producttopInner">
                         <div class="productinfo">
@@ -314,9 +305,73 @@ This is the product html end -->
                 <!-- 
 This is the product html start -->
 
-
-
-                <a href="https://google.com" class="product">
+                <a href="{{('sellerProfile')}}" class="product">
+                    <div class="producttop">
+                        <div class="producttopInner">
+                            <div class="productinfo">
+                                <div class="productinfoleft">
+                                    <p>Shop Type</p>
+                                    <h5>Cafe</h5>
+                                </div>
+                                <div class="productinforight">
+                                    <img src="{{url('font_end_code/image/header.png')}}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="producttopInnerBottom">
+                            <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
+                        </div>
+                    </div>
+                    <div class="productbottom">
+                        <p>Distance: 2 km</p>
+                        <h2>Asad Store</h2>
+                    </div>
+                </a>
+                <a href="{{('sellerProfile')}}" class="product">
+                    <div class="producttop">
+                        <div class="producttopInner">
+                            <div class="productinfo">
+                                <div class="productinfoleft">
+                                    <p>Shop Type</p>
+                                    <h5>Cafe</h5>
+                                </div>
+                                <div class="productinforight">
+                                    <img src="{{url('font_end_code/image/header.png')}}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="producttopInnerBottom">
+                            <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
+                        </div>
+                    </div>
+                    <div class="productbottom">
+                        <p>Distance: 2 km</p>
+                        <h2>Asad Store</h2>
+                    </div>
+                </a>
+                <a href="{{('sellerProfile')}}" class="product">
+                    <div class="producttop">
+                        <div class="producttopInner">
+                            <div class="productinfo">
+                                <div class="productinfoleft">
+                                    <p>Shop Type</p>
+                                    <h5>Cafe</h5>
+                                </div>
+                                <div class="productinforight">
+                                    <img src="{{url('font_end_code/image/header.png')}}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="producttopInnerBottom">
+                            <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
+                        </div>
+                    </div>
+                    <div class="productbottom">
+                        <p>Distance: 2 km</p>
+                        <h2>Asad Store</h2>
+                    </div>
+                </a>
+                <a href="{{('sellerProfile')}}" class="product">
                     <div class="producttop">
                         <div class="producttopInner">
                             <div class="productinfo">
@@ -339,75 +394,8 @@ This is the product html start -->
                     </div>
                 </a>
 
-                <a href="https://google.com" class="product">
-                    <div class="producttop">
-                        <div class="producttopInner">
-                            <div class="productinfo">
-                                <div class="productinfoleft">
-                                    <p>Shop Type</p>
-                                    <h5>Cafe</h5>
-                                </div>
-                                <div class="productinforight">
-                                    <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="producttopInnerBottom">
-                            <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                        </div>
-                    </div>
-                    <div class="productbottom">
-                        <p>Distance: 2 km</p>
-                        <h2>Asad Store</h2>
-                    </div>
-                </a>
-
-                <a href="https://google.com" class="product">
-                    <div class="producttop">
-                        <div class="producttopInner">
-                            <div class="productinfo">
-                                <div class="productinfoleft">
-                                    <p>Shop Type</p>
-                                    <h5>Cafe</h5>
-                                </div>
-                                <div class="productinforight">
-                                    <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="producttopInnerBottom">
-                            <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                        </div>
-                    </div>
-                    <div class="productbottom">
-                        <p>Distance: 2 km</p>
-                        <h2>Asad Store</h2>
-                    </div>
-                </a>
-
-                <a href="https://google.com" class="product">
-                    <div class="producttop">
-                        <div class="producttopInner">
-                            <div class="productinfo">
-                                <div class="productinfoleft">
-                                    <p>Shop Type</p>
-                                    <h5>Cafe</h5>
-                                </div>
-                                <div class="productinforight">
-                                    <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="producttopInnerBottom">
-                            <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                        </div>
-                    </div>
-                    <div class="productbottom">
-                        <p>Distance: 2 km</p>
-                        <h2>Asad Store</h2>
-                    </div>
-                </a>
-
+                <!-- 
+                This is the product html end  -->
 
 
             </div>

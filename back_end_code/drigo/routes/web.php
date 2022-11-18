@@ -20,3 +20,4 @@ use App\Http\Controllers\siteController;
 Route::get('/',[siteController::class,'homePage']);
 Route::get('/login',[siteController::class,'loginPage']);
 Route::get('/registration',[siteController::class,'registrationPage']);
+Route::get('/sellerProfile',[siteController::class,'sellerProfile']);

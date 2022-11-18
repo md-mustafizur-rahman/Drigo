@@ -16,13 +16,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 50px;
 
 }
 
 .mainViewOfSellerLeft {
     width: 20%;
-    height: 100%;
+    height: 110%;
     background-color: #8BBA24;
+
 }
 
 .mainViewOfSellerRight {
@@ -34,11 +36,16 @@
 .mainViewOfSellerRightTop {
     width: 100%;
     height: 40%;
-    background-image: url("/image/shopheader.jpg");
+background-color: red;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
 
+}
+.mainViewOfSellerRightTop img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .itemTitle {
@@ -80,10 +87,9 @@ this is most useble start css */
 
 }
 
-
 .producttop {
     width: 100%;
-    /* background-color: red; */
+    background: url("/image/cafe.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -92,24 +98,6 @@ this is most useble start css */
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 }
-.producttopInner{
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    width: 100%;
-    height: 30%;
-    /* background-color: #8BBA24; */
-}
-.producttopInnerBottom{
-    width: 100%;
-    height: 70%;
-    background-color: #8BBA24;
-}
-.producttopInnerBottom img{
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-}
-
 
 .productbottom {
     width: 100%;
@@ -271,7 +259,7 @@ this is most useble End css */
     background-color: #8BBA24;
     font-weight: bold;
     font-size: 1.1rem;
-    border: 2px #8BBA24;
+    border: 4px white solid;
     transition: 1s;
 }
 @media only screen and (max-width: 744px) {

@@ -18,4 +18,8 @@ class siteController extends Controller
    {
     return view('pages.registration');
    }
+   function sellerProfile()
+   {
+    return view('pages.sellerProfile');
+   }
 }
