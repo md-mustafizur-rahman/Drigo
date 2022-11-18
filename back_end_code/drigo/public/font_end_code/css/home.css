@@ -127,7 +127,7 @@ this is most useble start css */
     height: 100%;
     background-color: white;
     display: flex;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
 
@@ -149,7 +149,7 @@ this is most useble start css */
 
 .producttop {
     width: 100%;
-    background: url("/image/cafe.jpg");
+    /* background-color: red; */
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -157,6 +157,23 @@ this is most useble start css */
     height: 75%;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+}
+.producttopInner{
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 100%;
+    height: 30%;
+    /* background-color: #8BBA24; */
+}
+.producttopInnerBottom{
+    width: 100%;
+    height: 70%;
+    background-color: #8BBA24;
+}
+.producttopInnerBottom img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
 }
 
 .productbottom {
@@ -170,6 +187,7 @@ this is most useble start css */
     margin-top: 20px;
     margin-left: 20px;
     margin-bottom: 10px;
+   
 }
 
 .productbottom h2 {
@@ -205,8 +223,8 @@ this is most useble start css */
     margin-left: 15px;
     margin-bottom: 10px;
     font-size: 12px;
-    color: white;
-    text-shadow: 2px 2px 5px black;
+    color: black;
+    /* text-shadow: 2px 2px 5px black; */
 }
 
 .productinfoleft h5 {
@@ -215,8 +233,8 @@ this is most useble start css */
     margin-bottom: 10px;
     font-size: 20px;
     font-weight: bold;
-    color: white;
-    text-shadow: 2px 2px 5px black;
+    color: black;
+    /* text-shadow: 2px 2px 5px black; */
 }
 
 .productinforight img {

@@ -45,7 +45,7 @@
 .InnerItem{
    width: 20%;
    min-width: 200px;
-   height: 80%;
+   height: 50%;
    /* background-color: rgb(13, 179, 137); */
    display: flex;
    flex-direction: column;
@@ -92,7 +92,7 @@
 }
 .footerlogo img{
     margin-top: 8px;
-    width: 50px;
+    width: auto;
     
 
 }
