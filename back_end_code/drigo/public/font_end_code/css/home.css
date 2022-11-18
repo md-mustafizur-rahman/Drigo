@@ -1,0 +1,370 @@
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+    outline: none;
+}
+
+.mainsearch {
+    width: 100%;
+    height: 450px;
+    background-color: #8BBA24;
+    display: flex;
+    justify-content: center;
+}
+
+.searchhome {
+    width: 80%;
+    height: 100%;
+    background-color: #8BBA24;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.searchhomeleft {
+    width: 50%;
+    height: 100%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.searhomelefttitle h2 {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 100;
+}
+
+.searchhomeright {
+    /* background-color: orange; */
+    width: 40%;
+    height: 100%;
+}
+
+.searchhomeleftsearch {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.searchfield {
+    width: 70%;
+    height: 45px;
+    padding-left: 10px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+
+    border: 1px;
+}
+
+.searchfieldbtn {
+    cursor: pointer;
+    width: 8%;
+    height: 45px;
+    background-color: black;
+    color: white;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.searchhomeright img {
+
+    z-index: 1;
+    position: relative;
+    top: 210px;
+    width: 60%;
+}
+
+.nearShopList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    /* background-color: rgb(129, 128, 128); */
+}
+
+.innerNearShopList {
+    width: 80%;
+    height: 80%;
+}
+
+.nearestTitle p {
+    margin-top: 50px;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.nearestTitle span {
+    color: #8BBA24;
+}
+
+
+
+
+/* Product Viewing content  
+this is most useble start css */
+
+.productList {
+    margin-top: 50px;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+.product {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 280px;
+    height: 400px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px black;
+    cursor: pointer;
+    color: black;
+
+}
+
+.producttop {
+    width: 100%;
+    background: url("/image/cafe.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+
+    height: 75%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.productbottom {
+    width: 100%;
+    height: 35%;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.productbottom p {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.productbottom h2 {
+    margin-left: 20px;
+}
+
+.productinfo {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 100%;
+    height: 120px;
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.productinfoleft {
+    border-top-left-radius: 10px;
+    width: 50%;
+    height: 100%;
+    /* background-color: aquamarine; */
+}
+
+.productinforight {
+    border-top-right-radius: 10px;
+    width: 50%;
+    height: 100%;
+    /* background-color: rgb(150, 127, 255); */
+}
+
+.productinfoleft p {
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+}
+
+.productinfoleft h5 {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+}
+
+.productinforight img {
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+    float: right;
+    z-index:1;
+    border-radius: 100%;
+}
+
+/* Product Viewing content 
+this is most useble End css */
+
+
+/* Product Viewing content 
+this is most useble start end */
+.homevideo{
+    margin-top: 100px;
+    width: 100%;
+    height: 450px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.homevideoinner{
+    width: 90%;
+    height: 80%;
+    /* background-color: wheat; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.homevideoinnerleft{
+    height: 100%;
+    width: 40%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.homevideoinnerleft h2{
+    font-size: 3rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color:white;
+}
+.homevideoinnerleft p{
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color:white;
+    
+}
+
+.homevideoinnerright{
+    height: 100%;
+    width: 30%;
+    /* background-color: green; */
+}
+
+.mostPopular{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mostPopularInner{
+    width: 80%;
+    height: 90%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+   
+}
+@media only screen and (max-width: 1111px) {
+.searchhomeright{
+    width: 20%;
+}
+.searchhomeleft{
+width: 80%;
+}
+
+}
+
+
+@media only screen and (max-width: 923px) {
+.searchhomeright{
+    width: 20%;
+}
+.searchhomeleft{
+width: 80%;
+}
+.searchfieldbtn{
+    width: 15%;
+}
+}
+
+@media only screen and (max-width: 515px) {
+.searchhomeright{
+    width: 20%;
+}
+.searchhomeleft{
+width: 80%;
+}
+.searchfieldbtn{
+    width: 25%;
+}
+.homevideoinnerleft h2{
+   font-size: 1.5rem;
+}
+.homevideoinnerleft p{
+   font-size: 1.3rem;
+}
+}
+
+@media only screen and (max-width: 400px) {
+.searchhomeright{
+    display: none;
+}
+.searchhomeleft{
+width: 90%;
+}
+.searchfieldbtn{
+    width: 25%;
+}
+.homevideoinnerleft h2{
+   font-size: 1.5rem;
+}
+.homevideoinnerleft p{
+   font-size: 1.3rem;
+}
+.searhomelefttitle h2{
+    font-size: 1.2rem;
+}
+.homevideoinner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.homevideoinnerleft{
+    width: 90%;
+}
+.homevideoinnerright{
+    width: 90%;
+}
+}
