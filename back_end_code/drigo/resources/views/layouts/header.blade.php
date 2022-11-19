@@ -26,13 +26,13 @@
             <ul>
                 <li><a href="#">Nearest Shop</a></li>
                 <li><a href="#">List</a></li>
-                <li><a href="{{url('/login')}}">
+                <li><a href="{{url('login')}}">
                         <div>
                             <i class="gg-user"></i>
                             <p>profile</p>
                         </div> </i>
                     </a></li>
-                    <li><a href="#">login</a></li>
+                    <li><a href="{{url('login')}}">login</a></li>
 
             </ul>
 
