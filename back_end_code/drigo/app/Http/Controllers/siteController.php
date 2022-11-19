@@ -3,23 +3,54 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 
 class siteController extends Controller
 {
-   function homePage()
+   public function homePage()
    {
-    return view('pages.home');
+      return view('pages.home');
    }
-   function loginPage()
+   public function loginPage()
    {
-    return view('pages.login');
+      return view('pages.login');
    }
-   function registrationPage()
+   public  function registrationPage()
    {
-    return view('pages.registration');
+      return view('pages.registration');
    }
-   function sellerProfile()
+   public function registration(Request $request)
    {
-    return view('pages.sellerProfile');
+      $request->validate([
+         'name' => 'required',
+         'username' => 'required',
+         'shopname' => 'required',
+         'latitude' => 'required',
+         'longitude' => 'required',
+         'email' => 'required | email ',
+         'password' => 'required |confirmed',
+         'password_confirmation' => 'required',
+
+
+      ]);
+
+      // echo "<pre>";
+      // print_r($request->all());
+   }
+   public function login(Request $request)
+   {
+      $request->validate([
+
+         'username' => 'required',
+         'password' => 'required'
+      ]);
+
+      
+      // echo "<pre>";
+      // print_r($request->all());
+   }
+   public  function sellerProfile()
+   {
+      return view('pages.sellerProfile');
    }
 }

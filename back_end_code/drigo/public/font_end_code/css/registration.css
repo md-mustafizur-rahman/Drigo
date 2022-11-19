@@ -69,11 +69,16 @@
     display: flex;
     justify-content: space-around;
     align-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.formInnerBox{
+    width: 45%;
+    height: 70px;
+    /* background-color: rebeccapurple; */
 }
 .formInner input{
-    width: 45%;
+    width: 100%;
     height:45px;
     border-radius: 10px;
     outline: none;
@@ -82,7 +87,7 @@
     font-size: 1.1rem;
 }
 .formInner select{
-    width: 45%;
+    width: 100%;
     height:45px;
     border-radius: 10px;
     outline: none;
@@ -92,7 +97,8 @@
 }
 .formInner  .registerBtn{
    margin-top: 150px;
-
+   height:45px;
+   border-radius: 10px;
    width: 25%;
    background-color: #8BBA24;
    color: white;
@@ -100,6 +106,7 @@
    border: 2px solid #8BBA24;
    cursor: pointer;
 }
+
 .formInner  .registerBtn:hover{
    margin-top: 150px;
    width: 25%;
@@ -122,7 +129,12 @@
  
 }
 @media only screen and (max-width: 888px) {
-  
+    .mainContainInner{
+        margin-top: -50px;
+    }
+    .formInnerBox{
+        width: 100%;
+    }
     .registerForm h2{
         display: none;
     }
@@ -141,16 +153,16 @@
 .formInner input{
     display: flex;
     flex-direction: column;
-    width: 80%;
+    /* width: 80%;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 10px; */
     
    
 }
 .formInner select{
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
     
@@ -210,6 +222,9 @@
 }
 
 @media only screen and (max-width: 592px) {
+    .formInnerBox{
+        width: 130%;
+    }
 .backgroundImg{
     display: none;
 }
@@ -225,14 +240,20 @@
 
 }
 @media only screen and (max-width: 424px) {
+.mainContainInner{
+    margin-top: 30px;
+}
 .backgroundImg{
     display: none;
 }
+.formInnerBox{
+    width: 180%;
+}
 .formInner input{
-    width: 150%;
+    width: 100%;
 }
 .formInner select{
-    width: 150%;
+    width: 100%;
 }
 .formInner .registerBtn{
     width: 100%;
