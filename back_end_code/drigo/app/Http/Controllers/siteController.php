@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
+
 class siteController extends Controller
 {
    public function homePage()
@@ -53,4 +54,9 @@ class siteController extends Controller
    {
       return view('pages.sellerProfile');
    }
+    
+
+
+
+
 }

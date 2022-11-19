@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\dataBaseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\siteController;
 /*
@@ -23,3 +24,4 @@ Route::get('/registration',[siteController::class,'registrationPage']);
 Route::post('/registration',[siteController::class,'registration']);
 Route::post('/login',[siteController::class,'login']);
 Route::get('/sellerProfile',[siteController::class,'sellerProfile']);
+Route::get('/seller',[dataBaseController::class,'seller']);
