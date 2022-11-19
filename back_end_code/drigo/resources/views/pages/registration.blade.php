@@ -19,6 +19,10 @@
                             <input type="password" placeholder="password" name="" id="">
                         </div>
                         <div class="formInner">
+                            <input type="text" placeholder="latitude" name="" id="">
+                            <input type="text" placeholder="longitude" name="" id="">
+                        </div>
+                        <div class="formInner">
 
                             <input type="password" placeholder="confirm password" name="" id="">
                         </div>

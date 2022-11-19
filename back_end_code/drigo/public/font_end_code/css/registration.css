@@ -81,7 +81,8 @@
     font-size: 1.1rem;
 }
 .formInner  .registerBtn{
-   margin-top: 100px;
+   margin-top: 150px;
+
    width: 25%;
    background-color: #8BBA24;
    color: white;
@@ -90,7 +91,7 @@
    cursor: pointer;
 }
 .formInner  .registerBtn:hover{
-   margin-top: 100px;
+   margin-top: 150px;
    width: 25%;
    background-color: white;
    color: #8BBA24;
@@ -111,6 +112,13 @@
  
 }
 @media only screen and (max-width: 888px) {
+  
+    .registerForm h2{
+        display: none;
+    }
+    .registerForm{
+        margin-top: 100px;
+    }
 .formInner{
     display: flex;
     flex-direction: column;
@@ -130,7 +138,7 @@
    
 }
 .formInner .registerBtn{
-    margin-top: 60px;
+    margin-top: 50px;
     margin-bottom: 60px;
     width: 30%;
     display: flex;
@@ -138,13 +146,22 @@
     align-items: center;
 }
 .formInner .registerBtn:hover{
+    margin-top: 50px;
     width: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.mainContainInner{
-    margin-top: -130px;
+.mainBackgroundTop{
+    height: 70%;
+}
+.mainBackgroundBottom{
+    height: 30%;
+}
+
+.registerBottomText{
+    margin-top:50px;
+    margin-bottom:100px;
 }
 
 }
