@@ -30,4 +30,5 @@ Route::get('/seller',[dataBaseController::class,'seller']);
 
 // work with databaseController start
 Route::post('/registration',[dataBaseController::class,'registration']);
+Route::get('/registration/view',[dataBaseController::class,'registrationDataView']);
 // work with databaseController end
