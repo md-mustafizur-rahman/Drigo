@@ -18,10 +18,16 @@ use App\Http\Controllers\siteController;
 //     return view('welcome');
 // });
 
+// work with siteController start
+
 Route::get('/',[siteController::class,'homePage']);
 Route::get('/login',[siteController::class,'loginPage']);
 Route::get('/registration',[siteController::class,'registrationPage']);
-Route::post('/registration',[siteController::class,'registration']);
 Route::post('/login',[siteController::class,'login']);
 Route::get('/sellerProfile',[siteController::class,'sellerProfile']);
 Route::get('/seller',[dataBaseController::class,'seller']);
+// work with siteController end
+
+// work with databaseController start
+Route::post('/registration',[dataBaseController::class,'registration']);
+// work with databaseController end

@@ -20,24 +20,7 @@ class siteController extends Controller
    {
       return view('pages.registration');
    }
-   public function registration(Request $request)
-   {
-      $request->validate([
-         'name' => 'required',
-         'username' => 'required',
-         'shopname' => 'required',
-         'latitude' => 'required',
-         'longitude' => 'required',
-         'email' => 'required | email ',
-         'password' => 'required |confirmed',
-         'password_confirmation' => 'required',
-
-
-      ]);
-
-      // echo "<pre>";
-      // print_r($request->all());
-   }
+  
    public function login(Request $request)
    {
       $request->validate([
