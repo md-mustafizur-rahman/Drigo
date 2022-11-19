@@ -11,11 +11,11 @@
                 <form class="registerForm" action="">
                     <h2>Drigo</h2>
                     <div class="formInner">
-                        <input type="text" placeholder="full name" name="" id="">
+                        <input required type="text" placeholder="full name" name="" id="">
                         <input type="text" placeholder="user name" name="" id="">
                     </div>
                     <div class="formInner">
-                        <select id="category" name="category">
+                        <select required id="category" name="category">
                             <option selected value="Cafe">Cafe</option>
                             <option value="Book Store">Book Store</option>
                             <option value="Hotel">Hotel</option>
@@ -30,19 +30,19 @@
                            
 
                         </select>
-                        <input type="text" placeholder="Shop Name" name="" id="">
+                        <input required type="text" placeholder="Shop Name" name="" id="">
                     </div>
                     <div class="formInner">
-                        <input type="email" placeholder="email" name="" id="">
-                        <input type="password" placeholder="password" name="" id="">
+                        <input required type="email" placeholder="email" name="" id="">
+                        <input  required type="password" placeholder="password" name="" id="">
                     </div>
                     <div class="formInner">
-                        <input type="text" placeholder="latitude" name="" id="">
-                        <input type="text" placeholder="longitude" name="" id="">
+                        <input required type="number" placeholder="latitude" name="" id="">
+                        <input required type="number" placeholder="longitude" name="" id="">
                     </div>
                     <div class="formInner">
 
-                        <input type="password" placeholder="confirm password" name="" id="">
+                        <input required type="password" placeholder="confirm password" name="" id="">
                     </div>
                     <div class="formInner">
 
