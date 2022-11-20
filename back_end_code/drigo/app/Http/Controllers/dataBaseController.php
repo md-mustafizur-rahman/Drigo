@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Seller;
+use Illuminate\Support\Facades\Auth;
 
 class dataBaseController extends Controller
 {
@@ -46,15 +47,50 @@ class dataBaseController extends Controller
     // registration insert query code end
 
 
-    // registration select query code start
+    // login insert query code end
 
+    public function login(Request $request)
+    {
+        $request->validate([
+
+            'username' => 'required',
+            'password' => 'required'
+        ]);
+        // $seller = Seller::all();
+        // if (Auth::attempt($request->only('username', 'password'))) {
+        //     echo "sabbir";
+        // } else {
+        //     echo "na";
+        // }
+        $request->password = md5($request['password']);
+       
+        $check = Seller::where([
+
+            ['username', '=', $request->username],
+            ['password', '=', $request->password],
+        ])->first();
+
+        if ($check) {
+            echo "done";
+        } else {
+            echo   $request->password ;
+            echo "check Again";
+        }
+
+        // echo "<pre>";
+        // print_r($request->all());
+    }
+    // login insert query code end
+
+
+    // registration select query code start
     public function registrationDataView()
     {
         $seller = Seller::all();
         // echo "<pre>";
         // print_r($seller);
         // die;
-        $data=compact('seller');
+        $data = compact('seller');
         return view('test.testSelectQuery')->with($data);
     }
 

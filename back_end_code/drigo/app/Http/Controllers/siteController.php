@@ -21,18 +21,6 @@ class siteController extends Controller
       return view('pages.registration');
    }
   
-   public function login(Request $request)
-   {
-      $request->validate([
-
-         'username' => 'required',
-         'password' => 'required'
-      ]);
-
-      
-      // echo "<pre>";
-      // print_r($request->all());
-   }
    public  function sellerProfile()
    {
       return view('pages.sellerProfile');
