@@ -25,15 +25,19 @@
                         <div class="formInnerBox">
                             <input type="text" sabbir placeholder="user name" value="{{old('username')}}" name="username" id="">
                             <span class="registretionErrorShow" style="color: red;">
-                            @error('username')
-                            {{$message}}
-                            @enderror
-                        </span>
+
+                                @if(Session::get('usernameErrorKey'))
+                                {{"username already exist"}}
+                                @endif
+                                @error('username')
+                                {{$message}}
+                                @enderror
+                            </span>
                         </div>
                     </div>
                     <div class="formInner">
                         <div class="formInnerBox">
-                            <select sabbir name="category" id="category" name="category" value="{{old('category')}}" >
+                            <select sabbir name="category" id="category" name="category" value="{{old('category')}}">
                                 <option selected value="Cafe">Cafe</option>
                                 <option value="Book Store">Book Store</option>
                                 <option value="Hotel">Hotel</option>
@@ -49,32 +53,32 @@
 
                             </select>
                         </div>
-                        <div class="formInnerBox" >
-                            <input value="{{old('name')}}" sabbir type="text" name="shopname" placeholder="Shop Name" name="" id="">
-                            <span value="{{old('shopname')}}" class="registretionErrorShow" style="color: red;">
-                            @error('shopname')
-                            {{$message}}
-                            @enderror
-                        </span>
+                        <div class="formInnerBox">
+                            <input value="{{old('shopname')}}" sabbir type="text" name="shopname" placeholder="Shop Name" name="" id="">
+                            <span class="registretionErrorShow" style="color: red;">
+                                @error('shopname')
+                                {{$message}}
+                                @enderror
+                            </span>
                         </div>
                     </div>
 
                     <div class="formInner">
                         <div class="formInnerBox">
                             <input value="{{old('latitude')}}" sabbir type="number" name="latitude" placeholder="latitude" name="" id="">
-                              <span class="registretionErrorShow" style="color: red;">
-                            @error('latitude')
-                            {{$message}}
-                            @enderror
-                        </span>
+                            <span class="registretionErrorShow" style="color: red;">
+                                @error('latitude')
+                                {{$message}}
+                                @enderror
+                            </span>
                         </div>
                         <div class="formInnerBox">
                             <input value="{{old('longitude')}}" sabbir type="number" name="longitude" placeholder="longitude" name="" id="">
                             <span class="registretionErrorShow" style="color: red;">
-                            @error('longitude')
-                            {{$message}}
-                            @enderror
-                        </span>
+                                @error('longitude')
+                                {{$message}}
+                                @enderror
+                            </span>
                         </div>
                     </div>
 
@@ -82,18 +86,26 @@
                         <div class="formInnerBox">
                             <input value="{{old('email')}}" sabbir type="text" name="email" placeholder="email" name="" id="">
                             <span class="registretionErrorShow" style="color: red;">
-                            @error('email')
-                            {{$message}}
-                            @enderror
-                        </span>
+
+
+
+                                @if(Session::get('emailErrorKey'))
+                                {{"email already exist"}}
+                                @endif
+
+
+                                @error('email')
+                                {{$message}}
+                                @enderror
+                            </span>
                         </div>
                         <div class="formInnerBox">
                             <input sabbir type="password" name="password" placeholder="password" name="password" id="">
                             <span class="registretionErrorShow" style="color: red;">
-                            @error('password')
-                            {{$message}}
-                            @enderror
-                        </span>
+                                @error('password')
+                                {{$message}}
+                                @enderror
+                            </span>
                         </div>
                     </div>
 
@@ -101,10 +113,10 @@
                         <div class="formInnerBox">
                             <input sabbir type="password" name="password_confirmation" placeholder="confirm password" name="" id="">
                             <span class="registretionErrorShow" style="color: red;">
-                            @error('confirm_password')
-                            {{$message}}
-                            @enderror
-                        </span>
+                                @error('confirm_password')
+                                {{$message}}
+                                @enderror
+                            </span>
                         </div>
                     </div>
                     <div class="formInner">

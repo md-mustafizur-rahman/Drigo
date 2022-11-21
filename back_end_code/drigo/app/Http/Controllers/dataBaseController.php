@@ -31,18 +31,42 @@ class dataBaseController extends Controller
 
         ]);
 
-        echo "<pre>";
-        print_r($request->all());
-        $seller = new Seller;
-        $seller->name = $request['name'];
-        $seller->username = $request['username'];
-        $seller->category = $request['category'];
-        $seller->shopname = $request['shopname'];
-        $seller->email = $request['email'];
-        $seller->latitude = $request['latitude'];
-        $seller->longitude = $request['longitude'];
-        $seller->password = md5($request['password']);
-        $seller->save();
+        $check1 = Seller::where([
+
+            ['username', '=', $request->username],
+
+        ])->first();
+        $check2 = Seller::where([
+
+            ['email', '=', $request->email],
+
+        ])->first();
+
+        if ($check1) {
+            // echo   $request->password;
+            // echo "check Again";
+            return redirect('/registration')->with('usernameErrorKey', 'already exist');
+            die;
+        }
+        if ($check2) {
+            return redirect('/registration')->with('emailErrorKey', 'already exist');
+            die;
+        } else {
+
+            echo "<pre>";
+            print_r($request->all());
+            $seller = new Seller;
+            $seller->name = $request['name'];
+            $seller->username = $request['username'];
+            $seller->category = $request['category'];
+            $seller->shopname = $request['shopname'];
+            $seller->email = $request['email'];
+            $seller->latitude = $request['latitude'];
+            $seller->longitude = $request['longitude'];
+            $seller->password = md5($request['password']);
+            $seller->save();
+            return redirect('/login');
+        }
     }
     // registration insert query code end
 
@@ -63,7 +87,7 @@ class dataBaseController extends Controller
         //     echo "na";
         // }
         $request->password = md5($request['password']);
-       
+
         $check = Seller::where([
 
             ['username', '=', $request->username],
@@ -71,9 +95,9 @@ class dataBaseController extends Controller
         ])->first();
 
         if ($check) {
-            echo "done";
+            return redirect('/login');
         } else {
-            echo   $request->password ;
+            echo   $request->password;
             echo "check Again";
         }
 
