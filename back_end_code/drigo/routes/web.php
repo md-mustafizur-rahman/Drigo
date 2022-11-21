@@ -24,10 +24,11 @@ Route::get('/',[siteController::class,'homePage']);
 Route::get('/login',[siteController::class,'loginPage']);
 Route::get('/registration',[siteController::class,'registrationPage']);
 Route::get('/sellerProfile',[siteController::class,'sellerProfile']);
-Route::get('/seller',[dataBaseController::class,'seller']);
+Route::get('/upload',[siteController::class,'productUpload']);
 // work with siteController end
 
 // work with databaseController start
+Route::get('/seller',[dataBaseController::class,'seller']);
 Route::post('/registration',[dataBaseController::class,'registration']);
 Route::get('/registration/view',[dataBaseController::class,'registrationDataView']);
 Route::post('/login',[dataBaseController::class,'login']);

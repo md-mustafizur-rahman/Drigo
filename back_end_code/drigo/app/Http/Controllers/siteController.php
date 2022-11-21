@@ -25,6 +25,10 @@ class siteController extends Controller
    {
       return view('pages.sellerProfile');
    }
+   public function productUpload()
+   {
+      return view('pages.productUpload');
+   }
     
 
 

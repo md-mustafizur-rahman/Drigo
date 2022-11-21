@@ -53,6 +53,11 @@
     <link rel="stylesheet" href="{{url('font_end_code/css/sellerProfile.css')}}">
     <!-- css link of sellerProfile file end -->
 
+
+    <!-- css link of productUpload file start -->
+    <link rel="stylesheet" href="{{url('font_end_code/css/productUpload.css')}}">
+    <!-- css link of productUpload file end -->
+
     <title>Drigo</title>
 
 </head>

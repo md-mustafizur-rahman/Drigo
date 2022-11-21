@@ -1,0 +1,208 @@
+*{
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+    outline: none;
+}
+.productUpload{
+    width: 100%;
+    height: 100vh;
+    background-color: #8BBA24;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.productUploadInner{
+    width: 70%;
+    height: 90%;
+    background-color: white;
+    box-shadow: 2px 2px 5px black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+.uploadTitle{ 
+    font-size: 2rem;
+}
+.uploadForm{
+    width: 100%;
+    height: 90%;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+.formInnerDiv{
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    height: 100px;
+    /* background-color: orange; */
+    flex-direction: column;
+}
+.UploadPageError{
+    color: red;
+}
+
+.productNameField{
+    height: 45px;
+    /* border-radius: 10px; */
+    border: 1px solid black;
+    padding-left: 20px;
+    margin-bottom: 5px;
+    
+}
+.productInenrDivSize{
+    border: 1px solid black;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.productInenrDivSize select{
+    border-left: 1px solid black;
+    height: 90%;
+}
+.productSizeField{
+    width: 70%;
+    height: 45px;
+    /* border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px; */
+    border: none;
+    padding-left: 20px;
+    margin-bottom: 5px;
+}
+.ProductSizeConstans{
+    width: 25%;
+    height: 45px;
+    border: none;
+    /* border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px; */
+    padding-left: 20px;
+    margin-bottom: 5px;
+}
+.productInenrTextArea{
+    margin-top: 150px;
+    width: 100%;
+}
+.UploadInnerTextArea{
+    
+    width: 100%;
+    height: 200px;
+    /* border-radius: 10px; */
+}
+.formInnerDivPrice{
+    width: 100%;
+}
+.formInnerDivPrice{
+    margin-top: 150px;
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    height: 100px;
+    /* background-color: orange; */
+    flex-direction: column;
+
+}
+.fileUpload{
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    height: 100px;
+    /* background-color: orange; */
+    flex-direction: column;
+}
+.UploadBtn{
+    cursor: pointer;
+    width: 250px;
+    height: 40px;
+    /* border-radius: 10px; */
+    border: 1px solid #8BBA24;
+    font-size: 1rem;
+    background-color: #8BBA24;
+    color: white;
+    
+}
+.UploadBtn:hover{
+    cursor: pointer;
+    width: 250px;
+    height: 40px;
+    /* border-radius: 10px; */
+    border: 3px solid black;
+    font-size: 1.3rem;
+    background-color: white;
+    color: black;
+    transition: 1s;
+    
+}
+
+@media only screen and (max-width: 1133px) {
+.formInnerDiv{
+    width: 60%;
+}
+.formInnerDivPrice{
+    width: 60%;
+}
+}
+@media only screen and (max-width: 833px) {
+.formInnerDiv{
+    width: 80%;
+}
+.formInnerDivPrice{
+    width: 80%;
+}
+}
+@media only screen and (max-width: 403px) {
+
+.formInnerDiv{
+    width: 90%;
+}
+.formInnerDivPrice{
+    width: 90%;
+}
+}
+@media only screen and (max-width: 370px) {
+    .productUploadInner{
+        width: 90%;
+    }
+.formInnerDiv{
+    width: 90%;
+}
+.formInnerDivPrice{
+    width: 90%;
+}
+
+.UploadBtn{
+    cursor: pointer;
+    width: 90%;
+    height: 40px;
+    /* border-radius: 10px; */
+    border: 1px solid #8BBA24;
+    font-size: 1rem;
+    background-color: #8BBA24;
+    color: white;
+    
+}
+.UploadBtn:hover{
+    cursor: pointer;
+    width: 90%;
+    height: 40px;
+    /* border-radius: 10px; */
+    border: 3px solid black;
+    font-size: 1.3rem;
+    background-color: white;
+    color: black;
+    transition: 1s;
+    
+}
+}
+@media only screen and (max-width: 275px) {
+.uploadTitle{
+    font-size: 1.2rem;
+}
+}
