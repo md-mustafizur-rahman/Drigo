@@ -4,7 +4,7 @@
 
 
             <a href="{{url('/')}}" class="headerleftlogo">
-                <img  src="{{('font_end_code/image/logo.png')}}" alt="poor internet">
+                <img src="{{('font_end_code/image/logo.png')}}" alt="poor internet">
                 <p class="headerTitleColor">D</p>
                 <p class="headerTitle">r</p>
                 <p class="headerTitleColor">i</p>
@@ -26,13 +26,46 @@
             <ul>
                 <li><a href="#">Nearest Shop</a></li>
                 <li><a href="#">List</a></li>
-                <li><a href="{{url('login')}}">
+                <li>
+
+                    @if(Session::get('seller_username'))
+                    <a href="{{url('sellerProfile')}}">
                         <div>
                             <i class="gg-user"></i>
-                            <p>profile</p>
+                            <p>
+                                {{session()->get('seller_username')}}
+                            </p>
                         </div> </i>
-                    </a></li>
-                    <li><a href="{{url('login')}}">login</a></li>
+                    </a>
+                    @else
+                    <a href="{{url('login')}}">
+                        <div>
+                            <i class="gg-user"></i>
+                            <p>
+
+                                {{"profile"}}
+
+
+                            </p>
+                        </div> </i>
+                    </a>
+                    @endif
+
+
+
+                </li>
+                <li>
+                    @if(Session::get('seller_username'))
+
+                    <a href="{{url('logout')}}">
+                        {{"logout"}}
+                    </a>
+                    @else
+                    <a href="{{url('login')}}">
+                        {{"login"}}
+                    </a>
+                    @endif
+                </li>
 
             </ul>
 
@@ -74,12 +107,41 @@
             <li><a href="#">Nearest Shop</a></li>
             <li><a href="#">List</a></li>
             <li><a href="#">Profile</a></li>
-            <li><a href="#">
+            <li>
+
+                @if(Session::get('seller_username'))
+                <a href="{{url('sellerProfile')}}">
                     <div>
                         <i class="gg-user"></i>
-                        <p>profile</p>
+                        <p>
+
+                            {{session()->get('seller_username')}}
+
+
+
+                        </p>
                     </div> </i>
-                </a></li>
+                </a>
+                @else
+                <a href="{{url('login')}}">
+                    <div>
+                        <i class="gg-user"></i>
+                        <p>
+
+                            {{"profile"}}
+
+
+                        </p>
+                    </div> </i>
+                </a>
+                @endif
+
+
+
+
+
+
+            </li>
 
 
         </ul>

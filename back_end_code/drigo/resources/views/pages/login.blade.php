@@ -12,13 +12,19 @@
                 <form class="mainItemForm" action="{{url('/')}}/login" method="POST">
                     @csrf
                     <div class="inputfield">
-                        <input name="username" placeholder="username"   value="{{old('username')}}" type="text">
+                        <input name="username" placeholder="username" value="{{old('username')}}" type="text">
                         <div class="loginErrorBox">
                             <span style="color: red; font-size:1rem;">
+
+
+                                @if(Session::get('invalidLoginkey'))
+                                {{"username / password invalid"}}
+                                @endif
 
                                 @error('username')
                                 {{$message}}
                                 @enderror
+
                             </span>
                         </div>
                         <input name="password" placeholder="password" type="password">

@@ -16,11 +16,16 @@ class siteController extends Controller
    {
       return view('pages.login');
    }
+   public function logoutPage()
+   {
+      session()->flush();
+      return view('pages.home');
+   }
    public  function registrationPage()
    {
       return view('pages.registration');
    }
-  
+
    public  function sellerProfile()
    {
       return view('pages.sellerProfile');
@@ -29,9 +34,4 @@ class siteController extends Controller
    {
       return view('pages.productUpload');
    }
-    
-
-
-
-
 }

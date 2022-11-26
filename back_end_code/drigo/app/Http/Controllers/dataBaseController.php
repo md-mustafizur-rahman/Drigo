@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Seller;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Auth;
 
 class dataBaseController extends Controller
@@ -95,10 +96,47 @@ class dataBaseController extends Controller
         ])->first();
 
         if ($check) {
-            return redirect('/login');
+
+            $callData = Seller::where(
+                'username',
+                '=',
+                $request->username
+            )->get(['seller_id', 'name', 'username', 'shopname', 'email', 'latitude', 'longitude'])->toArray();
+
+            session([
+                'seller_seller_id' => $callData[0]['seller_id'],
+                'seller_name' => $callData[0]['name'],
+                'seller_username' => $callData[0]['username'],
+                'seller_shopname' => $callData[0]['shopname'],
+                'seller_sellerEmail' => $callData[0]['email'],
+                'seller_sellerLatitude' => $callData[0]['latitude'],
+                'seller_sellerLongitude' => $callData[0]['longitude'],
+            ]);
+
+
+
+            // session()->put([
+
+            //     'seller_seller_id' => $callData[0]['seller_id'],
+            //         'seller_name' => $callData[0]['name'],
+            //         'seller_username' => $callData[0]['username'],
+            //         'seller_shopname' => $callData[0]['shopname'],
+            //         'seller_sellerEmail' => $callData[0]['email'],
+            //         'seller_sellerLatitude' => $callData[0]['latitude'],
+            //         'seller_sellerLongitude' => $callData[0]['longitude'],
+            // ]);
+            // echo '<pre>';
+            // print_r(session()->get('seller_name'));
+            // print_r($callData[0]['name']);
+
+            return redirect('/');
+
+
+
         } else {
             echo   $request->password;
             echo "check Again";
+            return redirect('/login')->with('invalidLoginkey', 'username/password invalid');
         }
 
         // echo "<pre>";

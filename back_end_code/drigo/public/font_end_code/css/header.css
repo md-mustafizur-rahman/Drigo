@@ -238,7 +238,7 @@
 .headertopright ul {
     display: flex;
     height: 100%;
-    width: 50%;
+    width: 80%;
     justify-content: space-around;
     align-items: flex-end;
     /* background-color: red; */
@@ -251,7 +251,7 @@
 
 .headertopright div {
     color: #8BBA24;
-    width: 72px;
+    width: 150px;
     display: flex;
     justify-content: space-around;
     align-items: center;

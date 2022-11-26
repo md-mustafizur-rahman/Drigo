@@ -22,6 +22,7 @@ use App\Http\Controllers\siteController;
 
 Route::get('/',[siteController::class,'homePage']);
 Route::get('/login',[siteController::class,'loginPage']);
+Route::get('/logout',[siteController::class,'logoutPage']);
 Route::get('/registration',[siteController::class,'registrationPage']);
 Route::get('/sellerProfile',[siteController::class,'sellerProfile']);
 Route::get('/upload',[siteController::class,'productUpload']);
