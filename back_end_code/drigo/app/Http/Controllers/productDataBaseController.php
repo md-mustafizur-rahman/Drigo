@@ -64,10 +64,7 @@ class productDataBaseController extends Controller
         // print_r(session()->all());
     }
 
-    public function viewProduct()
-    {
-        $getProduct = Product::all();
-        echo "<pre>";
-        print_r($getProduct);
-    }
+  
+     
+    
 }

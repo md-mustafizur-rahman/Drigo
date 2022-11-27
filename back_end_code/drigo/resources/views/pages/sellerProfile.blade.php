@@ -2,6 +2,7 @@
 
 
 @section('main-section')
+
 <section class="mainViewOfSeller">
     <div class="mainViewOfSellerLeft">
         <div class="mainViewOfSellerLeftTop">
@@ -25,7 +26,8 @@
                         {{session()->get('seller_username')}}
                         @else
                         {{"unknown"}}
-                        @endif</p>
+                        @endif
+                    </p>
                 </div>
 
             </div>
@@ -48,8 +50,20 @@
             <img src="{{url('font_end_code/image/shopheader.jpg')}}" alt="">
         </div>
         <div class="itemTitle">
-            <h2>Asad Store</h2>
-            <p>Item avalible: 200</p>
+            <h2>
+                @if($products !=null)
+                {{$products[0]["shopname"]}}
+                @else
+                {{session()->get('seller_shopname')}}
+                @endif
+            </h2>
+            <p>Item avalible:
+                @if($products !=null)
+                {{count($products)}}
+                @else
+                {{"0"}}
+                @endif
+            </p>
         </div>
         <div class="productPreview">
 
@@ -59,15 +73,15 @@
                 <!-- 
 This is the product html start -->
 
-
-
-                <a href="https://google.com" class="product">
+                @if($products !=null)
+                @foreach (array_slice($products, 0, 4) as $product)
+                <div class="product">
                     <div class="producttop">
                         <div class="producttopInner">
                             <div class="productinfo">
                                 <div class="productinfoleft">
-                                    <p>Shop Type</p>
-                                    <h5>Cafe</h5>
+                                    <p>Product Name</p>
+                                    <h5>{{$product["product_name"]}}</h5>
                                 </div>
                                 <div class="productinforight">
                                     <img src="{{url('font_end_code/image/header.png')}}" alt="">
@@ -78,79 +92,25 @@ This is the product html start -->
                             <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
                         </div>
                     </div>
-                    <div class="productbottom">
-                        <p>Distance: 2 km</p>
-                        <h2>Asad Store</h2>
-                    </div>
-                </a>
-                <a href="https://google.com" class="product">
-                    <div class="producttop">
-                        <div class="producttopInner">
-                            <div class="productinfo">
-                                <div class="productinfoleft">
-                                    <p>Shop Type</p>
-                                    <h5>Cafe</h5>
-                                </div>
-                                <div class="productinforight">
-                                    <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                                </div>
-                            </div>
+                    <div class="product_bottom_outer">
+                        <div class="productbottom">
+                            <p>Distance: 2 km</p>
+                            <h2>{{$product["shopname"]}}</h2>
                         </div>
-                        <div class="producttopInnerBottom">
-                            <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                        </div>
-                    </div>
-                    <div class="productbottom">
-                        <p>Distance: 2 km</p>
-                        <h2>Asad Store</h2>
-                    </div>
-                </a>
-                <a href="https://google.com" class="product">
-                    <div class="producttop">
-                        <div class="producttopInner">
-                            <div class="productinfo">
-                                <div class="productinfoleft">
-                                    <p>Shop Type</p>
-                                    <h5>Cafe</h5>
-                                </div>
-                                <div class="productinforight">
-                                    <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="producttopInnerBottom">
-                            <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                        </div>
-                    </div>
-                    <div class="productbottom">
-                        <p>Distance: 2 km</p>
-                        <h2>Asad Store</h2>
-                    </div>
-                </a>
-                <a href="https://google.com" class="product">
-                    <div class="producttop">
-                        <div class="producttopInner">
-                            <div class="productinfo">
-                                <div class="productinfoleft">
-                                    <p>Shop Type</p>
-                                    <h5>Cafe</h5>
-                                </div>
-                                <div class="productinforight">
-                                    <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="producttopInnerBottom">
-                            <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                        </div>
-                    </div>
-                    <div class="productbottom">
-                        <p>Distance: 2 km</p>
-                        <h2>Asad Store</h2>
-                    </div>
-                </a>
 
+                        <div class="productbottomleft">
+                            <a href="#" class="productbottomleftTop">
+                                <i class="gg-close 2x"></i>
+                            </a>
+                            <a href="#" class="productbottomleftBottom">
+                                <i class="gg-pen"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
+                @endforeach
+                @endif
             </div>
 
         </div>

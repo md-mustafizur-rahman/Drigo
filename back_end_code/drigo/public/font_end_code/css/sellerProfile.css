@@ -11,7 +11,7 @@
 .mainViewOfSeller {
     width: 100%;
     height: 100vh;
-    max-height:none;
+    max-height: none;
     /* background-color: red; */
     display: flex;
     justify-content: center;
@@ -36,13 +36,15 @@
 .mainViewOfSellerRightTop {
     width: 100%;
     height: 40%;
-background-color: red;
+    background-color: red;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
 
+
 }
-.mainViewOfSellerRightTop img{
+
+.mainViewOfSellerRightTop img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -95,21 +97,62 @@ this is most useble start css */
 
 
     height: 75%;
-    border-top-right-radius: 10px;
+    /* border-top-right-radius: 10px; */
     border-top-left-radius: 10px;
 }
 
-.productbottom {
+.product_bottom_outer {
     width: 100%;
-    height: 35%;
+    height: 25%;
+    /* background-color: #8BBA24;  */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.productbottom {
+    width: 85%;
+    height: 100%;
+
+    /* background-color: rgb(0, 255, 179); */
+}
+
+.productbottomleft {
+    width: 15%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.productbottomleftTop {
+    width: 100%;
+    height: 50%;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.productbottomleftBottom {
+    width: 100%;
+    height: 50%;
+    background-color: #8BBA24;
     border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    /* border-bottom-left-radius: 10px; */
 }
 
 .productbottom p {
     margin-top: 20px;
     margin-left: 20px;
     margin-bottom: 10px;
+
 }
 
 .productbottom h2 {
@@ -190,7 +233,7 @@ this is most useble End css */
 .mainViewOfSellerLeftTop {
     display: flex;
     justify-content: center;
- 
+
     width: 100%;
     height: 80%;
     /* background-color: red; */
@@ -262,8 +305,9 @@ this is most useble End css */
     border: 4px white solid;
     transition: 1s;
 }
+
 @media only screen and (max-width: 744px) {
-    .mainViewOfSellerLeft{
+    .mainViewOfSellerLeft {
         display: none;
     }
 }

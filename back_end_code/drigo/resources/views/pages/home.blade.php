@@ -4,8 +4,7 @@
 @section('main-section')
 
 <section class="mainsearch">
-
-
+  
     <div class="searchhome">
         <div class="searchhomeleft">
             <div class="searhomelefttitle">
@@ -14,7 +13,7 @@
             <div class="searchhomeleftsearch">
                 <form class="searchform" action="">
                     <input class="searchfield" placeholder="Search Now...." type="search" name="" id="">
-                    <input type="button" class="searchfieldbtn"  value="Search">
+                    <input type="button" class="searchfieldbtn" value="Search">
 
                 </form>
             </div>

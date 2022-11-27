@@ -15,6 +15,7 @@
     <link href='https://css.gg/user.css' rel='stylesheet'>
     <link href='https://css.gg/menu-left-alt.css' rel='stylesheet'>
     <link href='https://css.gg/close.css' rel='stylesheet'>
+    <link href='https://css.gg/pen.css' rel='stylesheet'>
 
     <link rel="stylesheet" href="{{url('font_end_code/css/header.css')}}">
     <!-- css link of header file end -->

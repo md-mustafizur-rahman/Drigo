@@ -4,6 +4,7 @@
 @section('main-section')
 
 <section class="loginMain">
+
     <div class="loginMainTop">
         <img src="{{url('font_end_code/image/logo.png')}}" alt="">
         <div class="mainItem">

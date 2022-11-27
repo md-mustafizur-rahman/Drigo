@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
-
+use App\Models\Product;
 
 class siteController extends Controller
 {
    public function homePage()
    {
-      return view('pages.home');
+      $products = Product::all()->toArray();
+      view()->share('products', $products);
+      // print_r($products[0]["product_id"]);
+      return view('pages.home', $products);
    }
    public function loginPage()
    {
@@ -28,6 +31,17 @@ class siteController extends Controller
 
    public  function sellerProfile()
    {
+      $products = Product::where(
+         'seller_id',
+         '=',
+         session()->get('seller_seller_id')
+      )->orderBy('product_id', 'DESC')->get()->all();
+      if (!empty($products)) {
+         view()->share('products', $products);
+      }
+      else{
+         view()->share('products',null);
+      }
       return view('pages.sellerProfile');
    }
    public function productUpload()
