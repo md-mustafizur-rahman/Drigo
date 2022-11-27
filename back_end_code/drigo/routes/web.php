@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\dataBaseController;
+use App\Http\Controllers\productDataBaseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\siteController;
 /*
@@ -34,3 +35,8 @@ Route::post('/registration',[dataBaseController::class,'registration']);
 Route::get('/registration/view',[dataBaseController::class,'registrationDataView']);
 Route::post('/login',[dataBaseController::class,'login']);
 // work with databaseController end
+
+
+// work with productDatabaseController end
+Route::post('/addproduct',[productDataBaseController::class,'addProduct']);
+// work with productDatabaseController end

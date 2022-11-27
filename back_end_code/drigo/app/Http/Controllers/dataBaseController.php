@@ -101,19 +101,21 @@ class dataBaseController extends Controller
                 'username',
                 '=',
                 $request->username
-            )->get(['seller_id', 'name', 'username', 'shopname', 'email', 'latitude', 'longitude'])->toArray();
+            )->get(['seller_id', 'name', 'username','category', 'shopname', 'email', 'latitude', 'longitude'])->toArray();
 
             session([
                 'seller_seller_id' => $callData[0]['seller_id'],
                 'seller_name' => $callData[0]['name'],
                 'seller_username' => $callData[0]['username'],
                 'seller_shopname' => $callData[0]['shopname'],
+                'seller_category' => $callData[0]['category'],
                 'seller_sellerEmail' => $callData[0]['email'],
                 'seller_sellerLatitude' => $callData[0]['latitude'],
                 'seller_sellerLongitude' => $callData[0]['longitude'],
             ]);
-
-
+// echo '<pre>';
+//print_r($callData);
+// print_r(session()->get('seller_category'));
 
             // session()->put([
 

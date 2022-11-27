@@ -3,19 +3,29 @@
 
 @section('main-section')
 <section class="productUpload">
+
+    <div class="productClose">
+        <a href="{{url('sellerProfile')}}" class="closeDiv">
+            <i class="gg-close 2x"></i>
+        </a>
+    </div>
+
     <div class="productUploadInner">
         <h2 class="uploadTitle">Upload Product</h2>
-        <form class="uploadForm" action="">
+        <form class="uploadForm" method="post" enctype="multipart/form-data" action="{{url('/')}}/addproduct">
             @csrf
             <div class="formInnerDiv">
-                <input type="text" class="productNameField" placeholder="Product Name" name="" id="">
-                <p class="UploadPageError"> Invalid Item</p>
+                <input type="text" class="productNameField" placeholder="Product Name" value="{{old('product_name')}}" name="product_name" id="">
+                <p class="UploadPageError"> @error('product_name')
+                    {{$message}}
+                    @enderror
+                </p>
             </div>
             <div class="formInnerDiv">
                 <div class="productInenrDivSize">
-                    <input type="number" class="productSizeField" placeholder="Product Name" name="" id="">
+                    <input type="number" value="{{old('product_size')}}" class="productSizeField" placeholder="Product Size" name="product_size" id="">
 
-                    <select class="ProductSizeConstans">
+                    <select name="product_size_constans" class="ProductSizeConstans" >
                         <option>kg</option>
                         <option>g</option>
                         <option>liter</option>
@@ -26,21 +36,30 @@
 
 
                 </div>
-                <p class="UploadPageError"> Invalid Item</p>
+                <p class="UploadPageError"> @error('product_size')
+                    {{$message}}
+                    @enderror
+                </p>
             </div>
             <div class="formInnerDiv">
                 <div class="productInenrTextArea">
-                    <textarea class="UploadInnerTextArea"></textarea>
+                    <textarea name="product_details" class="UploadInnerTextArea"></textarea>
                 </div>
-                <p class="UploadPageError"> Invalid Item</p>
+                <p class="UploadPageError">  @error('product_details')
+                                {{$message}}
+                                @enderror</p>
             </div>
             <div class="formInnerDivPrice">
-                <input type="number" class="productNameField" placeholder="Price" name="" id="">
-                <p class="UploadPageError"> Invalid Item</p>
+                <input type="number" value="{{old('price')}}"  class="productNameField" placeholder="Price" name="price" id="">
+                <p class="UploadPageError"> @error('price')
+                                {{$message}}
+                                @enderror</p>
             </div>
             <div class="fileUpload">
-                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
-
+                <input type="file" id="avatar"  name="image" accept="image/png, image/jpeg">
+                <p class="UploadPageError"> @error('image')
+                                {{$message}}
+                                @enderror</p>
             </div>
             <button class="UploadBtn">Submit</button>
         </form>
