@@ -10,7 +10,6 @@ class productDataBaseController extends Controller
 {
     public function addProduct(Request $request)
     {
-
         $request->validate([
             'product_name' => 'required',
             'product_size' => 'required',
@@ -20,8 +19,6 @@ class productDataBaseController extends Controller
             'image' => 'required',
 
         ]);
-
-
 
         // echo '<pre>';
         // print_r($request->all());
@@ -34,7 +31,7 @@ class productDataBaseController extends Controller
         $product->product_size = $request['product_size'] . ' ' . $request['product_size_constans'];
         $product->product_details = $request['product_details'];
         $product->product_price = $request['price'];
-        $product->product_Image =   $fileName ;
+        $product->product_Image =   $fileName;
 
         $product->seller_id = session()->get('seller_seller_id');
         $product->seller_name = session()->get('seller_name');
@@ -51,19 +48,26 @@ class productDataBaseController extends Controller
         // $result=$request['product_size'].' '.$request['product_size_constans'];
         // echo $result;
 
-    //     echo '<pre>';
-    //     print_r(
-            
-    //        [ session()->get('seller_seller_id'),
-    //         session()->get('seller_name'),
-    //         session()->get('seller_shopname'),
-    //         session()->get('seller_category'),
-    //         session()->get('seller_sellerLatitude'),
-    //         session()->get('seller_sellerLongitude'),
-            
-    //         ]
-    
-    // );
-    // print_r(session()->all());
+        //     echo '<pre>';
+        //     print_r(
+
+        //        [ session()->get('seller_seller_id'),
+        //         session()->get('seller_name'),
+        //         session()->get('seller_shopname'),
+        //         session()->get('seller_category'),
+        //         session()->get('seller_sellerLatitude'),
+        //         session()->get('seller_sellerLongitude'),
+
+        //         ]
+
+        // );
+        // print_r(session()->all());
+    }
+
+    public function viewProduct()
+    {
+        $getProduct = Product::all();
+        echo "<pre>";
+        print_r($getProduct);
     }
 }
