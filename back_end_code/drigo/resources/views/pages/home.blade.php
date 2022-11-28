@@ -4,7 +4,7 @@
 @section('main-section')
 
 <section class="mainsearch">
-  
+
     <div class="searchhome">
         <div class="searchhomeleft">
             <div class="searhomelefttitle">
@@ -38,231 +38,40 @@ this is most useble html css  -->
 
             <!-- 
 This is the product html start -->
+            <!-- {{$products}} -->
+            @php
+            $totalHomeItemCount= 0;
+            @endphp
+            @if($products !=null)
+            @foreach ($products as $product)
+            @if( $totalHomeItemCount<=9) <a href="{{('sellerProfile')}}" class="product">
+                <div class="producttop">
+                    <div class="producttopInner">
+                        <div class="productinfo">
+                            <div class="productinfoleft">
+                                <p>{{$product->product_size}}</p>
+                                <h5>{{$product->product_name}}</h5>
+                            </div>
+                            <div class="productinforight">
+                                <img src="{{url('font_end_code/image/header.png')}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="producttopInnerBottom">
+                        <img src="{{asset('/storage/uploads/'.$product->product_Image)}}" alt="">
+                    </div>
+                </div>
+                <div class="productbottom">
+                    <p>{{$product->product_price}} tk</p>
+                    <h2>{{$product["shopname"]}}</h2>
+                </div>
+                </a>
 
-            <a href="{{('sellerProfile')}}" class="product">
-                <div class="producttop">
-                    <div class="producttopInner">
-                        <div class="productinfo">
-                            <div class="productinfoleft">
-                                <p>Shop Type</p>
-                                <h5>Cafe</h5>
-                            </div>
-                            <div class="productinforight">
-                                <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="producttopInnerBottom">
-                        <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                    </div>
-                </div>
-                <div class="productbottom">
-                    <p>Distance: 2 km</p>
-                    <h2>Asad Store</h2>
-                </div>
-            </a>
-            <a href="{{('sellerProfile')}}" class="product">
-                <div class="producttop">
-                    <div class="producttopInner">
-                        <div class="productinfo">
-                            <div class="productinfoleft">
-                                <p>Shop Type</p>
-                                <h5>Cafe</h5>
-                            </div>
-                            <div class="productinforight">
-                                <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="producttopInnerBottom">
-                        <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                    </div>
-                </div>
-                <div class="productbottom">
-                    <p>Distance: 2 km</p>
-                    <h2>Asad Store</h2>
-                </div>
-            </a>
-            <a href="{{('sellerProfile')}}" class="product">
-                <div class="producttop">
-                    <div class="producttopInner">
-                        <div class="productinfo">
-                            <div class="productinfoleft">
-                                <p>Shop Type</p>
-                                <h5>Cafe</h5>
-                            </div>
-                            <div class="productinforight">
-                                <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="producttopInnerBottom">
-                        <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                    </div>
-                </div>
-                <div class="productbottom">
-                    <p>Distance: 2 km</p>
-                    <h2>Asad Store</h2>
-                </div>
-            </a>
-            <a href="{{('sellerProfile')}}" class="product">
-                <div class="producttop">
-                    <div class="producttopInner">
-                        <div class="productinfo">
-                            <div class="productinfoleft">
-                                <p>Shop Type</p>
-                                <h5>Cafe</h5>
-                            </div>
-                            <div class="productinforight">
-                                <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="producttopInnerBottom">
-                        <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                    </div>
-                </div>
-                <div class="productbottom">
-                    <p>Distance: 2 km</p>
-                    <h2>Asad Store</h2>
-                </div>
-            </a>
-            <a href="{{('sellerProfile')}}" class="product">
-                <div class="producttop">
-                    <div class="producttopInner">
-                        <div class="productinfo">
-                            <div class="productinfoleft">
-                                <p>Shop Type</p>
-                                <h5>Cafe</h5>
-                            </div>
-                            <div class="productinforight">
-                                <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="producttopInnerBottom">
-                        <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                    </div>
-                </div>
-                <div class="productbottom">
-                    <p>Distance: 2 km</p>
-                    <h2>Asad Store</h2>
-                </div>
-            </a>
-            <a href="{{('sellerProfile')}}" class="product">
-                <div class="producttop">
-                    <div class="producttopInner">
-                        <div class="productinfo">
-                            <div class="productinfoleft">
-                                <p>Shop Type</p>
-                                <h5>Cafe</h5>
-                            </div>
-                            <div class="productinforight">
-                                <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="producttopInnerBottom">
-                        <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                    </div>
-                </div>
-                <div class="productbottom">
-                    <p>Distance: 2 km</p>
-                    <h2>Asad Store</h2>
-                </div>
-            </a>
-            <a href="{{('sellerProfile')}}" class="product">
-                <div class="producttop">
-                    <div class="producttopInner">
-                        <div class="productinfo">
-                            <div class="productinfoleft">
-                                <p>Shop Type</p>
-                                <h5>Cafe</h5>
-                            </div>
-                            <div class="productinforight">
-                                <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="producttopInnerBottom">
-                        <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                    </div>
-                </div>
-                <div class="productbottom">
-                    <p>Distance: 2 km</p>
-                    <h2>Asad Store</h2>
-                </div>
-            </a>
-            <a href="{{('sellerProfile')}}" class="product">
-                <div class="producttop">
-                    <div class="producttopInner">
-                        <div class="productinfo">
-                            <div class="productinfoleft">
-                                <p>Shop Type</p>
-                                <h5>Cafe</h5>
-                            </div>
-                            <div class="productinforight">
-                                <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="producttopInnerBottom">
-                        <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                    </div>
-                </div>
-                <div class="productbottom">
-                    <p>Distance: 2 km</p>
-                    <h2>Asad Store</h2>
-                </div>
-            </a>
-            <a href="{{('sellerProfile')}}" class="product">
-                <div class="producttop">
-                    <div class="producttopInner">
-                        <div class="productinfo">
-                            <div class="productinfoleft">
-                                <p>Shop Type</p>
-                                <h5>Cafe</h5>
-                            </div>
-                            <div class="productinforight">
-                                <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="producttopInnerBottom">
-                        <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                    </div>
-                </div>
-                <div class="productbottom">
-                    <p>Distance: 2 km</p>
-                    <h2>Asad Store</h2>
-                </div>
-            </a>
-            <a href="{{('sellerProfile')}}" class="product">
-                <div class="producttop">
-                    <div class="producttopInner">
-                        <div class="productinfo">
-                            <div class="productinfoleft">
-                                <p>Shop Type</p>
-                                <h5>Cafe</h5>
-                            </div>
-                            <div class="productinforight">
-                                <img src="{{url('font_end_code/image/header.png')}}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="producttopInnerBottom">
-                        <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
-                    </div>
-                </div>
-                <div class="productbottom">
-                    <p>Distance: 2 km</p>
-                    <h2>Asad Store</h2>
-                </div>
-            </a>
-
-
-
-            <!-- 
+                @endif
+                @php $totalHomeItemCount++; @endphp
+                @endforeach
+                @endif
+                <!-- 
 This is the product html end -->
 
         </div>

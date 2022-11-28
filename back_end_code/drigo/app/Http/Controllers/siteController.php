@@ -10,9 +10,15 @@ class siteController extends Controller
 {
    public function homePage()
    {
-      $products = Product::all()->toArray();
-      view()->share('products', $products);
+      $products = Product::all()->sortDesc();
+      if (!empty($products)) {
+         view()->share('products', $products);
+      } else {
+         view()->share('products', null);
+      }
       // print_r($products[0]["product_id"]);
+      // echo "<pre>";
+      // print_r($products->toArray());
       return view('pages.home', $products);
    }
    public function loginPage()
