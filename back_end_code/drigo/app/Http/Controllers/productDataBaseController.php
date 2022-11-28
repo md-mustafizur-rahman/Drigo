@@ -118,25 +118,67 @@ class productDataBaseController extends Controller
     }
     public function updateProduct(Request $request)
     {
-        echo "<pre>";
-        print_r($request->get('edit_id'));
+        // echo "<pre>";
+        // print_r($request->get('edit_id'));
 
-        // $request->validate([
-        //     'product_name' => 'required',
-        //     'product_size' => 'required',
-        //     'product_size_constans' => 'required',
-        //     'product_details' => 'required|max:368',
-        //     'price' => 'required ',
-        //     'image' => 'required',
-        // ]);
+
+        $request->validate([
+            'product_name' => 'required',
+            'product_size' => 'required',
+            'product_size_constans' => 'required',
+            'product_details' => 'required|max:368',
+            'price' => 'required ',
+            'image' => 'required',
+        ]);
+
+
+
+        // face old image name
+        $callProductImage = Product::where(
+            'product_id',
+            '=',
+            $request->get('edit_id')
+        )->get('product_Image')->toArray();
+
+        // print_r($callProductImage);
+        // face old image name
+
+        // delete old image
+        $ImageDeleteUrl = $callProductImage[0]["product_Image"];
+
+        if (Storage::disk('local')->exists('/public/uploads/' . $ImageDeleteUrl)) {
+            Storage::delete('/public/uploads/' . $ImageDeleteUrl);
+        }
+        // delete old image
+
+
+
+        //add new image
+        $fileName = time() . "-drigo." . $request->file('image')->getClientOriginalExtension();
+        $request->file('image')->storeAs('public/uploads', $fileName);
+        print_r($fileName);
+        //add new image
+
+        $editProducts = Product::find($request->get('edit_id'));
+
+        $editProducts->product_name = $request['product_name'];
+        $editProducts->product_size = $request['product_size'] . ' ' . $request['product_size_constans'];
+        $editProducts->product_details = $request['product_details'];
+        $editProducts->product_price = $request['price'];
+        $editProducts->product_Image =   $fileName;
+        $editProducts->save();
+
+
+        // echo "<pre>";
+        // print_r($editProducts);
+
 
         // // echo '<pre>';
         // // print_r($request->all());
-        // $fileName = time() . "-drigo." . $request->file('image')->getClientOriginalExtension();
-        // $request->file('image')->storeAs('public/uploads', $fileName);
-        // print_r($fileName);
+
 
 
         // echo "sabbir";
+        return redirect('/sellerProfile');
     }
 }
