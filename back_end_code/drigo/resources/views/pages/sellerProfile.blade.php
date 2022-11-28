@@ -22,6 +22,12 @@
                         {{"unknown"}}
                         @endif
                     </h2>
+                    <h3>@if(Session::get('seller_category'))
+                        {{session()->get('seller_category')}}
+                        @else
+                        {{"unknown"}}
+                        @endif
+                    </h3>
                     <p>@if(Session::get('seller_username'))
                         {{session()->get('seller_username')}}
                         @else
@@ -96,7 +102,7 @@ This is the product html start -->
                     <div class="product_bottom_outer">
                         <div class="productbottom">
                             <p>{{$product->product_price}} tk</p>
-                            <h2>{{$product["shopname"]}}</h2>
+                            <h2>{{$product->shopname}}</h2>
                         </div>
 
                         <div class="productbottomleft">

@@ -28,6 +28,13 @@ class siteController extends Controller
    public function logoutPage()
    {
       session()->flush();
+      $products = Product::all()->sortDesc();
+      if (!empty($products)) {
+         view()->share('products', $products);
+      } else {
+         view()->share('products', null);
+      }
+
       return view('pages.home');
    }
    public  function registrationPage()
