@@ -81,7 +81,7 @@ This is the product html start -->
                             <div class="productinfo">
                                 <div class="productinfoleft">
                                     <p>Product Name</p>
-                                    <h5>{{$product["product_name"]}}</h5>
+                                    <h5>{{$product->product_name}}</h5>
                                 </div>
                                 <div class="productinforight">
                                     <img src="{{url('font_end_code/image/header.png')}}" alt="">
@@ -89,7 +89,8 @@ This is the product html start -->
                             </div>
                         </div>
                         <div class="producttopInnerBottom">
-                            <img src="{{url('/font_end_code/image/cafe.jpg')}}" alt="">
+
+                            <img src="{{asset('/storage/uploads/'.$product->product_Image)}}" alt="">
                         </div>
                     </div>
                     <div class="product_bottom_outer">
@@ -99,7 +100,7 @@ This is the product html start -->
                         </div>
 
                         <div class="productbottomleft">
-                            <a href="#" class="productbottomleftTop">
+                            <a href="{{url('/deleteProduct/')}}/{{$product->product_id}}" class="productbottomleftTop">
                                 <i class="gg-close 2x"></i>
                             </a>
                             <a href="#" class="productbottomleftBottom">

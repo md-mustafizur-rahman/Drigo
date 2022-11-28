@@ -21,23 +21,23 @@ use App\Http\Controllers\siteController;
 
 // work with siteController start
 
-Route::get('/',[siteController::class,'homePage']);
-Route::get('/login',[siteController::class,'loginPage']);
-Route::get('/logout',[siteController::class,'logoutPage']);
-Route::get('/registration',[siteController::class,'registrationPage']);
-Route::get('/sellerProfile',[siteController::class,'sellerProfile']);
-Route::get('/upload',[siteController::class,'productUpload']);
+Route::get('/', [siteController::class, 'homePage']);
+Route::get('/login', [siteController::class, 'loginPage']);
+Route::get('/logout', [siteController::class, 'logoutPage']);
+Route::get('/registration', [siteController::class, 'registrationPage']);
+Route::get('/sellerProfile', [siteController::class, 'sellerProfile']);
+Route::get('/upload', [siteController::class, 'productUpload']);
 // work with siteController end
 
 // work with databaseController start
-Route::get('/seller',[dataBaseController::class,'seller']);
-Route::post('/registration',[dataBaseController::class,'registration']);
-Route::get('/registration/view',[dataBaseController::class,'registrationDataView']);
-Route::post('/login',[dataBaseController::class,'login']);
+Route::get('/seller', [dataBaseController::class, 'seller']);
+Route::post('/registration', [dataBaseController::class, 'registration']);
+Route::get('/registration/view', [dataBaseController::class, 'registrationDataView']);
+Route::post('/login', [dataBaseController::class, 'login']);
 // work with databaseController end
 
 
 // work with productDatabaseController end
-Route::post('/addproduct',[productDataBaseController::class,'addProduct']);
-Route::get('/viewProduct',[productDataBaseController::class,'viewProduct']);
+Route::post('/addproduct', [productDataBaseController::class, 'addProduct']);
+Route::get('/deleteProduct/{id}', [productDataBaseController::class, 'deleteProduct']);
 // work with productDatabaseController end

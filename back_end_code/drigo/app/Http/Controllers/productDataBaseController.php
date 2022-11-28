@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Seller;
 use App\Models\Product;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+
+use function PHPUnit\Framework\isNull;
 
 class productDataBaseController extends Controller
 {
@@ -22,7 +26,8 @@ class productDataBaseController extends Controller
 
         // echo '<pre>';
         // print_r($request->all());
-        $fileName = $request->file('image')->store('public/uploads');
+        $fileName = time() . "-drigo." . $request->file('image')->getClientOriginalExtension();
+        $request->file('image')->storeAs('public/uploads', $fileName);
         print_r($fileName);
 
         $product = new Product;
@@ -63,8 +68,40 @@ class productDataBaseController extends Controller
         // );
         // print_r(session()->all());
     }
+    public function deleteProduct($id)
+    {
 
-  
-     
-    
+        // Call image Link
+        $callProductImage = Product::where(
+            'product_id',
+            '=',
+            $id
+        )->get('product_Image')->toArray();
+
+
+        // echo "<pre>";
+        // print_r($callProductImage[0]["product_Image"]);
+
+
+
+        // Delete Image image Link
+        $ImageDeleteUrl = $callProductImage[0]["product_Image"];
+
+        if (Storage::disk('local')->exists('/public/uploads/' . $ImageDeleteUrl)) {
+            Storage::delete('/public/uploads/' . $ImageDeleteUrl);
+        }
+
+
+        // Delete item Form database
+        $product = Product::find($id);
+        if (!is_null($product)) {
+            $product->delete();
+        }
+
+        // echo "<pre>";
+        // print_r($product);
+
+
+        return redirect('/sellerProfile');
+    }
 }
