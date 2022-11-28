@@ -27,6 +27,7 @@ Route::get('/logout', [siteController::class, 'logoutPage']);
 Route::get('/registration', [siteController::class, 'registrationPage']);
 Route::get('/sellerProfile', [siteController::class, 'sellerProfile']);
 Route::get('/upload', [siteController::class, 'productUpload']);
+Route::get('/sellerAllProduct', [siteController::class, 'sellerAllProduct']);
 // work with siteController end
 
 // work with databaseController start

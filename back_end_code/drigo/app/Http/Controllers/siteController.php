@@ -47,4 +47,18 @@ class siteController extends Controller
    {
       return view('pages.productUpload');
    }
+   public  function sellerAllProduct()
+   {
+      $products = Product::where(
+         'seller_id',
+         '=',
+         session()->get('seller_seller_id')
+      )->orderBy('product_id', 'DESC')->get()->all();
+      if (!empty($products)) {
+         view()->share('products', $products);
+      } else {
+         view()->share('products', null);
+      }
+      return view('pages.sellerAllProduct');
+   }
 }

@@ -80,7 +80,7 @@ This is the product html start -->
                         <div class="producttopInner">
                             <div class="productinfo">
                                 <div class="productinfoleft">
-                                    <p>Product Name</p>
+                                    <p>{{$product->product_size}}</p>
                                     <h5>{{$product->product_name}}</h5>
                                 </div>
                                 <div class="productinforight">
@@ -95,7 +95,7 @@ This is the product html start -->
                     </div>
                     <div class="product_bottom_outer">
                         <div class="productbottom">
-                            <p>Distance: 2 km</p>
+                            <p>{{$product->product_price}} tk</p>
                             <h2>{{$product["shopname"]}}</h2>
                         </div>
 
@@ -112,10 +112,11 @@ This is the product html start -->
 
                 @endforeach
                 @endif
+                <!-- This is the product html end -->
             </div>
 
         </div>
-        <a href="https://google.com" class="moreItem">
+        <a href="{{url('/sellerAllProduct')}}" class="moreItem">
             <p>More>></p>
         </a>
 
