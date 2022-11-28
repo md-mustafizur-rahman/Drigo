@@ -21,7 +21,6 @@ class productDataBaseController extends Controller
             'product_details' => 'required|max:368',
             'price' => 'required ',
             'image' => 'required',
-
         ]);
 
         // echo '<pre>';
