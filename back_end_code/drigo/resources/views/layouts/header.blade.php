@@ -4,7 +4,7 @@
 
 
             <a href="{{url('/')}}" class="headerleftlogo">
-                <img src="{{('font_end_code/image/logo.png')}}" alt="poor internet">
+                <img src="{{url('font_end_code/image/logo.png')}}" alt="poor internet">
                 <p class="headerTitleColor">D</p>
                 <p class="headerTitle">r</p>
                 <p class="headerTitleColor">i</p>

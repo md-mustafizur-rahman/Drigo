@@ -38,9 +38,8 @@ class siteController extends Controller
       )->orderBy('product_id', 'DESC')->get()->all();
       if (!empty($products)) {
          view()->share('products', $products);
-      }
-      else{
-         view()->share('products',null);
+      } else {
+         view()->share('products', null);
       }
       return view('pages.sellerProfile');
    }

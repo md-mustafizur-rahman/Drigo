@@ -39,5 +39,7 @@ Route::post('/login', [dataBaseController::class, 'login']);
 
 // work with productDatabaseController end
 Route::post('/addproduct', [productDataBaseController::class, 'addProduct']);
+Route::post('/updateProduct', [productDataBaseController::class, 'updateProduct']);
 Route::get('/deleteProduct/{id}', [productDataBaseController::class, 'deleteProduct']);
+Route::get('/editProduct/{id}', [productDataBaseController::class, 'editProduct']);
 // work with productDatabaseController end

@@ -103,7 +103,7 @@ This is the product html start -->
                             <a href="{{url('/deleteProduct/')}}/{{$product->product_id}}" class="productbottomleftTop">
                                 <i class="gg-close 2x"></i>
                             </a>
-                            <a href="#" class="productbottomleftBottom">
+                            <a href="{{url('/editProduct/')}}/{{$product->product_id}}" class="productbottomleftBottom">
                                 <i class="gg-pen"></i>
                             </a>
                         </div>

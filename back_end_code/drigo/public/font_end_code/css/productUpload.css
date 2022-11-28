@@ -7,6 +7,9 @@
     list-style: none;
     outline: none;
 }
+.product_edit_hide{
+    display: none;
+}
 
 .productUpload {
     width: 100%;

@@ -11,14 +11,19 @@
     </div>
 
     <div class="productUploadInner">
-
-        <h2 class="uploadTitle"> 
-        AddProduct
+        <h2 class="uploadTitle">
+            Update Product
         </h2>
-        <form class="uploadForm" method="post" enctype="multipart/form-data" action="{{url('/')}}/addproduct">
+        <form class="uploadForm" method="post" enctype="multipart/form-data" action="{{url('/')}}/updateProduct">
             @csrf
+            <!-- Here these lower line have no work it only send the product edit id -->
+            <select class="product_edit_hide" name="edit_id">
+                <option>{{$editProducts->product_id}}</option>
+            </select>
+            <!-- Here these upper line have no work it only send the product edit id -->
+
             <div class="formInnerDiv">
-                <input type="text" class="productNameField" placeholder="Product Name" value="{{old('product_name')}}" name="product_name" id="">
+                <input type="text" class="productNameField" placeholder="Product Name" value="{{$editProducts->product_name}}" name="product_name" id="">
                 <p class="UploadPageError"> @error('product_name')
                     {{$message}}
                     @enderror
@@ -26,7 +31,9 @@
             </div>
             <div class="formInnerDiv">
                 <div class="productInenrDivSize">
-                    <input type="number" value="{{old('product_size')}}" class="productSizeField" placeholder="Product Size" name="product_size" id="">
+                    <input type="number" value="{{
+                        
+                        $getOnlySizeWithInteger=(int) filter_var($editProducts->product_size,FILTER_SANITIZE_NUMBER_INT)}}" class="productSizeField" placeholder="Product Size" name="product_size" id="">
 
                     <select name="product_size_constans" class="ProductSizeConstans">
                         <option>kg</option>
@@ -46,7 +53,7 @@
             </div>
             <div class="formInnerDiv">
                 <div class="productInenrTextArea">
-                    <textarea name="product_details" class="UploadInnerTextArea"></textarea>
+                    <textarea name="product_details" class="UploadInnerTextArea">{{$editProducts->product_details}}</textarea>
                 </div>
                 <p class="UploadPageError"> @error('product_details')
                     {{$message}}
@@ -54,7 +61,7 @@
                 </p>
             </div>
             <div class="formInnerDivPrice">
-                <input type="number" value="{{old('price')}}" class="productNameField" placeholder="Price" name="price" id="">
+                <input type="number" value="{{$editProducts->product_price}}" class="productNameField" placeholder="Price" name="price" id="">
                 <p class="UploadPageError"> @error('price')
                     {{$message}}
                     @enderror

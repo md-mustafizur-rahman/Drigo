@@ -103,4 +103,40 @@ class productDataBaseController extends Controller
 
         return redirect('/sellerProfile');
     }
+    public function editProduct($id)
+    {
+        $editProducts = Product::find($id);
+        // echo "<pre>";
+        // print_r($editProducts);
+
+        if (!empty($editProducts)) {
+            view()->share('editProducts', $editProducts);
+        } else {
+            view()->share('editProducts', null);
+        }
+        return view('pages.productUpdate');
+    }
+    public function updateProduct(Request $request)
+    {
+        echo "<pre>";
+        print_r($request->get('edit_id'));
+
+        // $request->validate([
+        //     'product_name' => 'required',
+        //     'product_size' => 'required',
+        //     'product_size_constans' => 'required',
+        //     'product_details' => 'required|max:368',
+        //     'price' => 'required ',
+        //     'image' => 'required',
+        // ]);
+
+        // // echo '<pre>';
+        // // print_r($request->all());
+        // $fileName = time() . "-drigo." . $request->file('image')->getClientOriginalExtension();
+        // $request->file('image')->storeAs('public/uploads', $fileName);
+        // print_r($fileName);
+
+
+        // echo "sabbir";
+    }
 }
