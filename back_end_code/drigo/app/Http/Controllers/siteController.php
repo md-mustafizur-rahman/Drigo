@@ -95,4 +95,21 @@ class siteController extends Controller
       }
       return view('pages.searchProduct', ['searchKey' => $search]);
    }
+   public function productDetailsPage($id)
+   {
+      $products = Product::where(
+         'product_id',
+         '=',
+         $id
+      )->get()->all();
+      if (!empty($products)) {
+         view()->share('products', $products);
+      } else {
+         view()->share('products', null);
+      }
+
+      // echo "<pre>";
+      // print_r($products[0]->product_price);
+      return view('pages.productDetails');
+   }
 }

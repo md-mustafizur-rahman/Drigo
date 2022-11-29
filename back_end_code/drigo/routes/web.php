@@ -29,6 +29,7 @@ Route::get('/sellerProfile', [siteController::class, 'sellerProfile']);
 Route::get('/upload', [siteController::class, 'productUpload']);
 Route::get('/sellerAllProduct', [siteController::class, 'sellerAllProduct']);
 Route::get('/search', [siteController::class, 'searchProduct']);
+Route::get('/productDetails/{id}', [siteController::class, 'productDetailsPage']);
 // work with siteController end
 
 // work with databaseController start

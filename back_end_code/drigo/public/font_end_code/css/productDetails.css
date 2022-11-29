@@ -74,15 +74,20 @@
 }
 
 .mainContentLeftBottom {
+    width: 100%;
+    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* background-color: red; */
 }
 
 .mainContentLeftBottom img {
-    width: 90%;
+    width: 100%;
+    height: 100%;
     border-radius: 20px;
     box-shadow: 2px 2px 5px black;
+    object-fit: contain;
 }
 
 .mainContentRight {
@@ -178,9 +183,11 @@
     justify-content: center;
     align-items: center;
 }
-.mainContentRightInnerTopLast a{
+
+.mainContentRightInnerTopLast a {
     width: 60%;
 }
+
 .mainContentRightInnerTopLast button {
     font-size: 1.2rem;
     width: 100%;
@@ -188,7 +195,7 @@
     background-color: #8BBA24;
     color: white;
     border-radius: 10px;
-    border: 3px solid #8BBA24 ;
+    border: 3px solid #8BBA24;
     outline: none;
     cursor: pointer;
 }
@@ -200,39 +207,47 @@
     background-color: white;
     color: black;
     border-radius: 10px;
-    border: 3px  solid #8BBA24;
+    border: 3px solid #8BBA24;
     outline: none;
     transition: 1s;
 }
+
 @media only screen and (max-width: 903px) {
 
-    .mainContentInner{
+    .mainContentInner {
         flex-direction: column;
     }
-    .mainContentLeft{
+
+    .mainContentLeft {
         margin-bottom: 50px;
     }
-    .mainContentLeft{
+
+    .mainContentLeft {
         width: 100%;
     }
+
     .mainContentLeftBottom img {
         width: 100%;
     }
-    .mainContentRight{
+
+    .mainContentRight {
         width: 100%;
     }
 }
+
 @media only screen and (max-width: 281px) {
-    .mainContentRightInnerTopMidInner h2{
+    .mainContentRightInnerTopMidInner h2 {
         margin-bottom: 5px;
         margin-top: 20px;
     }
 }
+
 @media only screen and (max-width: 253px) {
-    .mainContentRightInnerTopMidInner h2{
-      font-size: 1rem;
+    .mainContentRightInnerTopMidInner h2 {
+        font-size: 1rem;
     }
-    .mainContentRightInnerTopMidInner p{
+
+    .mainContentRightInnerTopMidInner p {
         font-size: 0.8rem;
     }
 }

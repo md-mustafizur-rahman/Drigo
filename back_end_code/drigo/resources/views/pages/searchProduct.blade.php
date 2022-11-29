@@ -24,7 +24,7 @@ This is the product html start -->
             @foreach ($products as $product)
 
             @if( $totalHomeItemCount<=40) @if(session()->get('seller_seller_id')== $product->seller_id)
-                <div class="product">
+                <div class="product" style="cursor:initial;">
                     <div class="producttop">
                         <div class="producttopInner">
                             <div class="productinfo">
@@ -60,7 +60,7 @@ This is the product html start -->
                     </div>
                 </div>
                 @else
-                <a href="{{('sellerProfile')}}" class="product">
+                <a href="{{url('productDetails/')}}/{{$product->product_id}}" class="product">
                     <div class="producttop">
                         <div class="producttopInner">
                             <div class="productinfo">
