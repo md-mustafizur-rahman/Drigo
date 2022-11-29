@@ -160,7 +160,7 @@ This is the product html start -->
                 @if($products !=null)
                 @foreach ($products as $product)
 
-                @if( $totalHomeItemCount<=3) @if(session()->get('seller_seller_id')== $product->seller_id)
+                @if( $totalHomeItemCount<=4) @if(session()->get('seller_seller_id')== $product->seller_id)
                     <div class="product">
                         <div class="producttop">
                             <div class="producttopInner">
