@@ -208,7 +208,7 @@
 
 .headersearchbtn {
     display: flex;
-
+    cursor: pointer;
     width: 64px;
     border: none;
     border-radius: 1px;

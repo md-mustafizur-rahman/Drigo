@@ -46,6 +46,7 @@ This is the product html start -->
                     <div class="productbottom">
                         <p>{{$product->product_price}} tk</p>
                         <h2>{{$product["shopname"]}}</h2>
+                        <p>{{$product->created_at->diffForHumans()}}</p>
                     </div>
 
                     <div class="productbottomleft">

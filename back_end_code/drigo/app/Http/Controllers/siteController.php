@@ -74,4 +74,25 @@ class siteController extends Controller
       }
       return view('pages.sellerAllProduct');
    }
+   public  function searchProduct(Request $request)
+   {
+      // echo "<pre>";
+      $search = $request->search ?? "";
+      if ($search != "") {
+         $products = Product::where('product_name', 'Like', "%$search%")->orWhere('shopname', 'Like', "%$search%")->orderBy('product_id', 'DESC')->get()->all();
+         if (!empty($products)) {
+            view()->share('products', $products);
+         } else {
+            view()->share('products', null);
+         }
+      } else {
+         $products = Product::all()->sortDesc();
+         if (!empty($products)) {
+            view()->share('products', $products);
+         } else {
+            view()->share('products', null);
+         }
+      }
+      return view('pages.searchProduct', ['searchKey' => $search]);
+   }
 }

@@ -11,9 +11,9 @@
                 <h2>Search Your Item</h2>
             </div>
             <div class="searchhomeleftsearch">
-                <form class="searchform" action="">
-                    <input class="searchfield" placeholder="Search Now...." type="search" name="" id="">
-                    <input type="button" class="searchfieldbtn" value="Search">
+                <form class="searchform" action="{{url('/search')}}" method="GET">
+                    <input class="searchfield" placeholder="Search Now...." type="search" name="search" id="">
+                    <button class="searchfieldbtn">Search</button>
 
                 </form>
             </div>
@@ -63,7 +63,9 @@ This is the product html start -->
                 </div>
                 <div class="productbottom">
                     <p>{{$product->product_price}} tk</p>
-                    <h2>{{$product["shopname"]}}</h2>
+                    <p>{{$product->created_at->diffForHumans()}}</p>
+                    <h4>{{$product["shopname"]}}</h4>
+                    <p>Duration: </p>
                 </div>
                 </a>
 
@@ -137,7 +139,9 @@ This is the product html start -->
                     </div>
                     <div class="productbottom">
                         <p>{{$product->product_price}} tk</p>
-                        <h2>{{$product["shopname"]}}</h2>
+                        <p>{{$product->created_at->diffForHumans()}}</p>
+                        <h4>{{$product["shopname"]}}</h4>
+                        <p>Duration: </p>
                     </div>
                     </a>
 

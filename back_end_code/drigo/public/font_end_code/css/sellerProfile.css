@@ -81,7 +81,7 @@ this is most useble start css */
     margin-left: 8px;
     margin-right: 8px;
     width: 280px;
-    height: 400px;
+    height: 430px;
     border-radius: 10px;
     box-shadow: 2px 2px 10px black;
     cursor: pointer;
@@ -149,13 +149,14 @@ this is most useble start css */
 }
 
 .productbottom p {
-    margin-top: 20px;
+    font-size: 0.9rem;
+    margin-top: 2px;
     margin-left: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
 
 }
 
-.productbottom h2 {
+.productbottom h4 {
     margin-left: 20px;
 }
 
@@ -171,15 +172,15 @@ this is most useble start css */
 
 .productinfoleft {
     border-top-left-radius: 10px;
-    width: 50%;
+    width: 80%;
     height: 100%;
     /* background-color: aquamarine; */
 }
 
 .productinforight {
     border-top-right-radius: 10px;
-    width: 50%;
-    height: 100%;
+    width: 20%;
+    height: 20%;
     /* background-color: rgb(150, 127, 255); */
 }
 

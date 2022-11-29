@@ -15,9 +15,9 @@
 
             <div class="headerleftsearch">
 
-                <form class="headerleftsearchform" action="">
-                    <input class="headersearchfield" type="search" name="" id="" placeholder="Search Your item.....">
-                    <input class="headersearchbtn" type="button" value="">
+                <form class="headerleftsearchform" action="{{url('/search')}}" method="GET">
+                    <input class="headersearchfield" type="search" name="search" id="" placeholder="Search Your item.....">
+                    <button class="headersearchbtn"> </button>
                 </form>
             </div>
         </div>
