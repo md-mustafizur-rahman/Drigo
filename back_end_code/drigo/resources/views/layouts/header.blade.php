@@ -76,17 +76,17 @@
     </div>
     <div class="headerbottom">
         <ul>
-            <li><a href="#">Cafe</a></li>
-            <li><a href="#">Book Store</a></li>
-            <li><a href="#">Hotel</a></li>
-            <li><a href="#">Grocery</a></li>
-            <li><a href="#">Electronic Device</a></li>
-            <li><a href="#">Baby Food</a></li>
-            <li><a href="#">Medicine</a></li>
-            <li><a href="#">Laundry Store</a></li>
-            <li><a href="#">Computer Shop</a></li>
-            <li><a href="#">Resturent </a></li>
-            <li><a href="#">Bank</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Cafe'}}">Cafe</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Book Store'}}">Book Store</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Hotel'}}">Hotel</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Grocery'}}">Grocery</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Electronic Device'}}">Electronic Device</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Baby Foode'}}">Baby Food</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Medicine'}}">Medicine</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Laundry Store'}}">Laundry Store</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Computer shop'}}">Computer Shop</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Resturent'}}">Resturent </a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Bank'}}">Bank</a></li>
         </ul>
     </div>
 
@@ -104,9 +104,18 @@
 <section id="menuitem1" class="menuitem">
     <div class="menuitemobject">
         <ul>
-            <li><a href="#">Nearest Shop</a></li>
-            <li><a href="#">List</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Cafe'}}">Cafe</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Book Store'}}">Book Store</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Hotel'}}">Hotel</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Grocery'}}">Grocery</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Electronic Device'}}">Electronic Device</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Baby Foode'}}">Baby Food</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Medicine'}}">Medicine</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Laundry Store'}}">Laundry Store</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Computer shop'}}">Computer Shop</a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Resturent'}}">Resturent </a></li>
+            <li><a href="{{url('categorysearch/')}}/{{'Bank'}}">Bank</a></li>
+        
             <li>
 
                 @if(Session::get('seller_username'))

@@ -112,4 +112,26 @@ class siteController extends Controller
       // print_r($products[0]->product_price);
       return view('pages.productDetails');
    }
+   public function searchProductWithCategory($categoryName)
+   {
+      $search = $categoryName ?? "";
+      // $search = "cafe";
+      if ($search != "") {
+         $products = Product::where('seller_category', 'Like', "%$search%")->get()->all();
+         if (!empty($products)) {
+            view()->share('products', $products);
+         } else {
+            view()->share('products', null);
+         }
+      } else {
+         $products = Product::all()->sortDesc();
+         if (!empty($products)) {
+            view()->share('products', $products);
+         } else {
+            view()->share('products', null);
+         }
+      }
+      return view('pages.searchProduct', ['searchKey' => $search]);
+      // echo $categoryName;
+   }
 }
