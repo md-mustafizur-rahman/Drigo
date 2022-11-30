@@ -65,7 +65,7 @@
 
                     <div class="formInner">
                         <div class="formInnerBox">
-                            <input value="{{old('latitude')}}" required type="number" name="latitude" placeholder="latitude" name="" id="">
+                            <input value="{{old('latitude')}}" required type="text" name="latitude" placeholder="latitude" name="" id="">
                             <span class="registretionErrorShow" style="color: red;">
                                 @error('latitude')
                                 {{$message}}
@@ -73,7 +73,7 @@
                             </span>
                         </div>
                         <div class="formInnerBox">
-                            <input value="{{old('longitude')}}" required type="number" name="longitude" placeholder="longitude" name="" id="">
+                            <input value="{{old('longitude')}}" required type="text" name="longitude" placeholder="longitude" name="" id="">
                             <span class="registretionErrorShow" style="color: red;">
                                 @error('longitude')
                                 {{$message}}

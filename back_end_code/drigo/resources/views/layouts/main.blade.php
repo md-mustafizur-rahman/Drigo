@@ -61,6 +61,7 @@
     <!-- css link of productUpload file end -->
 
     <title>Drigo</title>
+    <link rel="icon" href="{{url('font_end_code/image/header.png')}}">
 
 </head>
 
@@ -90,7 +91,7 @@
                 localStorage['firstLoad'] = true;
                 window.location.reload();
             }
-            
+
 
 
             // console.log("Longitude = " + position.coords.longitude);
