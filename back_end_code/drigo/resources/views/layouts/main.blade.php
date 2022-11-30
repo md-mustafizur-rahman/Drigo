@@ -89,9 +89,8 @@
             if (!localStorage.getItem('firstLoad')) {
                 localStorage['firstLoad'] = true;
                 window.location.reload();
-            } else {
-                localStorage.removeItem('firstLoad');
             }
+            
 
 
             // console.log("Longitude = " + position.coords.longitude);

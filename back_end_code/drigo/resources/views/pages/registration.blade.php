@@ -15,7 +15,7 @@
                         <div class="formInnerBox">
 
 
-                            <input sabbir type="text" name="name" placeholder="full name" name="" id="" value="{{old('name')}}">
+                            <input required type="text" name="name" placeholder="full name" name="" id="" value="{{old('name')}}">
                             <span class="registretionErrorShow" style="color: red;">
                                 @error('name')
                                 {{$message}}
@@ -23,7 +23,7 @@
                             </span>
                         </div>
                         <div class="formInnerBox">
-                            <input type="text" sabbir placeholder="user name" value="{{old('username')}}" name="username" id="">
+                            <input type="text" required placeholder="user name" value="{{old('username')}}" name="username" id="">
                             <span class="registretionErrorShow" style="color: red;">
 
                                 @if(Session::get('usernameErrorKey'))
@@ -37,7 +37,7 @@
                     </div>
                     <div class="formInner">
                         <div class="formInnerBox">
-                            <select sabbir name="category" id="category" name="category" value="{{old('category')}}">
+                            <select required name="category" id="category" name="category" value="{{old('category')}}">
                                 <option selected value="Cafe">Cafe</option>
                                 <option value="Book Store">Book Store</option>
                                 <option value="Hotel">Hotel</option>
@@ -54,7 +54,7 @@
                             </select>
                         </div>
                         <div class="formInnerBox">
-                            <input value="{{old('shopname')}}" sabbir type="text" name="shopname" placeholder="Shop Name" name="" id="">
+                            <input value="{{old('shopname')}}" required type="text" name="shopname" placeholder="Shop Name" name="" id="">
                             <span class="registretionErrorShow" style="color: red;">
                                 @error('shopname')
                                 {{$message}}
@@ -65,7 +65,7 @@
 
                     <div class="formInner">
                         <div class="formInnerBox">
-                            <input value="{{old('latitude')}}" sabbir type="number" name="latitude" placeholder="latitude" name="" id="">
+                            <input value="{{old('latitude')}}" required type="number" name="latitude" placeholder="latitude" name="" id="">
                             <span class="registretionErrorShow" style="color: red;">
                                 @error('latitude')
                                 {{$message}}
@@ -73,7 +73,7 @@
                             </span>
                         </div>
                         <div class="formInnerBox">
-                            <input value="{{old('longitude')}}" sabbir type="number" name="longitude" placeholder="longitude" name="" id="">
+                            <input value="{{old('longitude')}}" required type="number" name="longitude" placeholder="longitude" name="" id="">
                             <span class="registretionErrorShow" style="color: red;">
                                 @error('longitude')
                                 {{$message}}
@@ -84,7 +84,7 @@
 
                     <div class="formInner">
                         <div class="formInnerBox">
-                            <input value="{{old('email')}}" sabbir type="text" name="email" placeholder="email" name="" id="">
+                            <input value="{{old('email')}}" required type="email" name="email" placeholder="email" name="" id="">
                             <span class="registretionErrorShow" style="color: red;">
 
 
@@ -100,7 +100,7 @@
                             </span>
                         </div>
                         <div class="formInnerBox">
-                            <input sabbir type="password" name="password" placeholder="password" name="password" id="">
+                            <input required type="password" name="password" placeholder="password" name="password" id="">
                             <span class="registretionErrorShow" style="color: red;">
                                 @error('password')
                                 {{$message}}
@@ -111,7 +111,7 @@
 
                     <div class="formInner">
                         <div class="formInnerBox">
-                            <input sabbir type="password" name="password_confirmation" placeholder="confirm password" name="" id="">
+                            <input required type="password" name="password_confirmation" placeholder="confirm password" name="" id="">
                             <span class="registretionErrorShow" style="color: red;">
                                 @error('confirm_password')
                                 {{$message}}
