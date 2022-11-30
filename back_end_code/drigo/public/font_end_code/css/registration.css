@@ -7,35 +7,40 @@
     list-style: none;
     outline: none;
 }
-.mainBackground{
+
+.mainBackground {
     width: 100%;
     height: 100vh;
     background-color: red;
 }
-.mainBackgroundTop{
+
+.mainBackgroundTop {
     width: 100%;
     height: 60%;
     background-color: #8BBA24;
 }
 
-.mainBackgroundBottom{
+.mainBackgroundBottom {
     width: 100%;
     height: 40%;
     background-color: white;
     display: flex;
     justify-content: center;
 }
-.backgroundImg{
+
+.backgroundImg {
     width: 80%;
     display: flex;
     justify-content: space-between;
 }
-.mainBackgroundBottom img{
+
+.mainBackgroundBottom img {
     margin-top: -100px;
     width: 200px;
     height: 200px;
 }
-.mainContain{
+
+.mainContain {
     position: absolute;
     width: 100%;
     height: 100vh;
@@ -43,7 +48,8 @@
     justify-content: center;
     align-items: center;
 }
-.mainContainInner{
+
+.mainContainInner {
     width: 80%;
     height: 90%;
     /* background-color: #6f7268; */
@@ -52,11 +58,13 @@
     align-items: center;
     flex-direction: column;
 }
-.mainContainInner h2{
+
+.mainContainInner h2 {
     font-size: 3rem;
     color: white;
 }
-.registerForm{
+
+.registerForm {
     margin-top: -130px;
     width: 60%;
     height: 100%;
@@ -65,201 +73,245 @@
     justify-content: center;
     flex-direction: column;
 }
-.formInner{
+
+.formInner {
     display: flex;
     justify-content: space-around;
     align-content: center;
     margin-top: 5px;
     margin-bottom: 5px;
 }
-.formInnerBox{
+
+.formInnerBox {
     width: 45%;
     height: 70px;
     /* background-color: rebeccapurple; */
 }
-.formInner input{
+
+.formInner input {
     width: 100%;
-    height:45px;
+    height: 45px;
     border-radius: 10px;
     outline: none;
-    border: none; 
+    border: none;
     padding-left: 15px;
     font-size: 1.1rem;
-}
-.formInner select{
-    width: 100%;
-    height:45px;
-    border-radius: 10px;
-    outline: none;
-    border: none; 
-    padding-left: 15px;
-    font-size: 1.1rem;
-}
-.formInner  .registerBtn{
-   margin-top: 150px;
-   height:45px;
-   border-radius: 10px;
-   width: 25%;
-   background-color: #8BBA24;
-   color: white;
-   font-size: 1.2rem;
-   border: 2px solid #8BBA24;
-   cursor: pointer;
 }
 
-.formInner  .registerBtn:hover{
-   margin-top: 150px;
-   width: 25%;
-   background-color: white;
-   color: #8BBA24;
-   font-size: 1.2rem;
-   border: 2px solid #8BBA24;
-   transition: 1s;
+.formInner select {
+    width: 100%;
+    height: 45px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    padding-left: 15px;
+    font-size: 1.1rem;
 }
-.registerForm h2{
+
+.formInner .registerBtn {
+    margin-top: 150px;
+    height: 45px;
+    border-radius: 10px;
+    width: 25%;
+    background-color: #8BBA24;
+    color: white;
+    font-size: 1.2rem;
+    border: 2px solid #8BBA24;
+    cursor: pointer;
+}
+
+.formInner .registerBtn:hover {
+    margin-top: 150px;
+    width: 25%;
+    background-color: white;
+    color: #8BBA24;
+    font-size: 1.2rem;
+    border: 2px solid #8BBA24;
+    transition: 1s;
+}
+
+.registerForm h2 {
     text-align: center;
     margin-bottom: 20px;
 }
-.registerBottomTextInner p{
+
+.registerBottomTextInner p {
     color: #8BBA24;
 
 }
-.registerBottomTextInner a{
+
+.registerBottomTextInner a {
     color: black;
- 
+
 }
+
 @media only screen and (max-width: 888px) {
-    .mainContainInner{
+    .mainContainInner {
         margin-top: -50px;
     }
-    .formInnerBox{
+
+    .formInnerBox {
         width: 100%;
     }
-    .registerForm h2{
+
+    .registerForm h2 {
         display: none;
     }
-    .registerForm{
+
+    .registerForm {
         margin-top: 100px;
     }
-.formInner{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 0px;
-    justify-content: center;
-    align-items: center;
-   
-}
-.formInner input{
-    display: flex;
-    flex-direction: column;
-    /* width: 80%;
+
+    .formInner {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 0px;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .formInner input {
+        display: flex;
+        flex-direction: column;
+        /* width: 80%;
     margin-top: 10px;
     margin-bottom: 10px; */
-    
-   
-}
-.formInner select{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    
-   
-}
-.formInner .registerBtn{
-    margin-top: 50px;
-    margin-bottom: 60px;
-    width: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.formInner .registerBtn:hover{
-    margin-top: 50px;
-    width: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.mainBackgroundTop{
-    height: 70%;
-}
-.mainBackgroundBottom{
-    height: 30%;
+
+
+    }
+
+    .formInner select {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+
+    }
+
+    .formInner .registerBtn {
+        margin-top: 50px;
+        margin-bottom: 60px;
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .formInner .registerBtn:hover {
+        margin-top: 50px;
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mainBackgroundTop {
+        height: 70%;
+    }
+
+    .mainBackgroundBottom {
+        height: 30%;
+    }
+
+    .registerBottomText {
+        margin-top: 50px;
+        margin-bottom: 100px;
+    }
+
 }
 
-.registerBottomText{
-    margin-top:50px;
-    margin-bottom:100px;
-}
-
-}
 @media only screen and (max-width: 718px) {
-.backgroundImg{
-    width: 100%;
-}
+    .backgroundImg {
+        width: 100%;
+    }
 
 }
+
 @media only screen and (max-width: 718px) {
-.backgroundImg{
-    width: 100%;
-}
-.formInner input{
-    width: 100%;
-}
-.formInner select{
-    width: 100%;
-}
-.formInner .registerBtn{
-    width: 50%;
-}
-.formInner .registerBtn:hover{
-    width: 50%;
-}
+    .backgroundImg {
+        width: 100%;
+    }
+
+    .formInner input {
+        width: 100%;
+    }
+
+    .formInner select {
+        width: 100%;
+    }
+
+    .formInner .registerBtn {
+        width: 50%;
+    }
+
+    .formInner .registerBtn:hover {
+        width: 50%;
+    }
 
 }
 
 @media only screen and (max-width: 592px) {
-    .formInnerBox{
+    .formInnerBox {
         width: 130%;
     }
-.backgroundImg{
-    display: none;
-}
-.formInner input{
-    width: 100%;
-}
-.formInner .registerBtn{
-    width: 50%;
-}
-.formInner .registerBtn:hover{
-    width: 50%;
-}
+
+    .backgroundImg {
+        display: none;
+    }
+
+    .formInner input {
+        width: 100%;
+    }
+
+    .formInner .registerBtn {
+        width: 50%;
+    }
+
+    .formInner .registerBtn:hover {
+        width: 50%;
+    }
 
 }
+
 @media only screen and (max-width: 424px) {
-.mainContainInner{
-    margin-top: 30px;
-}
-.backgroundImg{
-    display: none;
-}
-.formInnerBox{
-    width: 180%;
-}
-.formInner input{
-    width: 100%;
-}
-.formInner select{
-    width: 100%;
-}
-.formInner .registerBtn{
-    width: 100%;
-}
-.formInner .registerBtn:hover{
-    width: 100%;
-}
+
+    .mainBackground {
+        width: 100%;
+        height: 120vh;
+        background-color: red;
+    }
+
+
+    .mainContainInner {
+        margin-top: 150px;
+    }
+
+    .backgroundImg {
+        display: none;
+    }
+
+    .formInnerBox {
+        width: 180%;
+    }
+
+    .formInner input {
+        width: 100%;
+    }
+
+    .formInner select {
+        width: 100%;
+    }
+
+    .formInner .registerBtn {
+        width: 100%;
+    }
+
+    .formInner .registerBtn:hover {
+        width: 100%;
+    }
 
 }

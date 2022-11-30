@@ -155,6 +155,7 @@
         flex-direction: column;
         justify-content: center;
     }
+
     .footerbottominner {
         display: flex;
         width: 60%;
@@ -163,22 +164,39 @@
         justify-content: center;
         flex-wrap: wrap;
     }
+
     .title {
         display: flex;
         justify-content: flex-end;
         width: 30%;
         min-width: 100px;
         height: 20%;
-    
+
     }
+
     .copyright {
         margin-top: 50px;
-    text-align: center;
+        text-align: center;
     }
+
     .footerlogo {
         width: 20%;
         height: 60%;
         display: flex;
-        justify-content:center;
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .InnerItem {
+        width: 20%;
+        min-width: 200px;
+        height: 10%;
+        /* background-color: rgb(13, 179, 137); */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 50px;
+        margin-bottom: 50px;
     }
 }

@@ -10,7 +10,7 @@
 
 .mainViewOfSeller {
     width: 100%;
-    height: 100vh;
+
     max-height: none;
     /* background-color: red; */
     display: flex;
@@ -22,7 +22,7 @@
 
 .mainViewOfSellerLeft {
     width: 20%;
-    height: 110%;
+    height: 100vh;
     background-color: #8BBA24;
 
 }
@@ -46,7 +46,7 @@
 
 .mainViewOfSellerRightTop img {
     width: 100%;
-    height: 100%;
+    height: 300px;
     object-fit: cover;
 }
 
@@ -275,6 +275,7 @@ this is most useble End css */
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -150px;
 }
 
 .mainViewOfSellerLeftBottom a {
@@ -305,6 +306,34 @@ this is most useble End css */
     font-size: 1.1rem;
     border: 4px white solid;
     transition: 1s;
+}
+
+.uploadBtnPhone {
+    margin-top: 10px;
+    width: 130px;
+    height: 30px;
+    background-color: #8BBA24;
+    border: #8BBA24 2px solid;
+    color: white;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.uploadBtnPhone:hover {
+    margin-top: 10px;
+    width: 130px;
+    height: 30px;
+    background-color: white;
+    border: #8BBA24 2px solid;
+    color: black;
+    transition: 1s;
+    border-radius: 2px;
+}
+
+@media only screen and (max-width: 1549px) {
+    .mainViewOfSellerLeft {
+        margin-top: -500px;
+    }
 }
 
 @media only screen and (max-width: 744px) {

@@ -107,7 +107,7 @@
     border-radius: 10px;
     cursor: pointer;
     margin-top: 100px;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
     width: 30%;
     font-size: 1.5rem;
     font-weight: bold;
@@ -115,7 +115,8 @@
     background-color: #8BBA24;
     border: 2px solid #8BBA24;
 }
-.loginErrorBox{
+
+.loginErrorBox {
     width: 50%;
     height: 30px;
     /* background-color: black; */
@@ -123,6 +124,7 @@
     justify-content: start;
     align-items: center;
 }
+
 .mainItemForm .loginBtn:hover {
     margin-top: 100px;
     width: 30%;
@@ -164,9 +166,10 @@
 }
 
 @media only screen and (max-width: 1223px) {
-.inputfield{
-    width:200%;
-}
+    .inputfield {
+        width: 200%;
+    }
+
     .loginMainTop img {
         width: 20%;
     }
@@ -188,6 +191,8 @@
         margin-top: 200px;
     }
 
+
+
     .loginBottomTextInner p {
         margin-top: 300px;
     }
@@ -203,15 +208,25 @@
     .mainItemForm .loginBtn:hover {
         width: 70%;
     }
+
+    .inputfield {
+        margin-top: -200px;
+    }
+
+    .loginBottomTextInner p {
+        margin-top: 350px;
+    }
 }
 
-@media only screen and (max-width: 839px) {
-    .mainItemInner{
+@media only screen and (max-width: 581px) {
+    .mainItemInner {
         margin-top: -100px;
     }
-    .inputfield{
-        width:100%;
+
+    .inputfield {
+        width: 100%;
     }
+
     .loginMainBottom img {
         margin-top: -50px;
     }
@@ -221,13 +236,15 @@
     }
 
     .loginBottomTextInner p {
-        margin-top: 400px;
+        margin-top: 300px;
     }
 
     .mainItemForm input {
+
         width: 200%;
     }
-    .loginErrorBox{
+
+    .loginErrorBox {
         width: 200%;
     }
 
@@ -238,4 +255,14 @@
     .mainItemForm .loginBtn:hover {
         width: 140%;
     }
+
+    .inputfield {
+        margin-top: -100px;
+    }
+
+    .mainItemInner h2 {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
 }

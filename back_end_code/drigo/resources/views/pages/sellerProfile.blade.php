@@ -42,8 +42,6 @@
 
             @if(Session::get('seller_username'))
             <a href="upload"><button>Add product</button></a>
-            @else
-            <a href="#"><button>Get Location</button></a>
             @endif
 
 
@@ -70,6 +68,11 @@
                 {{"0"}}
                 @endif
             </p>
+
+            @if(Session::get('seller_username'))
+            <a href="upload"><button class="uploadBtnPhone">Add product</button></a>
+            @endif
+
         </div>
         <div class="productPreview">
 
