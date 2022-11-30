@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <!-- css link of index file start -->
- <link rel="stylesheet" href="css/index.css">
+    <!-- css link of index file start -->
+    <link rel="stylesheet" href="{{url('font_end_code/css/index.css')}}">
     <!-- css link of index file end -->
 
     <!-- css link of header file start -->
@@ -62,11 +63,61 @@
     <title>Drigo</title>
 
 </head>
-<body>
- @include('layouts.header')
- @yield('main-section')
 
- @include('layouts.footer')
- <script src="{{url('font_end_code/js/header.js')}}"></script>
+<body>
+    @include('layouts.header')
+    @yield('main-section')
+
+    @include('layouts.footer')
+
+    <script src="{{url('font_end_code/js/header.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
+    <script>
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+            // x.innerHTML = "supporting";
+        } else {
+
+        }
+
+
+        function showPosition(position) {
+
+            document.cookie = `userLatitude=${position.coords.latitude}`
+            document.cookie = `userLongitude=${position.coords.longitude}`
+
+            if (!localStorage.getItem('firstLoad')) {
+                localStorage['firstLoad'] = true;
+                window.location.reload();
+            } else {
+                localStorage.removeItem('firstLoad');
+            }
+
+
+            // console.log("Longitude = " + position.coords.longitude);
+            // console.log("latitude =" + position.coords.longitude);
+            // console.log("latitude =" + position.coords.longitude);
+
+
+        }
+
+        function showError(error) {
+            //console.log(error);
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for GeoLocation");
+                    break;
+                case error.TIMEOUT:
+                    alert("Request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+                default:
+                    alert("An unknown error occurred");
+            }
+        }
+    </script>
 </body>
+
 </html>

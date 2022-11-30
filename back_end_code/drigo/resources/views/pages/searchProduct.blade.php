@@ -16,7 +16,6 @@
 
             <!-- 
 This is the product html start -->
-
             @php
             $totalHomeItemCount= 0;
             @endphp
@@ -60,6 +59,36 @@ This is the product html start -->
                     </div>
                 </div>
                 @else
+                @if(isset($_COOKIE['userLatitude']))
+                <a href="{{url('productDetails/')}}/{{$product->product_id}}" class="product">
+                    <div class="producttop">
+                        <div class="producttopInner">
+                            <div class="productinfo">
+                                <div class="productinfoleft">
+                                    <p>{{$product->product_size}}</p>
+                                    <h5>{{$product->product_name}}</h5>
+                                </div>
+                                <div class="productinforight">
+                                    <img src="{{url('font_end_code/image/header.png')}}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="producttopInnerBottom">
+                            <img src="{{asset('/storage/uploads/'.$product->product_Image)}}" alt="">
+                        </div>
+                    </div>
+                    <div class="productbottom">
+                        <p>{{$product->created_at->diffForHumans()}} tk</p>
+                        <p>{{$product->created_at->diffForHumans()}}</p>
+                        <h4>{{$product["shopname"]}}</h4>
+                        <p>Duration:
+                            @if(isset($_COOKIE['userLatitude']))
+                            {{getDistance($_COOKIE['userLatitude'],$_COOKIE['userLongitude'],$product->shop_latitude,(string)$product->shop_longitude)}}
+                            @endif
+                        </p>
+                    </div>
+                </a>
+                @else
                 <a href="{{url('productDetails/')}}/{{$product->product_id}}" class="product">
                     <div class="producttop">
                         <div class="producttopInner">
@@ -81,17 +110,16 @@ This is the product html start -->
                         <p>{{$product->product_price}} tk</p>
                         <p>{{$product->created_at->diffForHumans()}}</p>
                         <h4>{{$product["shopname"]}}</h4>
-                        <p>Duration: </p>
+
                     </div>
                 </a>
+
+                @endif
                 @endif
                 @endif
                 @php $totalHomeItemCount++; @endphp
                 @endforeach
                 @endif
-
-
-
 
         </div>
 

@@ -91,7 +91,7 @@ this is most useble start css */
 
 .producttop {
     width: 100%;
-    background: url("/image/cafe.jpg");
+    /* background: url("/image/cafe.jpg"); */
     background-repeat: no-repeat;
     background-size: cover;
 

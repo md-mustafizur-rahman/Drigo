@@ -50,7 +50,11 @@
 
                 </div>
                 <div class="mainContentRightInnerTopLast">
-                    <a href="#"><button>Get Location</button></a>
+                    @if(isset($_COOKIE['userLatitude']))
+                    <a href="https://www.google.com/maps/dir/{{$_COOKIE['userLatitude']}},{{$_COOKIE['userLongitude']}}/{{$products[0]->shop_latitude}}, {{$products[0]->shop_longitude}}/" target="black"><button>Get Location</button></a>
+                    @else
+                    <a href="https://www.google.com/maps/dir/{{$products[0]->shop_latitude}}, {{$products[0]->shop_longitude}}/" target="black"><button>Get Location</button></a>
+                    @endif
                 </div>
             </div>
         </div>

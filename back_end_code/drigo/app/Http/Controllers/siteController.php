@@ -20,6 +20,7 @@ class siteController extends Controller
       // echo "<pre>";
       // print_r($products->toArray());
       return view('pages.home', $products);
+  
    }
    public function loginPage()
    {
