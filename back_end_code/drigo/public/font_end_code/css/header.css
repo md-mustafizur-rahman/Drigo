@@ -42,6 +42,7 @@
 }
 
 .menuitemobject {
+
     margin-top: 100px;
     width: 50%;
 }
@@ -51,6 +52,7 @@
 }
 
 .menuitemobject li {
+
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -61,6 +63,7 @@
 }
 
 .menuitemobject a {
+    color: black;
     width: 100%;
 
 
