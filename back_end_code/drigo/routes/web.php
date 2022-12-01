@@ -28,6 +28,8 @@ Route::get('/registration', [siteController::class, 'registrationPage']);
 Route::get('/sellerProfile', [siteController::class, 'sellerProfile']);
 Route::get('/upload', [siteController::class, 'productUpload']);
 Route::get('/sellerAllProduct', [siteController::class, 'sellerAllProduct']);
+Route::get('/showSellerProfile/{id}', [siteController::class, 'showSellerProfile']);
+Route::get('/showSellerAllProduct/{id}', [siteController::class, 'showSellerAllProduct']);
 Route::get('/search', [siteController::class, 'searchProduct']);
 Route::get('/categorysearch/{categoryName}', [siteController::class, 'searchProductWithCategory']);
 Route::get('/productDetails/{id}', [siteController::class, 'productDetailsPage']);

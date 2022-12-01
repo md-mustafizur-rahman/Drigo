@@ -20,7 +20,6 @@ class siteController extends Controller
       // echo "<pre>";
       // print_r($products->toArray());
       return view('pages.home', $products);
-  
    }
    public function loginPage()
    {
@@ -134,5 +133,34 @@ class siteController extends Controller
       }
       return view('pages.searchProduct', ['searchKey' => $search]);
       // echo $categoryName;
+   }
+   public function showSellerProfile($id)
+   {
+      $products = Product::where(
+         'seller_id',
+         '=',
+         $id
+      )->orderBy('product_id', 'DESC')->get()->all();
+      if (!empty($products)) {
+         view()->share('products', $products);
+      } else {
+         view()->share('products', null);
+      }
+      return view('pages.showSellerProfile');
+   }
+
+   public  function showSellerAllProduct($id)
+   {
+      $products = Product::where(
+         'seller_id',
+         '=',
+         $id
+      )->orderBy('product_id', 'DESC')->get()->all();
+      if (!empty($products)) {
+         view()->share('products', $products);
+      } else {
+         view()->share('products', null);
+      }
+      return view('pages.showsellerAllProduct');
    }
 }
