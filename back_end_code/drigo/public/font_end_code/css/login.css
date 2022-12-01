@@ -165,6 +165,53 @@
     color: #8BBA24;
 }
 
+
+
+@media (max-height: 2560px),
+(max-width: 1400px) {
+    .mainItemInner {
+        margin-top: 300px;
+    }
+}
+
+@media (max-height: 3440px),
+(max-width: 2160px) {
+    .mainItemInner {
+        margin-top: 750px;
+    }
+}
+
+
+
+@media (max-height: 1200px),
+(max-width: 1920px) {
+    .mainItemInner {
+        margin-top: 170px;
+    }
+}
+
+@media (max-height: 1080px),
+(max-width: 1920px) {
+    .mainItemInner {
+        margin-top: 100px;
+    }
+}
+
+@media (max-height: 1024px),
+(max-width: 1280px) {
+    .mainItemInner {
+        margin-top: 60px;
+    }
+}
+
+@media (max-height: 900px),
+(max-width: 1600px) {
+    .mainItemInner {
+        margin-top: -10px;
+    }
+}
+
+
 @media only screen and (max-width: 1223px) {
     .inputfield {
         width: 200%;
@@ -182,6 +229,42 @@
 
     .mainItemInner {
         margin-top: 100px;
+    }
+
+    .loginBottomTextInner {
+        margin-top: 150px;
+        /* background-color: red; */
+    }
+
+    .loginBottomTextInner p {
+        margin-top: 0px;
+    }
+}
+
+/* @media only screen and (max-height: 835px) {
+    .mainItemInner {
+        margin-top: -80px;
+    }
+} */
+
+@media only screen and (max-height: 683px) {
+    .mainItemInner {
+        margin-top: -150px;
+    }
+}
+
+@media only screen and (max-width: 990px) {
+    .mainItemInner {
+        margin-top: 150px;
+    }
+
+    .loginBottomTextInner {
+        margin-top: 250px;
+        /* background-color: red; */
+    }
+
+    .loginBottomTextInner p {
+        margin-top: 0px;
     }
 }
 
@@ -213,10 +296,16 @@
         margin-top: -200px;
     }
 
+    .loginBottomTextInner {
+        margin-top: 400px;
+        /* background-color: red; */
+    }
+
     .loginBottomTextInner p {
-        margin-top: 350px;
+        margin-top: 0px;
     }
 }
+
 
 @media only screen and (max-width: 581px) {
     .mainItemInner {
@@ -235,9 +324,7 @@
         margin-top: 300px;
     }
 
-    .loginBottomTextInner p {
-        margin-top: 300px;
-    }
+
 
     .mainItemForm input {
 
@@ -264,5 +351,16 @@
         margin-top: 20px;
         margin-bottom: 20px;
     }
+
+    .loginBottomTextInner {
+        margin-top: 300px;
+        z-index: 1;
+        /* background-color: red; */
+    }
+
+    .loginBottomTextInner p {
+        margin-top: 0px;
+    }
+
 
 }
