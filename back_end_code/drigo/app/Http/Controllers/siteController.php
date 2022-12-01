@@ -161,6 +161,6 @@ class siteController extends Controller
       } else {
          view()->share('products', null);
       }
-      return view('pages.showsellerAllProduct');
+      return view('pages.showSellerAllProduct');
    }
 }
