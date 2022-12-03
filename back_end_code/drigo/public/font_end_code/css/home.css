@@ -179,9 +179,10 @@ this is most useble start css */
 
 .productbottom {
     width: 100%;
-    height: 35%;
+    height: 24%;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
+    /* background-color: red; */
 }
 
 .productbottom p {
