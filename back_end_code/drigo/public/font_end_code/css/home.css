@@ -339,6 +339,13 @@ width: 80%;
 }
 
 @media only screen and (max-width: 515px) {
+    .homevideoinnerleft{
+        display: none;
+    }
+ .homevideoinnerright{
+    width: 100%;
+
+ }
 .searchhomeright{
     width: 20%;
 }
