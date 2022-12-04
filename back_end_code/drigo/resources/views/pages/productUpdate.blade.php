@@ -40,6 +40,8 @@
                         <option>g</option>
                         <option>liter</option>
                         <option>ml</option>
+                        <option>unit</option>
+                        <option>piece</option>
                     </select>
 
 

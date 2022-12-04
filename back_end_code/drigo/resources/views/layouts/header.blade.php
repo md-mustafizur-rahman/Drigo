@@ -151,6 +151,19 @@
 
 
             </li>
+            <li>
+                    @if(Session::get('seller_username'))
+
+                    <a href="{{url('logout')}}">
+                        {{"logout"}}
+                    </a>
+                    @else
+                    <a href="{{url('login')}}">
+                        {{"login"}}
+                    </a>
+                    @endif
+                </li>
+
 
 
         </ul>
