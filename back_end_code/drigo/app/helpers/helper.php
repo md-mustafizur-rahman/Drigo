@@ -33,6 +33,7 @@ function getDistance($userLatitude,  $userLongitude, $productLatitude,  $product
     // Radius of the earth in km
     $dLat = deg2rad($productFinalLatitude - $userFinalLatitude); // deg2rad below
     $dLon = deg2rad($productFinalLongitude - $userFinalLongitude);
+    // Haversine Formula
     $a =
         sin($dLat / 2) * sin($dLat / 2) +
         cos(deg2rad($userFinalLatitude)) * cos(deg2rad($userFinalLongitude)) *

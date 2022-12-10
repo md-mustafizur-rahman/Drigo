@@ -41,7 +41,10 @@
                             <h2>{{$products[0]->shopname}}</h2>
                         </a>
 
-                        <p>Distance: 2km <br>{{$products[0]->product_price}} tk</p>
+                        <p>Distance:
+                            @if(isset($_COOKIE['userLatitude']))
+                            {{getDistance($_COOKIE['userLatitude'],$_COOKIE['userLongitude'],$products[0]->shop_latitude,(string)$products[0]->shop_longitude)}}
+                            @endif <br>{{$products[0]->product_price}} tk</p>
                     </div>
 
 

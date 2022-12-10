@@ -147,19 +147,19 @@ class dataBaseController extends Controller
     // login insert query code end
 
 
-    // registration select query code start
-    public function registrationDataView()
-    {
-        $seller = Seller::all();
-        // echo "<pre>";
-        // print_r($seller);
-        // die;
-        $data = compact('seller');
-        return view('test.testSelectQuery')->with($data);
-    }
+    // registration select query code start this is only for testing purpose. 
+    // public function registrationDataView()
+    // {
+    //     $seller = Seller::all();
+    //     // echo "<pre>";
+    //     // print_r($seller);
+    //     // die;
+    //     $data = compact('seller');
+    //     return view('test.testSelectQuery')->with($data);
+    // }
 
 
-    // registration select query code end
+    // registration select query code end  this is only for testing purpose
 
 
 }

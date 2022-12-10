@@ -1,1 +1,3 @@
-{{print_r($products)}}
+<!-- this is only for testing purpose -->
+<pre>
+{{print_r($seller)}}

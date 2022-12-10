@@ -38,7 +38,8 @@ Route::get('/productDetails/{id}', [siteController::class, 'productDetailsPage']
 // work with databaseController start
 Route::get('/seller', [dataBaseController::class, 'seller']);
 Route::post('/registration', [dataBaseController::class, 'registration']);
-Route::get('/registration/view', [dataBaseController::class, 'registrationDataView']);
+// This route only use for testing purpose
+// Route::get('/registration/view', [dataBaseController::class, 'registrationDataView']);
 Route::post('/login', [dataBaseController::class, 'login']);
 // work with databaseController end
 

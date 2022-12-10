@@ -85,7 +85,7 @@ This is the product html start -->
                         <p>{{$product->created_at->diffForHumans()}} tk</p>
                         <p>{{$product->created_at->diffForHumans()}}</p>
                         <h4>{{$product["shopname"]}}</h4>
-                        <p>Duration:
+                        <p>Distance:
                             @if(isset($_COOKIE['userLatitude']))
                             {{getDistance($_COOKIE['userLatitude'],$_COOKIE['userLongitude'],$product->shop_latitude,(string)$product->shop_longitude)}}
                             @endif
