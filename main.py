@@ -21,36 +21,53 @@ class VoiceAssistant:
         
         # Live Transcription settings
         self.live_mode = os.getenv("LIVE_TRANSCRIPTION", "False").lower() == "true"
-        self.live_buffer = deque(maxlen=30) # ~2.4 seconds at 80ms per chunk
+        self.live_buffer = deque(maxlen=60) # ~4.8 seconds
         self.last_live_text = ""
         self.is_transcribing = False
         self.last_transcription_time = 0
+        self.transcription_thread = None
 
-    def background_transcribe(self):
-        """Worker thread to handle Whisper transcription without blocking detection."""
-        if self.is_transcribing or not self.live_buffer:
-            return
+    def background_worker(self):
+        """Persistent background worker to handle Whisper transcribing."""
+        while self.running:
+            if not self.live_mode or len(self.live_buffer) < 20: # Wait for ~1.6s
+                time.sleep(0.5)
+                continue
             
-        self.is_transcribing = True
-        try:
-            # Combine current buffer into one array
-            audio_data = np.concatenate(list(self.live_buffer))
+            if not self.is_transcribing and time.time() - self.last_transcription_time > 0.8:
+                self.is_transcribing = True
+                try:
+                    # Combine current buffer into one array
+                    audio_data = np.concatenate(list(self.live_buffer))
+                    
+                    # Log peak volume
+                    max_val = np.max(np.abs(audio_data))
+                    
+                    if max_val > 500:
+                        # Optional: Use a dot to show activity
+                        self.last_live_text = "(Transcribing...)"
+                        text = self.stt_engine.transcribe_raw(audio_data)
+                        if text:
+                            self.last_live_text = text
+                        else:
+                            self.last_live_text = "..."
+                    else:
+                        self.last_live_text = ""
+                except Exception as e:
+                    print(f"\n[TRANSCRIPTION ERROR] {e}")
+                finally:
+                    self.is_transcribing = False
+                    self.last_transcription_time = time.time()
             
-            # Only transcribe if there's enough sound (peak > 1000)
-            if np.max(np.abs(audio_data)) > 1000:
-                text = self.stt_engine.transcribe_raw(audio_data)
-                if text:
-                    self.last_live_text = text
-            else:
-                self.last_live_text = ""
-        finally:
-            self.is_transcribing = False
-            self.last_transcription_time = time.time()
+            time.sleep(0.1)
 
     def run(self):
         print("* Listening for wake word...")
         if self.live_mode:
             print("  (Live Transcription Enabled)")
+            # Start persistent background thread
+            self.transcription_thread = threading.Thread(target=self.background_worker, daemon=True)
+            self.transcription_thread.start()
             
         self.audio_handler.start_stream()
         
@@ -79,14 +96,13 @@ class VoiceAssistant:
                 detected, score = self.wakeword_detector.predict(chunk)
                 
                 if score > 0.05:
-                    # Append score to line if not detected
                     if not detected:
                         print(f" [Score: {score:.2f}]", end="", flush=True)
                 
                 if detected:
                     print(f"\n[!] Wake Word Detected! (Score: {score:.2f})")
                     
-                    # Pause live transcription during command handling
+                    # Stop live text during high-accuracy command recording
                     self.last_live_text = ""
                     
                     # 4. Stop monitoring, start recording
@@ -102,11 +118,6 @@ class VoiceAssistant:
                     # Reset buffer for next detection
                     self.live_buffer.clear()
                     print("\n* Resuming wake word monitoring...")
-
-                # 6. Trigger background transcription if enough time passed
-                if self.live_mode and not self.is_transcribing:
-                    if time.time() - self.last_transcription_time > 0.5:
-                        threading.Thread(target=self.background_transcribe, daemon=True).start()
 
             except KeyboardInterrupt:
                 self.stop()

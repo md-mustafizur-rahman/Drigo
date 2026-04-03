@@ -9,10 +9,11 @@ load_dotenv()
 
 class WhisperSTT:
     def __init__(self):
-        self.model_name = os.getenv("WHISPER_MODEL", "base")
-        self.language = os.getenv("LANGUAGE", "en")
+        self.model_name = os.getenv("WHISPER_MODEL", "base").strip('"').strip("'")
+        self.language = os.getenv("LANGUAGE", "en").strip('"').strip("'")
+        print(f"* Loading Whisper model: {self.model_name} (Language: {self.language})...")
         self.model = whisper.load_model(self.model_name)
-        print(f"* Loaded Whisper model: {self.model_name} (Lang: {self.language})")
+        print(f"* Whisper model loaded successfully.")
 
     def transcribe(self, audio_data):
         """
@@ -51,8 +52,15 @@ class WhisperSTT:
             audio_float = audio_np.astype(np.float32) / 32768.0
             
             # Whisper can take the numpy array directly
-            result = self.model.transcribe(audio_float, fp16=False, language=self.language)
+            # beam_size=1 is much faster for real-time transcription
+            result = self.model.transcribe(
+                audio_float, 
+                fp16=False, 
+                language=self.language,
+                beam_size=1,
+                best_of=1
+            )
             return result.get("text", "").strip()
         except Exception as e:
-            # Silently fail for live mode to avoid terminal spam
+            # Print once if there's a recurring error
             return ""
