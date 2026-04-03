@@ -11,9 +11,21 @@ class AudioHandler:
         self.sample_rate = int(os.getenv("SAMPLE_RATE", 16000))
         self.format = pyaudio.paInt16
         self.channels = 1
+        self.input_device_index = os.getenv("INPUT_DEVICE_INDEX")
+        if self.input_device_index is not None:
+            self.input_device_index = int(self.input_device_index)
         
         self.audio = pyaudio.PyAudio()
         self.stream = None
+        
+        # Log device info
+        if self.input_device_index is not None:
+            try:
+                device_info = self.audio.get_device_info_by_index(self.input_device_index)
+                print(f"* Using audio input device: {device_info.get('name')}")
+            except Exception as e:
+                print(f"[WARNING] Could not find device index {self.input_device_index}. Using default. Error: {e}")
+                self.input_device_index = None
 
     def start_stream(self):
         self.stream = self.audio.open(
@@ -21,7 +33,8 @@ class AudioHandler:
             channels=self.channels,
             rate=self.sample_rate,
             input=True,
-            frames_per_buffer=self.chunk_size
+            frames_per_buffer=self.chunk_size,
+            input_device_index=self.input_device_index
         )
         return self.stream
 

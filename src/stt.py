@@ -18,13 +18,35 @@ class WhisperSTT:
         Expects raw bytes from PyAudio or a numpy array.
         """
         # Save to temporary file for Whisper
-        with tempfile.NamedTemporaryFile(suffix=".wav", delete=True) as temp_file:
-            with wave.open(temp_file.name, "wb") as wf:
+        # Note: Using a fixed name to avoid Windows permission issues with NamedTemporaryFile
+        temp_filename = os.path.join(tempfile.gettempdir(), "drigo_stt_temp.wav")
+        
+        try:
+            with wave.open(temp_filename, "wb") as wf:
                 wf.setnchannels(1)
                 wf.setsampwidth(2) # 16-bit
                 wf.setframerate(16000)
                 wf.writeframes(audio_data)
 
+            # Check if file exists and has size
+            if not os.path.exists(temp_filename) or os.path.getsize(temp_filename) == 0:
+                print("[ERROR] STT audio file is empty or missing.")
+                return ""
+
             # Transcribe
-            result = self.model.transcribe(temp_file.name)
-            return result.get("text", "").strip()
+            result = self.model.transcribe(temp_filename)
+            text = result.get("text", "").strip()
+            
+            # Optional: Cleanup
+            if os.path.exists(temp_filename):
+                os.remove(temp_filename)
+                
+            return text
+        except Exception as e:
+            print(f"[ERROR] Transcription failed: {e}")
+            if os.path.exists(temp_filename):
+                try:
+                    os.remove(temp_filename)
+                except:
+                    pass
+            return ""

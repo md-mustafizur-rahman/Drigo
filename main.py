@@ -1,6 +1,7 @@
 import os
 import signal
 import sys
+import numpy as np
 from dotenv import load_dotenv
 from src.audio import AudioHandler
 from src.wakeword import WakeWordDetector
@@ -25,14 +26,24 @@ class VoiceAssistant:
                 # 1. Read audio chunk
                 chunk = self.audio_handler.read_chunk()
                 
+                # Debug: Show audio level
+                max_val = np.max(np.abs(chunk))
+                # Simple gauge: * for every 1000 in amplitude, up to 10
+                gauge = "*" * min(10, int(max_val / 1000))
+                print(f"\r[Vol: {gauge:<10}]", end="", flush=True)
+
                 # 2. Check for wake word
                 detected, score = self.wakeword_detector.predict(chunk)
+                
+                # Debug: Show score if above certain level
+                if score > 0.1:
+                    print(f" [Score: {score:.2f}]", end="", flush=True)
                 
                 if detected:
                     print(f"\n[!] Wake Word Detected! (Score: {score:.2f})")
                     
                     # 3. Stop monitoring, start recording
-                    # We reuse the stream, but the audio handler handles chunking/buffering
+                    print("[*] Recording speech... (Talk now!)")
                     record_seconds = int(os.getenv("RECORD_SECONDS", 5))
                     audio_data = self.audio_handler.record_seconds(record_seconds)
                     
