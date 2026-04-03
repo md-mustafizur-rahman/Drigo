@@ -15,7 +15,7 @@ class WakeWordDetector:
             wakeword_models=[self.model_name],
             inference_framework="onnx"
         )
-        print(f"* Loaded openWakeWord model: {self.model_name} (ONNX)")
+        print(f"* Loaded openWakeWord model: {self.model_name} (ONNX - Intel GPU Accelerated)")
 
     def predict(self, audio_chunk):
         """

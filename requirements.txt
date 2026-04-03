@@ -1,7 +1,9 @@
 openwakeword
-openai-whisper
+faster-whisper
+openvino
 pyaudio
 numpy
 onnxruntime-directml
 torch
 python-dotenv
+requests
