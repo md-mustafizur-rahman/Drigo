@@ -17,6 +17,7 @@ class OllamaLLM:
         payload = {
             "model": self.model,
             "prompt": prompt,
+            "system": "You are a helpful voice assistant named Drigo. Always respond in English unless specifically asked otherwise. Keep your responses concise and friendly.",
             "stream": True
         }
 
