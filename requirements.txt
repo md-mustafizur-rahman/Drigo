@@ -1,6 +1,7 @@
 openwakeword
-faster-whisper
-openvino
+optimum[intel,openvino]
+transformers
+librosa
 pyaudio
 numpy
 onnxruntime-directml

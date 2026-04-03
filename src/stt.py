@@ -3,13 +3,14 @@ import numpy as np
 import threading
 from dotenv import load_dotenv
 
-# Resilient imports: Try GPU version, fallback to CPU
+# Resilient imports: Try Intel GPU version, fallback to standard CPU
 try:
-    from faster_whisper import WhisperModel
-    HAS_FASTER_WHISPER = True
+    from optimum.intel.openvino import OVModelForSpeechSeq2Seq
+    from transformers import AutoProcessor
+    HAS_INTEL_GPU = True
 except ImportError:
     import whisper
-    HAS_FASTER_WHISPER = False
+    HAS_INTEL_GPU = False
 
 load_dotenv()
 
@@ -19,34 +20,50 @@ class WhisperSTT:
         self.language = os.getenv("LANGUAGE", "en").strip('"').strip("'")
         self.lock = threading.Lock()
         
-        if HAS_FASTER_WHISPER:
-            print(f"* Loading Faster-Whisper model: {self.model_name} (Device: OpenVINO/GPU)...")
-            # Load model with OpenVINO for Intel Arc GPU
-            self.model = WhisperModel(
-                self.model_name, 
-                device="openvino", 
-                compute_type="int8"
-            )
-            print(f"* Whisper model loaded successfully on Intel GPU (OpenVINO).")
+        if HAS_INTEL_GPU:
+            model_id = f"openai/whisper-{self.model_name}"
+            print(f"* Loading Intel GPU-optimized model: {model_id} (OpenVINO/GPU)...")
+            try:
+                # Load and export to OpenVINO format for Intel Arc GPU
+                self.processor = AutoProcessor.from_pretrained(model_id)
+                self.model = OVModelForSpeechSeq2Seq.from_pretrained(
+                    model_id, 
+                    export=True, 
+                    device="GPU", 
+                    compile=True
+                )
+                print(f"* Whisper model loaded successfully on Intel Arc 750 GPU.")
+            except Exception as e:
+                print(f"[WARNING] Intel GPU loading failed: {e}. Falling back to CPU...")
+                self._load_cpu_fallback()
         else:
-            print(f"* Faster-Whisper not yet installed. Falling back to standard Whisper (CPU)...")
-            self.model = whisper.load_model(self.model_name)
-            print(f"* Standard Whisper model loaded successfully (CPU).")
+            self._load_cpu_fallback()
+
+    def _load_cpu_fallback(self):
+        import whisper
+        print(f"* Falling back to standard Whisper (CPU)...")
+        self.model = whisper.load_model(self.model_name)
+        print(f"* Standard Whisper model loaded successfully (CPU).")
+        # Mark that we are using the fallback engine
+        self.using_fallback = True
 
     def transcribe(self, audio_data):
         """
         Transcribes raw audio bytes (16-bit, 16kHz).
         """
-        with self.lock: # Prevent simultaneous inference
+        with self.lock:
             try:
                 # Convert raw bytes to float32 numpy array
                 audio_np = np.frombuffer(audio_data, dtype=np.int16).astype(np.float32) / 32768.0
                 
-                if HAS_FASTER_WHISPER:
-                    segments, info = self.model.transcribe(audio_np, language=self.language, beam_size=5)
-                    text = "".join([segment.text for segment in segments]).strip()
+                if HAS_INTEL_GPU and not hasattr(self, 'using_fallback'):
+                    # Intel OpenVINO GPU Path
+                    input_features = self.processor(audio_np, sampling_rate=16000, return_tensors="pt").input_features
+                    predicted_ids = self.model.generate(input_features)
+                    text = self.processor.batch_decode(predicted_ids, skip_special_tokens=True)[0]
                 else:
-                    # Pure numpy/torch decode for standard whisper to avoid FFmpeg
+                    # Standard fallback Path
+                    import whisper
                     audio = whisper.pad_or_trim(audio_np)
                     mel = whisper.log_mel_spectrogram(audio).to(self.model.device)
                     options = whisper.DecodingOptions(fp16=False, language=self.language)
@@ -62,16 +79,17 @@ class WhisperSTT:
         """
         Transcribes a numpy array (int16) directly.
         """
-        with self.lock: # Prevent simultaneous inference
+        with self.lock:
             try:
                 # Normalize int16 to float32
                 audio_float = audio_np.astype(np.float32) / 32768.0
                 
-                if HAS_FASTER_WHISPER:
-                    segments, info = self.model.transcribe(audio_float, language=self.language, beam_size=1)
-                    text = "".join([segment.text for segment in segments]).strip()
+                if HAS_INTEL_GPU and not hasattr(self, 'using_fallback'):
+                    input_features = self.processor(audio_float, sampling_rate=16000, return_tensors="pt").input_features
+                    predicted_ids = self.model.generate(input_features)
+                    text = self.processor.batch_decode(predicted_ids, skip_special_tokens=True)[0]
                 else:
-                    # Standard whisper
+                    import whisper
                     audio = whisper.pad_or_trim(audio_float)
                     mel = whisper.log_mel_spectrogram(audio).to(self.model.device)
                     options = whisper.DecodingOptions(fp16=False, language=self.language)
