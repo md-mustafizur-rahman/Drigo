@@ -1,0 +1,7 @@
+openwakeword
+openai-whisper
+pyaudio
+numpy
+onnxruntime-directml
+torch
+python-dotenv
