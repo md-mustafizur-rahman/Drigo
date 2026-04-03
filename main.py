@@ -28,15 +28,16 @@ class VoiceAssistant:
                 
                 # Debug: Show audio level
                 max_val = np.max(np.abs(chunk))
-                # Simple gauge: * for every 1000 in amplitude, up to 10
-                gauge = "*" * min(10, int(max_val / 1000))
-                print(f"\r[Vol: {gauge:<10}]", end="", flush=True)
+                # More sensitive gauge: * for every 500 in amplitude, up to 20
+                gauge = "*" * min(20, int(max_val / 500))
+                # \033[K is an ANSI escape code to clear from the cursor to the end of the line
+                print(f"\r[Vol: {gauge:<20}]\033[K", end="", flush=True)
 
                 # 2. Check for wake word
                 detected, score = self.wakeword_detector.predict(chunk)
                 
-                # Debug: Show score if above certain level
-                if score > 0.1:
+                # Debug: Show score if above a very low floor to confirm it's working
+                if score > 0.05:
                     print(f" [Score: {score:.2f}]", end="", flush=True)
                 
                 if detected:
