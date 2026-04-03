@@ -10,15 +10,16 @@ load_dotenv()
 class WhisperSTT:
     def __init__(self):
         self.model_name = os.getenv("WHISPER_MODEL", "base")
+        self.language = os.getenv("LANGUAGE", "en")
         self.model = whisper.load_model(self.model_name)
-        print(f"* Loaded Whisper model: {self.model_name}")
+        print(f"* Loaded Whisper model: {self.model_name} (Lang: {self.language})")
 
     def transcribe(self, audio_data):
         """
         Expects raw bytes from PyAudio or a numpy array.
+        Initial approach using a temporary file for maximum compatibility.
         """
         # Save to temporary file for Whisper
-        # Note: Using a fixed name to avoid Windows permission issues with NamedTemporaryFile
         temp_filename = os.path.join(tempfile.gettempdir(), "drigo_stt_temp.wav")
         
         try:
@@ -28,25 +29,30 @@ class WhisperSTT:
                 wf.setframerate(16000)
                 wf.writeframes(audio_data)
 
-            # Check if file exists and has size
-            if not os.path.exists(temp_filename) or os.path.getsize(temp_filename) == 0:
-                print("[ERROR] STT audio file is empty or missing.")
-                return ""
-
-            # Transcribe
-            result = self.model.transcribe(temp_filename)
+            # Transcribe with defined language
+            result = self.model.transcribe(temp_filename, language=self.language)
             text = result.get("text", "").strip()
             
-            # Optional: Cleanup
             if os.path.exists(temp_filename):
                 os.remove(temp_filename)
                 
             return text
         except Exception as e:
             print(f"[ERROR] Transcription failed: {e}")
-            if os.path.exists(temp_filename):
-                try:
-                    os.remove(temp_filename)
-                except:
-                    pass
+            return ""
+
+    def transcribe_raw(self, audio_np):
+        """
+        Transcribes a numpy array (int16) directly by converting to float32.
+        Faster than saving to disk for real-time applications.
+        """
+        try:
+            # Normalize int16 (-32768 to 32767) to float32 (-1.0 to 1.0)
+            audio_float = audio_np.astype(np.float32) / 32768.0
+            
+            # Whisper can take the numpy array directly
+            result = self.model.transcribe(audio_float, fp16=False, language=self.language)
+            return result.get("text", "").strip()
+        except Exception as e:
+            # Silently fail for live mode to avoid terminal spam
             return ""
