@@ -59,6 +59,32 @@ class AudioHandler:
             self.stream.close()
             self.stream = None
 
+    def play_audio(self, audio_bytes: bytes):
+        """
+        Plays WAV audio bytes using pyaudio.
+        """
+        import wave
+        import io
+        
+        try:
+            with wave.open(io.BytesIO(audio_bytes), 'rb') as wf:
+                p = pyaudio.PyAudio()
+                stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
+                                channels=wf.getnchannels(),
+                                rate=wf.getframerate(),
+                                output=True)
+                
+                data = wf.readframes(1024)
+                while data:
+                    stream.write(data)
+                    data = wf.readframes(1024)
+                
+                stream.stop_stream()
+                stream.close()
+                p.terminate()
+        except Exception as e:
+            print(f"[AUDIO ERROR] Failed to play audio: {e}")
+
     def terminate(self):
         self.stop_stream()
         self.audio.terminate()

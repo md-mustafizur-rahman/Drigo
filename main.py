@@ -9,6 +9,7 @@ from src.audio import AudioHandler
 from src.wakeword import WakeWordDetector
 from src.stt import WhisperSTT
 from src.llm import OllamaLLM
+from src.tts import FishSpeechTTS
 
 class Spinner:
     def __init__(self, message="Thinking..."):
@@ -45,6 +46,7 @@ class VoiceAssistant:
         self.wakeword_detector = WakeWordDetector()
         self.stt_engine = WhisperSTT()
         self.llm_engine = OllamaLLM()
+        self.tts_engine = FishSpeechTTS()
         self.running = True
         self.last_ai_response = ""
         
@@ -179,6 +181,12 @@ class VoiceAssistant:
                             print(f"\n[Error] LLM Call Failed: {e}")
                         finally:
                             spinner.stop() 
+                        
+                        # 7. Speak the response
+                        if self.last_ai_response.strip():
+                            audio_data = self.tts_engine.synthesize(self.last_ai_response)
+                            if audio_data:
+                                self.audio_handler.play_audio(audio_data)
                         
                         print("\n" + "="*50 + "\n")
                     else:
