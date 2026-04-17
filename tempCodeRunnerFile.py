@@ -124,26 +124,5 @@ def voice_command():
         if 'temp_path' in locals() and os.path.exists(temp_path):
             os.remove(temp_path)
 
-@app.route('/api/test-ollama', methods=['GET', 'POST'])
-def test_ollama():
-    try:
-        # Prompt for the test
-        prompt = request.json.get('prompt', 'Hello, are you running on my GPU?') if request.method == 'POST' and request.is_json else 'Hello, are you running on my GPU?'
-        
-        print(f"[*] Testing Ollama connection with prompt: '{prompt}'")
-        ai_response = llm_engine.generate_response(prompt)
-        print(f"[*] Ollama Response: {ai_response}")
-        
-        return jsonify({
-            "success": True,
-            "prompt": prompt,
-            "ollama_response": ai_response
-        })
-    except Exception as e:
-        import traceback
-        print(f"[ERROR] Ollama Test Failed: {e}")
-        traceback.print_exc()
-        return jsonify({"success": False, "error": str(e)}), 500
-
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
