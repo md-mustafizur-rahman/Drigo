@@ -8,3 +8,5 @@ onnxruntime-directml
 torch
 python-dotenv
 requests
+flask
+flask-cors

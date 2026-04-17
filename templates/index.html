@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drigo AI Assistant - Add User</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="container">
+        <header>
+            <div class="logo">Drigo <span>AI</span></div>
+            <h1>User Management</h1>
+            <p>Add a new user to the Drigo assistant system.</p>
+        </header>
+
+        <div class="card glass">
+            <form id="addUserForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                </div>
+                <button type="submit" id="submitBtn">
+                    <span class="btn-text">Add User</span>
+                    <span class="btn-loader" style="display: none;">Adding...</span>
+                </button>
+            </form>
+        </div>
+
+        <div class="separator">OR</div>
+
+        <div class="card glass text-center">
+            <h3>Live Speak with AI</h3>
+            <p>Click below to talk directly with Drigo.</p>
+            <div class="voice-controls">
+                <button id="micBtn" class="mic-button">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                    </svg>
+                </button>
+                <div id="recordingIndicator" class="recording-indicator" style="display: none;">
+                    Recording...
+                </div>
+            </div>
+        </div>
+
+        <div id="chatHistory" class="chat-history glass" style="display: none;"></div>
+
+        <div id="statusMessage" class="status-message"></div>
+    </div>
+
+    <!-- Hidden audio element for TTS response -->
+    <audio id="ttsAudio" style="display: none;"></audio>
+
+    <script>
+        const form = document.getElementById('addUserForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const btnLoader = submitBtn.querySelector('.btn-loader');
+        const statusMessage = document.getElementById('statusMessage');
+        const ttsAudio = document.getElementById('ttsAudio');
+        
+        // Voice Elements
+        const micBtn = document.getElementById('micBtn');
+        const recordingIndicator = document.getElementById('recordingIndicator');
+        const chatHistory = document.getElementById('chatHistory');
+        
+        let mediaRecorder;
+        let audioChunks = [];
+        let isRecording = false;
+
+        // --- User Form Logic ---
+        form.addEventListener('submit', async (e) => {
+            // ... (keeping user form logic same)
+            e.preventDefault();
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            btnLoader.style.display = 'inline-block';
+            statusMessage.textContent = '';
+            statusMessage.className = 'status-message';
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value
+            };
+
+            try {
+                const response = await fetch('/api/add-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    const contentType = response.headers.get('content-type');
+                    
+                    if (contentType && contentType.includes('audio')) {
+                        const blob = await response.blob();
+                        ttsAudio.src = URL.createObjectURL(blob);
+                        ttsAudio.play();
+                        statusMessage.textContent = 'User added successfully! (Voice Response Playing)';
+                        statusMessage.classList.add('success');
+                    } else {
+                        const data = await response.json();
+                        statusMessage.textContent = data.warning || 'User added successfully!';
+                        statusMessage.classList.add(data.warning ? 'warning' : 'success');
+                    }
+                    form.reset();
+                } else {
+                    const error = await response.json();
+                    statusMessage.textContent = `Error: ${error.error || 'Failed to add user'}`;
+                    statusMessage.classList.add('error');
+                }
+            } catch (err) {
+                statusMessage.textContent = 'Network error: Could not reach the server.';
+                statusMessage.classList.add('error');
+            } finally {
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline-block';
+                btnLoader.style.display = 'none';
+            }
+        });
+
+        // --- Live Speak Logic ---
+        micBtn.addEventListener('click', () => {
+            if (!isRecording) {
+                startRecording();
+            } else {
+                stopRecording();
+            }
+        });
+
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    
+                    // Convert to WAV in browser to avoid server-side ffmpeg dependency
+                    try {
+                        const wavBlob = await convertToWav(audioBlob);
+                        sendVoiceCommand(wavBlob);
+                    } catch (err) {
+                        console.error('PCM Conversion failed:', err);
+                        // Fallback to sending original blob if conversion fails
+                        sendVoiceCommand(audioBlob);
+                    }
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+                micBtn.classList.add('recording');
+                recordingIndicator.style.display = 'block';
+            } catch (err) {
+                console.error('Error accessing microphone:', err);
+                alert('Could not access microphone. Please check permissions.');
+            }
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+            isRecording = false;
+            micBtn.classList.remove('recording');
+            recordingIndicator.style.display = 'none';
+        }
+
+        async function sendVoiceCommand(blob) {
+            const formData = new FormData();
+            formData.append('audio', blob, 'recording.webm');
+
+            addChatMessage('user', 'Processing voice...');
+            chatHistory.style.display = 'block';
+
+            try {
+                const response = await fetch('/api/voice-command', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Update user message with transcript
+                    updateLastMessage('user', data.transcript || '(silence)');
+                    
+                    // Add AI message
+                    addChatMessage('ai', data.ai_response);
+                    
+                    if (data.audio) {
+                        const audioBytes = atob(data.audio);
+                        const arrayBuffer = new ArrayBuffer(audioBytes.length);
+                        const uint8Array = new Uint8Array(arrayBuffer);
+                        for (let i = 0; i < audioBytes.length; i++) {
+                            uint8Array[i] = audioBytes.charCodeAt(i);
+                        }
+                        const audioBlob = new Blob([uint8Array], { type: 'audio/wav' });
+                        ttsAudio.src = URL.createObjectURL(audioBlob);
+                        ttsAudio.play();
+                    } else if (data.tts_error) {
+                        addChatMessage('error', 'Voice synthesis failed. Please check the logs.');
+                    }
+                } else {
+                    updateLastMessage('error', data.error || 'Server error');
+                }
+            } catch (err) {
+                updateLastMessage('error', 'Failed to send voice command.');
+                console.error(err);
+            }
+        }
+
+        function addChatMessage(role, text) {
+            const div = document.createElement('div');
+            div.className = `chat-message ${role}`;
+            div.textContent = text;
+            chatHistory.appendChild(div);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        function updateLastMessage(role, text) {
+            const lastMsg = chatHistory.lastElementChild;
+            if (lastMsg) {
+                lastMsg.className = `chat-message ${role}`;
+                lastMsg.textContent = text;
+            } else {
+                addChatMessage(role, text);
+            }
+        }
+        async function convertToWav(blob) {
+            const arrayBuffer = await blob.arrayBuffer();
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+            
+            // Encode to mono WAV
+            const numChannels = 1;
+            const sampleRate = 16000; // Standard for Whisper
+            
+            const samples = audioBuffer.getChannelData(0);
+            const buffer = new ArrayBuffer(44 + samples.length * 2);
+            const view = new DataView(buffer);
+            
+            /* RIFF identifier */
+            writeString(view, 0, 'RIFF');
+            /* file length */
+            view.setUint32(4, 36 + samples.length * 2, true);
+            /* RIFF type */
+            writeString(view, 8, 'WAVE');
+            /* format chunk identifier */
+            writeString(view, 12, 'fmt ');
+            /* format chunk length */
+            view.setUint32(16, 16, true);
+            /* sample format (PCM) */
+            view.setUint16(20, 1, true);
+            /* channel count (mono) */
+            view.setUint16(22, numChannels, true);
+            /* sample rate */
+            view.setUint32(24, sampleRate, true);
+            /* byte rate */
+            view.setUint32(28, sampleRate * 2, true);
+            /* block align */
+            view.setUint16(32, 2, true);
+            /* bits per sample */
+            view.setUint16(34, 16, true);
+            /* data chunk identifier */
+            writeString(view, 36, 'data');
+            /* data chunk length */
+            view.setUint32(40, samples.length * 2, true);
+            
+            // Write PCM samples
+            let offset = 44;
+            for (let i = 0; i < samples.length; i++, offset += 2) {
+                let s = Math.max(-1, Math.min(1, samples[i]));
+                view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+            }
+            
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+    </script>
+</body>
+</html>
