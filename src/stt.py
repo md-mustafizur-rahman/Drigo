@@ -75,17 +75,33 @@ class WhisperSTT:
                 print(f"[ERROR] STT failed: {e}")
                 return ""
 
-    def transcribe_raw(self, audio_np):
+    def transcribe_raw(self, audio_np: np.ndarray) -> str:
         """
-        Transcribes a numpy array (int16) directly.
+        Transcribes a numpy array.
+        Accepts either float32 (-1.0 to 1.0 range from librosa) or int16.
+        Includes RMS energy check to reject near-silent audio.
         """
         with self.lock:
             try:
-                # Normalize int16 to float32
-                audio_float = audio_np.astype(np.float32) / 32768.0
-                
+                # Normalize: if int16 input, convert to float32
+                if audio_np.dtype == np.int16:
+                    audio_float = audio_np.astype(np.float32) / 32768.0
+                else:
+                    # Already float32 (e.g., from librosa.load) — use as-is
+                    audio_float = audio_np.astype(np.float32)
+
+                # ── Silence / energy gate ──────────────────────────────────
+                # RMS below ~0.01 means near-silence. Reject to avoid
+                # Whisper hallucinations ("you", "Thank you", etc.)
+                rms = float(np.sqrt(np.mean(audio_float ** 2)))
+                if rms < 0.01:
+                    print(f"[STT] Audio too quiet (RMS={rms:.4f}), skipping transcription.")
+                    return ""
+
                 if HAS_INTEL_GPU and not hasattr(self, 'using_fallback'):
-                    input_features = self.processor(audio_float, sampling_rate=16000, return_tensors="pt").input_features
+                    input_features = self.processor(
+                        audio_float, sampling_rate=16000, return_tensors="pt"
+                    ).input_features
                     predicted_ids = self.model.generate(input_features)
                     text = self.processor.batch_decode(predicted_ids, skip_special_tokens=True)[0]
                 else:
@@ -95,7 +111,8 @@ class WhisperSTT:
                     options = whisper.DecodingOptions(fp16=False, language=self.language)
                     result = whisper.decode(self.model, mel, options)
                     text = result.text.strip()
-                
-                return text
+
+                return text.strip()
             except Exception as e:
+                print(f"[ERROR] STT (raw) failed: {e}")
                 return ""

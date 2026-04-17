@@ -316,3 +316,100 @@ button:disabled {
         padding: 25px;
     }
 }
+
+/* ── New UI Elements ─────────────────────────────────────────── */
+
+.subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.voice-card {
+    padding: 25px 35px 35px;
+}
+
+.status-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+    min-height: 1.2em;
+    transition: color 0.3s ease;
+}
+
+/* Processing state */
+.mic-button.processing {
+    background: rgba(255, 200, 0, 0.1);
+    border-color: #ffc800;
+    color: #ffc800;
+    animation: spin-border 1.2s linear infinite;
+    cursor: not-allowed;
+}
+
+@keyframes spin-border {
+    0%   { box-shadow: 0 0 0 3px #ffc80040; }
+    50%  { box-shadow: 0 0 0 8px #ffc80010; }
+    100% { box-shadow: 0 0 0 3px #ffc80040; }
+}
+
+/* Speaking state */
+.mic-button.speaking {
+    background: rgba(0, 230, 118, 0.1);
+    border-color: var(--success);
+    color: var(--success);
+    animation: pulse-green 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-green {
+    0%   { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.4); }
+    70%  { box-shadow: 0 0 0 18px rgba(0, 230, 118, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
+}
+
+/* Ripple animation on recording */
+.ripple {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(255, 77, 77, 0.2);
+    animation: ripple-expand 1s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes ripple-expand {
+    0%   { transform: scale(1);   opacity: 1; }
+    100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* Volume meter bar */
+.volume-meter {
+    width: 100%;
+    max-width: 200px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.volume-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 3px;
+    transition: width 0.08s ease;
+}
+
+/* Chat history always visible (not hidden by default) */
+.chat-history:empty::before {
+    content: 'Your conversation will appear here...';
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+    display: block;
+    padding: 20px 0;
+}
+
+/* details summary arrow hidden */
+details > summary::-webkit-details-marker { display: none; }
+details > summary::marker { display: none; }

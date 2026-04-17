@@ -5,7 +5,7 @@ import io
 import wave
 from src.tts import FishSpeechTTS
 from src.stt import WhisperSTT
-from src.llm import OllamaLLM
+from src.llm import LLMEngine
 from dotenv import load_dotenv
 import librosa
 import numpy as np
@@ -19,7 +19,7 @@ CORS(app)
 # Initialize AI Engines
 tts_engine = FishSpeechTTS()
 stt_engine = WhisperSTT()
-llm_engine = OllamaLLM()
+llm_engine = LLMEngine()
 
 # Mock user database (in-memory)
 users = []

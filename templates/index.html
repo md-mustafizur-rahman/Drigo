@@ -3,21 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drigo AI Assistant - Add User</title>
+    <title>Drigo AI Assistant</title>
+    <meta name="description" content="Drigo - Your AI Voice Assistant powered by Gemini">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="background-overlay"></div>
     <div class="container">
         <header>
             <div class="logo">Drigo <span>AI</span></div>
-            <h1>User Management</h1>
-            <p>Add a new user to the Drigo assistant system.</p>
+            <p class="subtitle">Your intelligent voice assistant</p>
         </header>
 
-        <div class="card glass">
-            <form id="addUserForm">
+        <!-- Voice Chat Section -->
+        <div class="card glass voice-card">
+            <div id="chatHistory" class="chat-history"></div>
+
+            <div class="voice-controls">
+                <div id="statusLabel" class="status-label">Click to speak</div>
+                <button id="micBtn" class="mic-button" title="Press to talk">
+                    <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+                        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                        <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                    </svg>
+                    <div id="ripple" class="ripple" style="display:none;"></div>
+                </button>
+                <div class="volume-meter">
+                    <div id="volumeBar" class="volume-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add User Section (collapsible) -->
+        <details class="card glass" style="margin-top:1rem;">
+            <summary style="cursor:pointer; padding: 0.25rem 0; font-weight:600; list-style:none;">
+                ⚙️ Add User to System
+            </summary>
+            <form id="addUserForm" style="margin-top:1rem;">
                 <div class="form-group">
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" placeholder="John Doe" required>
@@ -31,268 +54,254 @@
                     <span class="btn-loader" style="display: none;">Adding...</span>
                 </button>
             </form>
-        </div>
-
-        <div class="separator">OR</div>
-
-        <div class="card glass text-center">
-            <h3>Live Speak with AI</h3>
-            <p>Click below to talk directly with Drigo.</p>
-            <div class="voice-controls">
-                <button id="micBtn" class="mic-button">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
-                    </svg>
-                </button>
-                <div id="recordingIndicator" class="recording-indicator" style="display: none;">
-                    Recording...
-                </div>
-            </div>
-        </div>
-
-        <div id="chatHistory" class="chat-history glass" style="display: none;"></div>
-
-        <div id="statusMessage" class="status-message"></div>
+            <div id="statusMessage" class="status-message"></div>
+        </details>
     </div>
 
-    <!-- Hidden audio element for TTS response -->
     <audio id="ttsAudio" style="display: none;"></audio>
 
     <script>
-        const form = document.getElementById('addUserForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const btnText = submitBtn.querySelector('.btn-text');
-        const btnLoader = submitBtn.querySelector('.btn-loader');
-        const statusMessage = document.getElementById('statusMessage');
-        const ttsAudio = document.getElementById('ttsAudio');
-        
-        // Voice Elements
-        const micBtn = document.getElementById('micBtn');
-        const recordingIndicator = document.getElementById('recordingIndicator');
+        // ── State machine ──────────────────────────────────────────────────────
+        const STATE = { IDLE: 'idle', RECORDING: 'recording', PROCESSING: 'processing', SPEAKING: 'speaking' };
+        let currentState = STATE.IDLE;
+        let mediaRecorder = null;
+        let audioChunks   = [];
+        let micStream     = null;
+        let audioCtxRef   = null;
+        let animFrame     = null;
+
+        const micBtn      = document.getElementById('micBtn');
+        const statusLabel = document.getElementById('statusLabel');
         const chatHistory = document.getElementById('chatHistory');
-        
-        let mediaRecorder;
-        let audioChunks = [];
-        let isRecording = false;
+        const ttsAudio    = document.getElementById('ttsAudio');
+        const volumeBar   = document.getElementById('volumeBar');
+        const ripple      = document.getElementById('ripple');
 
-        // --- User Form Logic ---
-        form.addEventListener('submit', async (e) => {
-            // ... (keeping user form logic same)
-            e.preventDefault();
-            submitBtn.disabled = true;
-            btnText.style.display = 'none';
-            btnLoader.style.display = 'inline-block';
-            statusMessage.textContent = '';
-            statusMessage.className = 'status-message';
-
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value
-            };
-
-            try {
-                const response = await fetch('/api/add-user', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-
-                if (response.ok) {
-                    const contentType = response.headers.get('content-type');
-                    
-                    if (contentType && contentType.includes('audio')) {
-                        const blob = await response.blob();
-                        ttsAudio.src = URL.createObjectURL(blob);
-                        ttsAudio.play();
-                        statusMessage.textContent = 'User added successfully! (Voice Response Playing)';
-                        statusMessage.classList.add('success');
-                    } else {
-                        const data = await response.json();
-                        statusMessage.textContent = data.warning || 'User added successfully!';
-                        statusMessage.classList.add(data.warning ? 'warning' : 'success');
-                    }
-                    form.reset();
-                } else {
-                    const error = await response.json();
-                    statusMessage.textContent = `Error: ${error.error || 'Failed to add user'}`;
-                    statusMessage.classList.add('error');
-                }
-            } catch (err) {
-                statusMessage.textContent = 'Network error: Could not reach the server.';
-                statusMessage.classList.add('error');
-            } finally {
-                submitBtn.disabled = false;
-                btnText.style.display = 'inline-block';
-                btnLoader.style.display = 'none';
+        function setState(s) {
+            currentState = s;
+            micBtn.className = 'mic-button';
+            ripple.style.display = 'none';
+            volumeBar.style.width = '0%';
+            stopAnalyser();
+            switch (s) {
+                case STATE.IDLE:
+                    statusLabel.textContent = 'Click to speak';
+                    break;
+                case STATE.RECORDING:
+                    statusLabel.textContent = '🔴 Recording — click to stop';
+                    micBtn.classList.add('recording');
+                    ripple.style.display = 'block';
+                    break;
+                case STATE.PROCESSING:
+                    statusLabel.textContent = '⏳ Processing your request...';
+                    micBtn.classList.add('processing');
+                    break;
+                case STATE.SPEAKING:
+                    statusLabel.textContent = '🔊 Drigo is speaking — click to stop';
+                    micBtn.classList.add('speaking');
+                    break;
             }
+        }
+
+        // ── Mic button click ───────────────────────────────────────────────────
+        micBtn.addEventListener('click', async () => {
+            if      (currentState === STATE.IDLE)      await startRecording();
+            else if (currentState === STATE.RECORDING)  stopRecording();
+            else if (currentState === STATE.SPEAKING)  { ttsAudio.pause(); setState(STATE.IDLE); }
         });
 
-        // --- Live Speak Logic ---
-        micBtn.addEventListener('click', () => {
-            if (!isRecording) {
-                startRecording();
-            } else {
-                stopRecording();
-            }
-        });
-
+        // ── Recording functions ────────────────────────────────────────────────
         async function startRecording() {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                mediaRecorder = new MediaRecorder(stream);
+                micStream   = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1 } });
                 audioChunks = [];
+                mediaRecorder = new MediaRecorder(micStream);
 
-                mediaRecorder.ondataavailable = (event) => {
-                    audioChunks.push(event.data);
-                };
-
+                mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
                 mediaRecorder.onstop = async () => {
-                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                    
-                    // Convert to WAV in browser to avoid server-side ffmpeg dependency
+                    micStream.getTracks().forEach(t => t.stop());
+                    setState(STATE.PROCESSING);
+                    const rawBlob = new Blob(audioChunks, { type: 'audio/webm' });
                     try {
-                        const wavBlob = await convertToWav(audioBlob);
-                        sendVoiceCommand(wavBlob);
+                        const wavBlob = await convertToWav(rawBlob);
+                        await sendVoiceCommand(wavBlob);
                     } catch (err) {
-                        console.error('PCM Conversion failed:', err);
-                        // Fallback to sending original blob if conversion fails
-                        sendVoiceCommand(audioBlob);
+                        console.warn('WAV conversion failed, sending raw:', err);
+                        await sendVoiceCommand(rawBlob);
                     }
                 };
 
-                mediaRecorder.start();
-                isRecording = true;
-                micBtn.classList.add('recording');
-                recordingIndicator.style.display = 'block';
+                mediaRecorder.start(100);
+                setState(STATE.RECORDING);
+                startAnalyser(micStream);
             } catch (err) {
-                console.error('Error accessing microphone:', err);
-                alert('Could not access microphone. Please check permissions.');
+                console.error('Microphone error:', err);
+                addChatMessage('error', '⚠️ Microphone access denied. Please allow it in your browser.');
+                setState(STATE.IDLE);
             }
         }
 
         function stopRecording() {
-            mediaRecorder.stop();
-            isRecording = false;
-            micBtn.classList.remove('recording');
-            recordingIndicator.style.display = 'none';
-        }
-
-        async function sendVoiceCommand(blob) {
-            const formData = new FormData();
-            formData.append('audio', blob, 'recording.webm');
-
-            addChatMessage('user', 'Processing voice...');
-            chatHistory.style.display = 'block';
-
-            try {
-                const response = await fetch('/api/voice-command', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await response.json();
-                
-                if (response.ok) {
-                    // Update user message with transcript
-                    updateLastMessage('user', data.transcript || '(silence)');
-                    
-                    // Add AI message
-                    addChatMessage('ai', data.ai_response);
-                    
-                    if (data.audio) {
-                        const audioBytes = atob(data.audio);
-                        const arrayBuffer = new ArrayBuffer(audioBytes.length);
-                        const uint8Array = new Uint8Array(arrayBuffer);
-                        for (let i = 0; i < audioBytes.length; i++) {
-                            uint8Array[i] = audioBytes.charCodeAt(i);
-                        }
-                        const audioBlob = new Blob([uint8Array], { type: 'audio/wav' });
-                        ttsAudio.src = URL.createObjectURL(audioBlob);
-                        ttsAudio.play();
-                    } else if (data.tts_error) {
-                        addChatMessage('error', 'Voice synthesis failed. Please check the logs.');
-                    }
-                } else {
-                    updateLastMessage('error', data.error || 'Server error');
-                }
-            } catch (err) {
-                updateLastMessage('error', 'Failed to send voice command.');
-                console.error(err);
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
             }
         }
 
+        // ── Volume visualiser ─────────────────────────────────────────────────
+        function startAnalyser(stream) {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const src      = audioCtx.createMediaStreamSource(stream);
+            const analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 256;
+            src.connect(analyser);
+            audioCtxRef = { audioCtx, analyser };
+
+            const data = new Uint8Array(analyser.frequencyBinCount);
+            (function tick() {
+                analyser.getByteFrequencyData(data);
+                const avg = data.reduce((a, b) => a + b, 0) / data.length;
+                volumeBar.style.width = Math.min(100, avg * 3) + '%';
+                animFrame = requestAnimationFrame(tick);
+            })();
+        }
+
+        function stopAnalyser() {
+            if (animFrame) cancelAnimationFrame(animFrame);
+            if (audioCtxRef) { audioCtxRef.audioCtx.close().catch(() => {}); audioCtxRef = null; }
+        }
+
+        // ── Send audio to server ──────────────────────────────────────────────
+        async function sendVoiceCommand(blob) {
+            const userEl = addChatMessage('user', '🎤 Processing...');
+            const fd     = new FormData();
+            fd.append('audio', blob, 'recording.wav');
+
+            try {
+                const resp = await fetch('/api/voice-command', { method: 'POST', body: fd });
+                const data = await resp.json();
+
+                if (resp.ok) {
+                    const tx = (data.transcript || '').trim();
+                    userEl.innerHTML = `<strong>You:</strong> ${tx || '(silence — please speak louder)'}`;
+
+                    if (data.ai_response) addChatMessage('ai', data.ai_response);
+
+                    if (data.audio) {
+                        playBase64Audio(data.audio);
+                    } else {
+                        setState(STATE.IDLE);
+                    }
+                } else {
+                    userEl.className = 'chat-message error';
+                    userEl.textContent = '⚠️ ' + (data.error || 'Server error occurred');
+                    setState(STATE.IDLE);
+                }
+            } catch (err) {
+                userEl.className = 'chat-message error';
+                userEl.textContent = '⚠️ Network error. Is the server running?';
+                console.error(err);
+                setState(STATE.IDLE);
+            }
+        }
+
+        // ── Audio playback ────────────────────────────────────────────────────
+        function playBase64Audio(b64) {
+            const bytes = atob(b64);
+            const buf   = new Uint8Array(bytes.length);
+            for (let i = 0; i < bytes.length; i++) buf[i] = bytes.charCodeAt(i);
+            ttsAudio.src    = URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+            ttsAudio.onended = () => setState(STATE.IDLE);
+            setState(STATE.SPEAKING);
+            ttsAudio.play();
+        }
+
+        // ── Chat helpers ──────────────────────────────────────────────────────
         function addChatMessage(role, text) {
             const div = document.createElement('div');
             div.className = `chat-message ${role}`;
-            div.textContent = text;
+            div.innerHTML  = (role === 'ai') ? `<strong>Drigo:</strong> ${text}` : text;
             chatHistory.appendChild(div);
             chatHistory.scrollTop = chatHistory.scrollHeight;
+            return div;
         }
 
-        function updateLastMessage(role, text) {
-            const lastMsg = chatHistory.lastElementChild;
-            if (lastMsg) {
-                lastMsg.className = `chat-message ${role}`;
-                lastMsg.textContent = text;
-            } else {
-                addChatMessage(role, text);
-            }
-        }
+        // ── WAV encoder (browser-side, 16kHz mono PCM) ───────────────────────
         async function convertToWav(blob) {
-            const arrayBuffer = await blob.arrayBuffer();
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-            
-            // Encode to mono WAV
-            const numChannels = 1;
-            const sampleRate = 16000; // Standard for Whisper
-            
-            const samples = audioBuffer.getChannelData(0);
-            const buffer = new ArrayBuffer(44 + samples.length * 2);
-            const view = new DataView(buffer);
-            
-            /* RIFF identifier */
-            writeString(view, 0, 'RIFF');
-            /* file length */
-            view.setUint32(4, 36 + samples.length * 2, true);
-            /* RIFF type */
-            writeString(view, 8, 'WAVE');
-            /* format chunk identifier */
-            writeString(view, 12, 'fmt ');
-            /* format chunk length */
-            view.setUint32(16, 16, true);
-            /* sample format (PCM) */
-            view.setUint16(20, 1, true);
-            /* channel count (mono) */
-            view.setUint16(22, numChannels, true);
-            /* sample rate */
-            view.setUint32(24, sampleRate, true);
-            /* byte rate */
-            view.setUint32(28, sampleRate * 2, true);
-            /* block align */
-            view.setUint16(32, 2, true);
-            /* bits per sample */
-            view.setUint16(34, 16, true);
-            /* data chunk identifier */
-            writeString(view, 36, 'data');
-            /* data chunk length */
-            view.setUint32(40, samples.length * 2, true);
-            
-            // Write PCM samples
-            let offset = 44;
-            for (let i = 0; i < samples.length; i++, offset += 2) {
-                let s = Math.max(-1, Math.min(1, samples[i]));
-                view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+            const ab  = await blob.arrayBuffer();
+            const ctx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
+            const buf = await ctx.decodeAudioData(ab);
+            const pcm = buf.getChannelData(0);
+
+            const out  = new ArrayBuffer(44 + pcm.length * 2);
+            const view = new DataView(out);
+            const str  = (o, s) => { for (let i = 0; i < s.length; i++) view.setUint8(o + i, s.charCodeAt(i)); };
+
+            str(0,  'RIFF');  view.setUint32(4,  36 + pcm.length * 2, true);
+            str(8,  'WAVE');  str(12, 'fmt ');
+            view.setUint32(16, 16, true);    // chunk size
+            view.setUint16(20, 1, true);     // PCM
+            view.setUint16(22, 1, true);     // mono
+            view.setUint32(24, 16000, true); // sample rate
+            view.setUint32(28, 32000, true); // byte rate
+            view.setUint16(32, 2, true);     // block align
+            view.setUint16(34, 16, true);    // bits/sample
+            str(36, 'data');  view.setUint32(40, pcm.length * 2, true);
+
+            for (let i = 0, o = 44; i < pcm.length; i++, o += 2) {
+                const s = Math.max(-1, Math.min(1, pcm[i]));
+                view.setInt16(o, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
             }
-            
-            return new Blob([view], { type: 'audio/wav' });
+            return new Blob([out], { type: 'audio/wav' });
         }
 
-        function writeString(view, offset, string) {
-            for (let i = 0; i < string.length; i++) {
-                view.setUint8(offset + i, string.charCodeAt(i));
+        // ── Add User form ─────────────────────────────────────────────────────
+        const form      = document.getElementById('addUserForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText   = submitBtn.querySelector('.btn-text');
+        const btnLoader = submitBtn.querySelector('.btn-loader');
+        const statusMsg = document.getElementById('statusMessage');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            btnText.style.display  = 'none';
+            btnLoader.style.display = 'inline-block';
+            statusMsg.textContent   = '';
+            statusMsg.className     = 'status-message';
+
+            const payload = { name: document.getElementById('name').value, email: document.getElementById('email').value };
+
+            try {
+                const resp = await fetch('/api/add-user', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+                });
+                if (resp.ok) {
+                    const ct = resp.headers.get('content-type') || '';
+                    if (ct.includes('audio')) {
+                        ttsAudio.src = URL.createObjectURL(await resp.blob());
+                        ttsAudio.play();
+                        statusMsg.textContent = '✅ User added! Playing voice confirmation...';
+                        statusMsg.classList.add('success');
+                    } else {
+                        const d = await resp.json();
+                        statusMsg.textContent = d.warning || '✅ User added successfully!';
+                        statusMsg.classList.add(d.warning ? 'warning' : 'success');
+                    }
+                    form.reset();
+                } else {
+                    const err = await resp.json();
+                    statusMsg.textContent = `❌ Error: ${err.error || 'Failed to add user'}`;
+                    statusMsg.classList.add('error');
+                }
+            } catch {
+                statusMsg.textContent = '❌ Network error: Could not reach the server.';
+                statusMsg.classList.add('error');
+            } finally {
+                submitBtn.disabled = false;
+                btnText.style.display   = 'inline-block';
+                btnLoader.style.display = 'none';
             }
-        }
+        });
     </script>
 </body>
 </html>

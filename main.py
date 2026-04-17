@@ -1,4 +1,5 @@
 import os
+import re
 import numpy as np
 import time
 import signal
@@ -8,8 +9,9 @@ from dotenv import load_dotenv
 from src.audio import AudioHandler
 from src.wakeword import WakeWordDetector
 from src.stt import WhisperSTT
-from src.llm import OllamaLLM
+from src.llm import LLMEngine
 from src.tts import FishSpeechTTS
+from src.browser_manager import BrowserManager
 
 class Spinner:
     def __init__(self, message="Thinking..."):
@@ -45,8 +47,9 @@ class VoiceAssistant:
         self.audio_handler = AudioHandler()
         self.wakeword_detector = WakeWordDetector()
         self.stt_engine = WhisperSTT()
-        self.llm_engine = OllamaLLM()
+        self.llm_engine = LLMEngine()
         self.tts_engine = FishSpeechTTS()
+        self.browser_manager = BrowserManager()   # Playwright browser controller
         self.running = True
         self.last_ai_response = ""
         
@@ -154,8 +157,11 @@ class VoiceAssistant:
                     text = self.stt_engine.transcribe(audio_data)
                     print(f"[-] Transcript: {text}")
                     
-                    # 6. Generate LLM response
-                    if text.strip():
+                    # 6. Check for YouTube intent FIRST
+                    if self._detect_youtube_intent(text):
+                        self._run_youtube_flow(text)
+                    # 7. Otherwise generate LLM response
+                    elif text.strip():
                         self.last_ai_response = "" # Reset for new stream
                         print(f"[*] Calling Ollama with: \"{text}\"")
                         
@@ -204,9 +210,110 @@ class VoiceAssistant:
                 traceback.print_exc()
                 self.stop()
 
+    def _detect_youtube_intent(self, text: str) -> bool:
+        """
+        Returns True if the user wants to watch a YouTube video.
+        Trigger phrases: 'youtube' AND ('video' OR 'show me' OR 'play' OR 'watch')
+        """
+        t = text.lower()
+        has_youtube = "youtube" in t
+        has_video_intent = any(kw in t for kw in ["video", "show me", "play", "watch", "clip"])
+        return has_youtube and has_video_intent
+
+    def _extract_search_query(self, text: str) -> str:
+        """
+        Extract the search topic from the voice command.
+        e.g. "show me a Minecraft game video on YouTube" -> "Minecraft game"
+        """
+        t = text.lower()
+        # Remove common filler words around the topic
+        for pattern in [
+            r"show me (?:a |an |some )?(.*?) (?:video|clip|gameplay)s? on youtube",
+            r"play (?:a |an |some )?(.*?) (?:video|clip|gameplay)s? on youtube",
+            r"(?:search|find|look up|open) (.*?) on youtube",
+            r"youtube (.*?) video",
+            r"watch (.*?) on youtube",
+        ]:
+            m = re.search(pattern, t)
+            if m:
+                return m.group(1).strip()
+        # Fallback: remove youtube/video keywords and return the rest
+        cleaned = re.sub(r"\b(youtube|video|show me|play|watch|search|find|please|drigo|on|the|a|an)\b", "", t)
+        return cleaned.strip()
+
+    def _run_youtube_flow(self, text: str):
+        """
+        Full YouTube flow:
+        1. Extract query from speech
+        2. Open browser & search YouTube
+        3. Take screenshot
+        4. Analyze with llava (vision)
+        5. Speak the description
+        6. Click & play the first video
+        """
+        query = self._extract_search_query(text)
+        if not query:
+            query = "gaming videos"
+
+        print(f"\n[YouTube Flow] Search query: '{query}'")
+
+        # --- Speak feedback immediately ---
+        confirm_msg = f"Sure! Opening YouTube and searching for {query}."
+        print(f"[Drigo] {confirm_msg}")
+        audio = self.tts_engine.synthesize(confirm_msg)
+        if audio:
+            self.audio_handler.play_audio(audio)
+
+        # --- Open browser and search ---
+        spinner = Spinner("Searching YouTube...")
+        spinner.start()
+        screenshot_b64 = self.browser_manager.search_youtube(query)
+        spinner.stop()
+
+        if screenshot_b64 is None:
+            err = "Sorry, I couldn't open YouTube right now."
+            print(f"[Drigo] {err}")
+            audio = self.tts_engine.synthesize(err)
+            if audio:
+                self.audio_handler.play_audio(audio)
+            return
+
+        # --- Analyze screenshot with llava ---
+        vision_spinner = Spinner("Analyzing search results...")
+        vision_spinner.start()
+        vision_prompt = (
+            "This is a screenshot of YouTube search results. "
+            "List the first 3 video titles you can see and briefly describe what they are about. "
+            "Keep it short and conversational."
+        )
+        description = self.llm_engine.analyze_image(vision_prompt, screenshot_b64)
+        vision_spinner.stop()
+
+        print(f"[Vision] {description}")
+        self.last_ai_response = description
+
+        # Speak the description
+        if description and "ERROR" not in description:
+            audio = self.tts_engine.synthesize(description[:400])  # Keep TTS short
+            if audio:
+                self.audio_handler.play_audio(audio)
+
+        # --- Play the first video ---
+        print("[YouTube Flow] Playing first video result...")
+        success = self.browser_manager.play_first_video()
+        if not success:
+            msg = "I found the results but couldn't click the video automatically."
+            print(f"[Drigo] {msg}")
+            audio = self.tts_engine.synthesize(msg)
+            if audio:
+                self.audio_handler.play_audio(audio)
+
+        print("\n" + "="*50 + "\n")
+
     def stop(self):
         self.running = False
         print("\n* Stopping Voice Assistant...")
+        self.browser_manager.close()
         self.audio_handler.terminate()
 
 if __name__ == "__main__":
