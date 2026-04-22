@@ -22,18 +22,23 @@ class BrowserManager:
 
     def _ensure_browser(self):
         """Launch the browser if it isn't already running."""
-        if self._browser is None or not self._browser.is_connected():
-            print("[*] Launching browser...")
-            self._playwright = sync_playwright().start()
-            self._browser = self._playwright.chromium.launch(
-                headless=False,          # Show the browser window to the user
-                args=["--start-maximized"]
-            )
-            context = self._browser.new_context(
-                no_viewport=True         # Let the browser use its maximized size
-            )
-            self._page = context.new_page()
-            print("[*] Browser launched (headed/visible mode).")
+        try:
+            if self._browser is None or not self._browser.is_connected():
+                print("[*] Launching browser...")
+                self._playwright = sync_playwright().start()
+                self._browser = self._playwright.chromium.launch(
+                    headless=False,          # Show the browser window to the user
+                    args=["--start-maximized"]
+                )
+                context = self._browser.new_context(
+                    no_viewport=True         # Let the browser use its maximized size
+                )
+                self._page = context.new_page()
+                print("[*] Browser launched (headed/visible mode).")
+        except Exception as e:
+            print(f"[Browser ERROR] Failed to ensure browser: {e}")
+            self.close()  # Cleanup and allow for retry next time
+            raise e
 
     def search_youtube(self, query: str) -> str | None:
         """
@@ -53,13 +58,20 @@ class BrowserManager:
             self._page.wait_for_selector("ytd-video-renderer, ytd-compact-video-renderer", timeout=15000)
             time.sleep(1.5)  # Allow thumbnails to settle
 
-            print(f"[*] Taking screenshot of search results...")
-            self._page.screenshot(path=self._screenshot_path, full_page=False)
+            print(f"[*] Taking FOCUSED screenshot of search results...")
+            
+            # Try to capture ONLY the primary results container to avoid browser/OS UI distraction
+            results_container = self._page.query_selector("ytd-search, #contents.ytd-item-section-renderer")
+            if results_container:
+                results_container.screenshot(path=self._screenshot_path)
+            else:
+                # Fallback to viewport if container not found
+                self._page.screenshot(path=self._screenshot_path, full_page=False)
 
             # Return base64 for vision analysis
             with open(self._screenshot_path, "rb") as f:
                 b64 = base64.b64encode(f.read()).decode("utf-8")
-            print(f"[+] Screenshot captured ({len(b64)} chars base64)")
+            print(f"[+] Focused screenshot captured ({len(b64)} chars base64)")
             return b64
 
         except PlaywrightTimeoutError as e:
@@ -68,6 +80,19 @@ class BrowserManager:
         except Exception as e:
             print(f"[Browser ERROR] {e}")
             return None
+
+    def scroll_down(self, steps=1):
+        """Scrolls the search results down to find more videos."""
+        try:
+            if not self._page:
+                return
+            print(f"[*] Scrolling down ({steps} steps)...")
+            for _ in range(steps):
+                self._page.keyboard.press("PageDown")
+                time.sleep(0.8)
+            time.sleep(1.0) # Wait for images to load
+        except Exception as e:
+            print(f"[Browser ERROR] Failed to scroll: {e}")
 
     def play_first_video(self) -> bool:
         """

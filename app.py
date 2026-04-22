@@ -3,9 +3,11 @@ from flask import Flask, render_template, request, send_file, jsonify
 from flask_cors import CORS
 import io
 import wave
-from src.tts import FishSpeechTTS
+from src.tts import Qwen3TTS
 from src.stt import WhisperSTT
 from src.llm import LLMEngine
+from src.browser_manager import BrowserManager
+from src.intent_handler import detect_youtube_intent, extract_search_query
 from dotenv import load_dotenv
 import librosa
 import numpy as np
@@ -17,9 +19,10 @@ app = Flask(__name__)
 CORS(app)
 
 # Initialize AI Engines
-tts_engine = FishSpeechTTS()
+tts_engine = Qwen3TTS()
 stt_engine = WhisperSTT()
 llm_engine = LLMEngine()
+browser_manager = BrowserManager()
 
 # Mock user database (in-memory)
 users = []
@@ -93,8 +96,47 @@ def voice_command():
             
         print(f"[*] Voice Command Transcript: {transcript}")
         
-        # Generate LLM Response
-        ai_response = llm_engine.generate_response(transcript)
+        # Check for YouTube Intent
+        if detect_youtube_intent(transcript):
+            query = extract_search_query(transcript)
+            print(f"[YouTube Flow] Detected intent for: {query}")
+            
+            # --- Flow Decision Loop ---
+            max_attempts = 2
+            ai_choice = "PLAY" # Default
+            
+            for attempt in range(max_attempts):
+                # 1. Search (if first loop) and get focused screenshot
+                screenshot_b64 = browser_manager.search_youtube(query)
+                
+                if not screenshot_b64:
+                    ai_response = "I searched for the video but the browser encountered an error."
+                    break
+                
+                # 2. Ask LLaVA to decide
+                vision_prompt = (
+                    f"I searched YouTube for '{query}'. Look at these results. "
+                    "Should I: 'PLAY' (the first video looks perfect), 'SCROLL' (need to see more), or 'REDO' (wrong results)? "
+                    "Format: [CHOICE] - [Brief Reason]"
+                )
+                decision_raw = llm_engine.analyze_image(vision_prompt, screenshot_b64)
+                print(f"[Vision Decision] Attempt {attempt+1}: {decision_raw}")
+                
+                if "SCROLL" in decision_raw.upper() and attempt < max_attempts - 1:
+                    browser_manager.scroll_down()
+                    continue # Try again with new screenshot
+                elif "REDO" in decision_raw.upper():
+                    ai_response = f"I tried finding '{query}' but the results didn't look right. Should I try a different search?"
+                    break
+                else:
+                    # PLAY or fallback
+                    browser_manager.play_first_video()
+                    ai_response = f"Found it! {decision_raw}"
+                    break
+        else:
+            # Normal LLM Response
+            ai_response = llm_engine.generate_response(transcript)
+            
         print(f"[*] AI Response: {ai_response}")
         
         # Synthesize Voice
