@@ -3,10 +3,6 @@ from flask import Flask, render_template, request, send_file, jsonify
 from flask_cors import CORS
 import io
 import wave
-from src.tts import Qwen3TTS
-from src.stt import WhisperSTT
-from src.llm import LLMEngine
-from src.browser_manager import BrowserManager
 from src.intent_handler import detect_youtube_intent, extract_search_query
 from dotenv import load_dotenv
 import librosa
@@ -18,14 +14,35 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-# Initialize AI Engines
-tts_engine = Qwen3TTS()
-stt_engine = WhisperSTT()
-llm_engine = LLMEngine()
-browser_manager = BrowserManager()
+# Initialize AI Engines (Moved into a helper to avoid double-loading with reloader)
+tts_engine = None
+stt_engine = None
+llm_engine = None
+browser_manager = None
+
+def init_engines():
+    global tts_engine, stt_engine, llm_engine, browser_manager
+    if tts_engine is None:
+        print("[*] Initializing AI Engines...")
+        from src.tts import Qwen3TTS
+        from src.stt import WhisperSTT
+        from src.llm import LLMEngine
+        from src.browser_manager import BrowserManager
+        
+        tts_engine = Qwen3TTS()
+        stt_engine = WhisperSTT()
+        llm_engine = LLMEngine()
+        browser_manager = BrowserManager()
+        print("[+] All engines initialized.")
 
 # Mock user database (in-memory)
 users = []
+
+@app.before_request
+def startup():
+    # This ensures engines are only initialized in the active worker process
+    # and only when needed (on the first request)
+    init_engines()
 
 @app.route('/')
 def index():

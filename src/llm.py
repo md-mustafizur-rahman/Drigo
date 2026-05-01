@@ -20,6 +20,13 @@ class LLMEngine:
             self.gemini_client = genai.Client(api_key=api_key)
             self.model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
             print(f"[*] Initialized LLM Engine: Gemini ({self.model_name})")
+        elif self.provider == "nvidia":
+            self.api_key = os.getenv("NVIDIA_API_KEY")
+            if not self.api_key:
+                print("[WARNING] NVIDIA API Key is missing! Please configure NVIDIA_API_KEY in .env.")
+            self.model_name = os.getenv("NVIDIA_MODEL", "meta/llama-3.2-11b-vision-instruct")
+            self.url = "https://integrate.api.nvidia.com/v1/chat/completions"
+            print(f"[*] Initialized LLM Engine: NVIDIA ({self.model_name})")
         else:
             self.model_name = os.getenv("OLLAMA_MODEL", "llama3.1")
             self.url = os.getenv("OLLAMA_URL", "http://127.0.0.1:11434/api/generate")
@@ -44,6 +51,29 @@ class LLMEngine:
                         yield chunk.text
             except Exception as e:
                 error_msg = f"[LLM ERROR] Failed to connect to Gemini: {e}"
+                print(f"\n{error_msg}")
+                yield error_msg
+        elif self.provider == "nvidia":
+            payload = {
+                "model": self.model_name,
+                "messages": [
+                    {"role": "system", "content": self.system_prompt},
+                    {"role": "user", "content": prompt}
+                ]
+            }
+            try:
+                response = requests.post(
+                    self.url,
+                    json=payload,
+                    headers={"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"},
+                    timeout=90
+                )
+                response.raise_for_status()
+                data = response.json()
+                if "choices" in data and len(data["choices"]) > 0:
+                    yield data["choices"][0]["message"]["content"]
+            except Exception as e:
+                error_msg = f"[LLM ERROR] Failed to connect to NVIDIA: {e}"
                 print(f"\n{error_msg}")
                 yield error_msg
         else:
@@ -99,7 +129,7 @@ class LLMEngine:
         Returns the model's text description.
         """
         # Always use the Ollama backend for vision (llava is local)
-        model = os.getenv("OLLAMA_MODEL", "llava")
+        model = os.getenv("OLLAMA_VISION_MODEL", "llava")
         url = os.getenv("OLLAMA_URL", "http://127.0.0.1:11434/api/generate")
 
         payload = {

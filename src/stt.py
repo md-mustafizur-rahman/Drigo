@@ -41,9 +41,19 @@ class WhisperSTT:
 
     def _load_cpu_fallback(self):
         import whisper
-        print(f"* Falling back to standard Whisper (CPU)...")
-        self.model = whisper.load_model(self.model_name)
-        print(f"* Standard Whisper model loaded successfully (CPU).")
+        device = "cpu"
+        try:
+            import torch_directml
+            if torch_directml.is_available():
+                device = torch_directml.device()
+        except ImportError:
+            import torch
+            if torch.cuda.is_available():
+                device = "cuda"
+
+        print(f"* Falling back to standard Whisper ({device})...")
+        self.model = whisper.load_model(self.model_name, device=device)
+        print(f"* Standard Whisper model loaded successfully ({device}).")
         # Mark that we are using the fallback engine
         self.using_fallback = True
 
